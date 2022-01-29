@@ -6,6 +6,11 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/mslide/bloc/mslide_puzzle_bloc.dart';
+import 'package:very_good_slide_puzzle/mslide/bloc/mslide_theme_bloc.dart';
+import 'package:very_good_slide_puzzle/mslide/themes/blue_mslide_theme.dart';
+import 'package:very_good_slide_puzzle/mslide/themes/green_mslide_theme.dart';
+import 'package:very_good_slide_puzzle/mslide/themes/yellow_mslide_theme.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -36,7 +41,22 @@ class PuzzlePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          create: (_) => MslideThemeBloc(
+            themes: const [
+              BlueMslideTheme(),
+              GreenMslideTheme(),
+              YellowMslideTheme()
+            ],
+          ),
+        ),
+        BlocProvider(
           create: (_) => DashatarPuzzleBloc(
+            secondsToBegin: 3,
+            ticker: const Ticker(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => MslidePuzzleBloc(
             secondsToBegin: 3,
             ticker: const Ticker(),
           ),
@@ -46,6 +66,7 @@ class PuzzlePage extends StatelessWidget {
             initialThemes: [
               const SimpleTheme(),
               context.read<DashatarThemeBloc>().state.theme,
+              context.read<MslideThemeBloc>().state.theme,
             ],
           ),
         ),
