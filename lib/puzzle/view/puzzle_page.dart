@@ -64,9 +64,9 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
+              context.read<MslideThemeBloc>().state.theme,
               const SimpleTheme(),
               context.read<DashatarThemeBloc>().state.theme,
-              context.read<MslideThemeBloc>().state.theme,
             ],
           ),
         ),
