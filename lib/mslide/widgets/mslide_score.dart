@@ -16,10 +16,6 @@ class MslideScore extends StatelessWidget {
   /// {@macro mslide_score}
   const MslideScore({Key? key}) : super(key: key);
 
-  static const _smallImageOffset = Offset(124, 36);
-  static const _mediumImageOffset = Offset(215, -47);
-  static const _largeImageOffset = Offset(215, -47);
-
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
@@ -33,15 +29,6 @@ class MslideScore extends StatelessWidget {
       child: (currentSize) {
         final height =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 355.0;
-
-        final imageOffset = currentSize == ResponsiveLayoutSize.large
-            ? _largeImageOffset
-            : (currentSize == ResponsiveLayoutSize.medium
-                ? _mediumImageOffset
-                : _smallImageOffset);
-
-        final imageHeight =
-            currentSize == ResponsiveLayoutSize.small ? 374.0 : 437.0;
 
         final completedTextWidth =
             currentSize == ResponsiveLayoutSize.small ? 160.0 : double.infinity;
@@ -74,14 +61,6 @@ class MslideScore extends StatelessWidget {
             color: theme.backgroundColor,
             child: Stack(
               children: [
-                Positioned(
-                  left: imageOffset.dx,
-                  top: imageOffset.dy,
-                  child: Image.asset(
-                    theme.successThemeAsset,
-                    height: imageHeight,
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: Column(

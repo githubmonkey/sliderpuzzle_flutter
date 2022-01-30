@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/simple/simple_puzzle_layout_delegate.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 abstract class _BoardSize {
@@ -23,10 +24,13 @@ class MslidePuzzleBoard extends StatefulWidget {
   const MslidePuzzleBoard({
     Key? key,
     required this.tiles,
+    required this.size,
   }) : super(key: key);
 
   /// The tiles to be displayed on the board.
   final List<Widget> tiles;
+
+  final int size;
 
   @override
   State<MslidePuzzleBoard> createState() => _MslidePuzzleBoardState();
@@ -72,22 +76,31 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
         }
       },
       child: ResponsiveLayoutBuilder(
+        // TODO: don't reue simplesizeboard
         small: (_, child) => SizedBox.square(
-          key: const Key('mslide_puzzle_board_small'),
           dimension: _BoardSize.small,
-          child: child,
+          child: SimplePuzzleBoard(
+            key: const Key('mslide_puzzle_board_small'),
+            size: widget.size,
+            tiles: widget.tiles,
+          ),
         ),
         medium: (_, child) => SizedBox.square(
-          key: const Key('mslide_puzzle_board_medium'),
           dimension: _BoardSize.medium,
-          child: child,
+          child: SimplePuzzleBoard(
+            key: const Key('mslide_puzzle_board_medium'),
+            size: widget.size,
+            tiles: widget.tiles,
+          ),
         ),
         large: (_, child) => SizedBox.square(
-          key: const Key('mslide_puzzle_board_large'),
           dimension: _BoardSize.large,
-          child: child,
+          child: SimplePuzzleBoard(
+            key: const Key('mslide_puzzle_board_large'),
+            size: widget.size,
+            tiles: widget.tiles,
+          ),
         ),
-        child: (_) => Stack(children: widget.tiles),
       ),
     );
   }

@@ -30,18 +30,9 @@ class YellowMslideTheme extends MslideTheme {
   Color get countdownColor => PuzzleColors.yellow50;
 
   @override
-  String get themeAsset => 'assets/images/dashatar/gallery/yellow.png';
-
-  @override
-  String get successThemeAsset => 'assets/images/dashatar/success/yellow.png';
-
-  @override
   String get audioControlOffAsset =>
       'assets/images/audio_control/yellow_mslide_off.png';
 
   @override
   String get audioAsset => 'assets/audio/sandwich.mp3';
-
-  @override
-  String get dashAssetsDirectory => 'assets/images/dashatar/yellow';
 }

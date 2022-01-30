@@ -100,7 +100,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               medium: 34,
               large: 96,
             ),
-            MslidePuzzleBoard(tiles: tiles),
+            MslidePuzzleBoard(tiles: tiles, size: size),
             const ResponsiveGap(
               large: 96,
             ),

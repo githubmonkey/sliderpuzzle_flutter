@@ -30,18 +30,9 @@ class GreenMslideTheme extends MslideTheme {
   Color get countdownColor => PuzzleColors.green50;
 
   @override
-  String get themeAsset => 'assets/images/dashatar/gallery/green.png';
-
-  @override
-  String get successThemeAsset => 'assets/images/dashatar/success/green.png';
-
-  @override
   String get audioControlOffAsset =>
       'assets/images/audio_control/green_mslide_off.png';
 
   @override
   String get audioAsset => 'assets/audio/skateboard.mp3';
-
-  @override
-  String get dashAssetsDirectory => 'assets/images/dashatar/green';
 }

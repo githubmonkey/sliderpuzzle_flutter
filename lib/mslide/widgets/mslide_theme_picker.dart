@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/theme/widgets/puzzle_button.dart';
 
 /// {@template mslide_theme_picker}
 /// Displays the mslide theme picker to choose between
@@ -84,37 +86,30 @@ class _MslideThemePickerState extends State<MslideThemePicker> {
 
                   return Padding(
                     padding: EdgeInsets.only(left: padding),
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        key: Key('mslide_theme_picker_$index'),
-                        onTap: () async {
-                          if (isActiveTheme) {
-                            return;
-                          }
+                    child: AnimatedContainer(
+                        width: size,
+                        height: size,
+                        curve: Curves.easeInOut,
+                        duration: const Duration(milliseconds: 350),
+                        child: PuzzleButton(
+                          child: Text(theme.name),
+                          textColor: PuzzleColors.primary0,
+                          backgroundColor: theme.buttonColor,
+                          onPressed: () async {
+                            if (isActiveTheme) {
+                              return;
+                            }
 
-                          // Update the current mslide theme.
-                          context
-                              .read<MslideThemeBloc>()
-                              .add(MslideThemeChanged(themeIndex: index));
+                            // Update the current mslide theme.
+                            context
+                                .read<MslideThemeBloc>()
+                                .add(MslideThemeChanged(themeIndex: index));
 
-                          // Play the audio of the current mslide theme.
-                          await _audioPlayer.setAsset(theme.audioAsset);
-                          unawaited(_audioPlayer.play());
-                        },
-                        child: AnimatedContainer(
-                          width: size,
-                          height: size,
-                          curve: Curves.easeInOut,
-                          duration: const Duration(milliseconds: 350),
-                          child: Image.asset(
-                            theme.themeAsset,
-                            fit: BoxFit.fill,
-                            semanticLabel: theme.semanticsLabel(context),
-                          ),
-                        ),
-                      ),
-                    ),
+                            // Play the audio of the current mslide theme.
+                            await _audioPlayer.setAsset(theme.audioAsset);
+                            unawaited(_audioPlayer.play());
+                          },
+                        )),
                   );
                 },
               ),

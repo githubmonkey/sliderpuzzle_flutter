@@ -30,18 +30,9 @@ class BlueMslideTheme extends MslideTheme {
   Color get countdownColor => PuzzleColors.blue50;
 
   @override
-  String get themeAsset => 'assets/images/dashatar/gallery/blue.png';
-
-  @override
-  String get successThemeAsset => 'assets/images/dashatar/success/blue.png';
-
-  @override
   String get audioControlOffAsset =>
       'assets/images/audio_control/blue_mslide_off.png';
 
   @override
   String get audioAsset => 'assets/audio/dumbbell.mp3';
-
-  @override
-  String get dashAssetsDirectory => 'assets/images/dashatar/blue';
 }
