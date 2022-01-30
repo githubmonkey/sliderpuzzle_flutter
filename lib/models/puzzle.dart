@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/models/question.dart';
 
 // A 3x3 puzzle board visualization:
 //
@@ -35,10 +36,16 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 /// {@endtemplate}
 class Puzzle extends Equatable {
   /// {@macro puzzle}
-  const Puzzle({required this.tiles});
+  const Puzzle({
+    required this.tiles,
+    required this.questions,
+  });
 
   /// List of [Tile]s representing the puzzle's current arrangement.
   final List<Tile> tiles;
+
+  // List of [Questions] marking the final position
+  final List<Question> questions;
 
   /// Get the dimension of a puzzle given its tile arrangement.
   ///
@@ -202,7 +209,7 @@ class Puzzle extends Equatable {
       );
     }
 
-    return Puzzle(tiles: tiles);
+    return Puzzle(tiles: tiles, questions: questions);
   }
 
   /// Sorts puzzle tiles so they are in order of their current position.
@@ -211,7 +218,7 @@ class Puzzle extends Equatable {
       ..sort((tileA, tileB) {
         return tileA.currentPosition.compareTo(tileB.currentPosition);
       });
-    return Puzzle(tiles: sortedTiles);
+    return Puzzle(tiles: sortedTiles, questions: questions);
   }
 
   @override

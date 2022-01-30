@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
@@ -11,6 +12,7 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
 abstract class _TileSize {
   static double small = 75;
@@ -27,6 +29,7 @@ class MslidePuzzleTile extends StatefulWidget {
   const MslidePuzzleTile({
     Key? key,
     required this.tile,
+    required this.tileFontSize,
     required this.state,
     AudioPlayerFactory? audioPlayer,
   })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
@@ -34,6 +37,9 @@ class MslidePuzzleTile extends StatefulWidget {
 
   /// The tile to be displayed.
   final Tile tile;
+
+  /// The font size of the tile to be displayed.
+  final double tileFontSize;
 
   /// The state of the puzzle.
   final PuzzleState state;
@@ -90,8 +96,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
   Widget build(BuildContext context) {
     final size = widget.state.puzzle.getDimension();
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
-    final status =
-        context.select((MslidePuzzleBloc bloc) => bloc.state.status);
+    final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final hasStarted = status == mslidePuzzleStatus.started;
     final puzzleIncomplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
@@ -142,18 +147,46 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
             child: ScaleTransition(
               key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
               scale: _scale,
-              child: IconButton(
-                padding: EdgeInsets.zero,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  primary: PuzzleColors.white,
+                  textStyle: PuzzleTextStyle.headline2.copyWith(
+                    fontSize: widget.tileFontSize,
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
+                ).copyWith(
+                  foregroundColor:
+                      MaterialStateProperty.all(PuzzleColors.white),
+                  backgroundColor:
+                      MaterialStateProperty.resolveWith<Color?>(
+                    (states) {
+                      if (widget.tile.value ==
+                          widget.state.lastTappedTile?.value) {
+                        return theme.pressedColor;
+                      } else if (states.contains(MaterialState.hovered)) {
+                        return theme.hoverColor;
+                      } else {
+                        return theme.defaultColor;
+                      }
+                    },
+                  ),
+                ),
                 onPressed: canPress
                     ? () {
-                        context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                        context
+                            .read<PuzzleBloc>()
+                            .add(TileTapped(widget.tile));
                         unawaited(_audioPlayer?.replay());
                       }
                     : null,
-                icon: Image.asset(
-                  theme.dashAssetForTile(widget.tile),
-                  semanticLabel: context.l10n.puzzleTileLabelText(
-                    widget.tile.value.toString(),
+                child: Text(
+                  widget.tile.answer.toString(),
+                  semanticsLabel: context.l10n.puzzleTileLabelText(
+                    widget.tile.answer.toString(),
                     widget.tile.currentPosition.x.toString(),
                     widget.tile.currentPosition.y.toString(),
                   ),

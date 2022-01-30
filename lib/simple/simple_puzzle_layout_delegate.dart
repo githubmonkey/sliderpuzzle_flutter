@@ -133,6 +133,11 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
+  Widget challengeBuilder(int size, List<Widget> questions) {
+    return const SizedBox();
+  }
+
+  @override
   Widget tileBuilder(Tile tile, PuzzleState state) {
     return ResponsiveLayoutBuilder(
       small: (_, __) => SimplePuzzleTile(
@@ -154,6 +159,11 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         state: state,
       ),
     );
+  }
+
+  @override
+  Widget questionBuilder(Question question, PuzzleState state) {
+    return const SizedBox();
   }
 
   @override

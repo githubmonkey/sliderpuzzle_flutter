@@ -119,4 +119,14 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   List<Object?> get props => [];
+
+  @override
+  Widget challengeBuilder(int size, List<Widget> questions) {
+    return const SizedBox();
+  }
+
+  @override
+  Widget questionBuilder(Question question, PuzzleState state) {
+    return const SizedBox();
+  }
 }

@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/models/question.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
@@ -37,7 +38,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final tappedTile = event.tile;
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tappedTile)) {
-        final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
+        final mutablePuzzle = Puzzle(
+          tiles: [...state.puzzle.tiles],
+          questions: [...state.puzzle.questions],
+        );
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
         if (puzzle.isComplete()) {
           emit(
@@ -88,8 +92,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final whitespacePosition = Position(x: size, y: size);
+    final questions = <Question>[];
 
     // Create all possible board positions.
+    int i = 1;
     for (var y = 1; y <= size; y++) {
       for (var x = 1; x <= size; x++) {
         if (x == size && y == size) {
@@ -99,6 +105,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           final position = Position(x: x, y: y);
           correctPositions.add(position);
           currentPositions.add(position);
+          questions.add(Question(
+            value: i++,
+            position: position,
+            left: x,
+            right: y,
+          ));
         }
       }
     }
@@ -114,7 +126,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       currentPositions,
     );
 
-    var puzzle = Puzzle(tiles: tiles);
+    var puzzle = Puzzle(tiles: tiles, questions: questions);
 
     if (shuffle) {
       // Assign the tiles new current positions until the puzzle is solvable and
@@ -126,7 +138,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           correctPositions,
           currentPositions,
         );
-        puzzle = Puzzle(tiles: tiles);
+        puzzle = Puzzle(tiles: tiles, questions: questions);
       }
     }
 
@@ -146,6 +158,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         if (i == size * size)
           Tile(
             value: i,
+            // TODO: fix
+            answer: 1*10,
             correctPosition: whitespacePosition,
             currentPosition: currentPositions[i - 1],
             isWhitespace: true,
@@ -153,6 +167,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         else
           Tile(
             value: i,
+            answer: i+10,
             correctPosition: correctPositions[i - 1],
             currentPosition: currentPositions[i - 1],
           )

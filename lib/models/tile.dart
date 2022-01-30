@@ -8,6 +8,7 @@ class Tile extends Equatable {
   /// {@macro tile}
   const Tile({
     required this.value,
+    required this.answer,
     required this.correctPosition,
     required this.currentPosition,
     this.isWhitespace = false,
@@ -15,6 +16,9 @@ class Tile extends Equatable {
 
   /// Value representing the correct position of [Tile] in a list.
   final int value;
+
+  // The value according to the question in the correct position.
+  final int answer;
 
   /// The correct 2D [Position] of the [Tile]. All tiles must be in their
   /// correct position to complete the puzzle.
@@ -30,6 +34,7 @@ class Tile extends Equatable {
   Tile copyWith({required Position currentPosition}) {
     return Tile(
       value: value,
+      answer: answer,
       correctPosition: correctPosition,
       currentPosition: currentPosition,
       isWhitespace: isWhitespace,
@@ -39,6 +44,7 @@ class Tile extends Equatable {
   @override
   List<Object> get props => [
         value,
+        answer,
         correctPosition,
         currentPosition,
         isWhitespace,

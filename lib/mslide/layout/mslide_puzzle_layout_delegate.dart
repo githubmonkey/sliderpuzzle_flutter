@@ -4,6 +4,12 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
+abstract class _TileFontSize {
+  static double small = 36;
+  static double medium = 50;
+  static double large = 54;
+}
+
 /// {@template mslide_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [MslideTheme].
@@ -105,11 +111,36 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
+  Widget challengeBuilder(int size, List<Widget> questions) {
+    // TODO: implement challengeBuilder
+    throw UnimplementedError();
+  }
+
+  @override
   Widget tileBuilder(Tile tile, PuzzleState state) {
-    return MslidePuzzleTile(
-      tile: tile,
-      state: state,
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => MslidePuzzleTile(
+        tileFontSize: _TileFontSize.small,
+        tile: tile,
+        state: state,
+      ),
+      medium: (_, child) => MslidePuzzleTile(
+        tileFontSize: _TileFontSize.medium,
+        tile: tile,
+        state: state,
+      ),
+      large: (_, child) => MslidePuzzleTile(
+        tileFontSize: _TileFontSize.large,
+        tile: tile,
+        state: state,
+      ),
     );
+  }
+
+  @override
+  Widget questionBuilder(Question question, PuzzleState state) {
+    // TODO: implement questionBuilder
+    throw UnimplementedError();
   }
 
   @override
