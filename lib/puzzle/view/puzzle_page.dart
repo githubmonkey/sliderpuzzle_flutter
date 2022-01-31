@@ -102,11 +102,24 @@ class PuzzleView extends StatelessWidget {
       body: AnimatedContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
         decoration: BoxDecoration(color: theme.backgroundColor),
-        child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
-          listener: (context, state) {
-            final dashatarTheme = context.read<DashatarThemeBloc>().state.theme;
-            context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
-          },
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<MslideThemeBloc, MslideThemeState>(
+              listener: (context, state) {
+                final mslideTheme = context.read<MslideThemeBloc>().state.theme;
+                context.read<ThemeBloc>().add(ThemeUpdated(theme: mslideTheme));
+              },
+            ),
+            BlocListener<DashatarThemeBloc, DashatarThemeState>(
+              listener: (context, state) {
+                final dashatarTheme =
+                    context.read<DashatarThemeBloc>().state.theme;
+                context
+                    .read<ThemeBloc>()
+                    .add(ThemeUpdated(theme: dashatarTheme));
+              },
+            ),
+          ],
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -115,7 +128,7 @@ class PuzzleView extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => PuzzleBloc(2)
+                create: (context) => PuzzleBloc(3)
                   ..add(
                     PuzzleInitialized(
                       shufflePuzzle: shufflePuzzle,
@@ -324,10 +337,10 @@ class PuzzleBoard extends StatelessWidget {
           puzzle.questions
               .map(
                 (question) => _QuestionTile(
-              key: Key('question_tile_${question.toString()}'),
-              question: question,
-            ),
-          )
+                  key: Key('question_tile_${question.toString()}'),
+                  question: question,
+                ),
+              )
               .toList(),
         ),
       ),
