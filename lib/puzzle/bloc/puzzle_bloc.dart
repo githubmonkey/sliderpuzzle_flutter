@@ -144,6 +144,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       size,
       correctPositions,
       currentPositions,
+      questions,
     );
 
     var puzzle = Puzzle(tiles: tiles, questions: questions);
@@ -157,6 +158,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           size,
           correctPositions,
           currentPositions,
+          questions,
         );
         puzzle = Puzzle(tiles: tiles, questions: questions);
       }
@@ -171,6 +173,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     int size,
     List<Position> correctPositions,
     List<Position> currentPositions,
+      List<Question> questions,
   ) {
     final whitespacePosition = Position(x: size, y: size);
     return [
@@ -179,7 +182,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           Tile(
             value: i,
             // TODO: fix
-            answer: 1 * 10,
+            pair: questions[i-1].pair,
             correctPosition: whitespacePosition,
             currentPosition: currentPositions[i - 1],
             isWhitespace: true,
@@ -187,7 +190,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         else
           Tile(
             value: i,
-            answer: i + 10,
+            pair: questions[i-1].pair,
             correctPosition: correctPositions[i - 1],
             currentPosition: currentPositions[i - 1],
           )

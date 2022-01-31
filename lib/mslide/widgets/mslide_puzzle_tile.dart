@@ -171,9 +171,9 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                     Expanded(
                       child: Center(
                         child: Text(
-                          widget.tile.answer.toString(),
+                          widget.tile.pair.answer.toString(),
                           semanticsLabel: context.l10n.puzzleTileLabelText(
-                            widget.tile.answer.toString(),
+                            widget.tile.pair.answer.toString(),
                             widget.tile.currentPosition.x.toString(),
                             widget.tile.currentPosition.y.toString(),
                           ),
