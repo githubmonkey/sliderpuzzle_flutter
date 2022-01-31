@@ -104,8 +104,8 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
             Stack(
               children: [
-                //MslidePuzzleBoard(tiles: tiles, size: size),
                 MslideChallengeBoard(questions: questions, size: size),
+                MslidePuzzleBoard(tiles: tiles, size: size),
               ],
             ),
             const ResponsiveGap(

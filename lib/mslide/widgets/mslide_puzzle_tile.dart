@@ -136,51 +136,52 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
             key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
             scale: _scale,
             child: TextButton(
-
-              style: TextButton.styleFrom(
-                primary: PuzzleColors.white,
-                textStyle: PuzzleTextStyle.headline2.copyWith(
-                  fontSize: widget.tileFontSize,
-                ),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
+                style: TextButton.styleFrom(
+                  primary: PuzzleColors.white,
+                  textStyle: PuzzleTextStyle.headline2.copyWith(
+                    fontSize: widget.tileFontSize,
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
+                ).copyWith(
+                  foregroundColor:
+                      MaterialStateProperty.all(PuzzleColors.black),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                    (states) {
+                      if (states.contains(MaterialState.hovered)) {
+                        return theme.hoverColor;
+                      } else {
+                        return theme.defaultColor.withOpacity(0.5);
+                      }
+                    },
                   ),
                 ),
-              ).copyWith(
-                foregroundColor:
-                    MaterialStateProperty.all(PuzzleColors.white),
-                backgroundColor:
-                    MaterialStateProperty.resolveWith<Color?>(
-                  (states) {
-                    if (widget.tile.value ==
-                        widget.state.lastTappedTile?.value) {
-                      return theme.pressedColor;
-                    } else if (states.contains(MaterialState.hovered)) {
-                      return theme.hoverColor;
-                    } else {
-                      return theme.defaultColor;
-                    }
-                  },
-                ),
-              ),
-              onPressed: canPress
-                  ? () {
-                      context
-                          .read<PuzzleBloc>()
-                          .add(TileTapped(widget.tile));
-                      unawaited(_audioPlayer?.replay());
-                    }
-                  : null,
-              child: Text(
-                widget.tile.answer.toString(),
-                semanticsLabel: context.l10n.puzzleTileLabelText(
-                  widget.tile.answer.toString(),
-                  widget.tile.currentPosition.x.toString(),
-                  widget.tile.currentPosition.y.toString(),
-                ),
-              ),
-            ),
+                onPressed: canPress
+                    ? () {
+                        context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                        unawaited(_audioPlayer?.replay());
+                      }
+                    : null,
+                child: Column(
+                  children: [
+                    Expanded(child: SizedBox()),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          widget.tile.answer.toString(),
+                          semanticsLabel: context.l10n.puzzleTileLabelText(
+                            widget.tile.answer.toString(),
+                            widget.tile.currentPosition.x.toString(),
+                            widget.tile.currentPosition.y.toString(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           ),
         ),
       ),

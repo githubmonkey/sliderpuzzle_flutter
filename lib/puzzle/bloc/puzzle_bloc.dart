@@ -106,7 +106,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   Puzzle _generatePuzzle(int size, {bool shuffle = true}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
-    final whitespacePosition = Position(x: size, y: size);
     final questions = <Question>[];
     final pairs = _generateQuestionPairs(size);
 
@@ -114,19 +113,18 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     int i = 1;
     for (var y = 1; y <= size; y++) {
       for (var x = 1; x <= size; x++) {
+        final position = Position(x: x, y: y);
+        correctPositions.add(position);
+        currentPositions.add(position);
+
         if (x == size && y == size) {
-          correctPositions.add(whitespacePosition);
-          currentPositions.add(whitespacePosition);
           questions.add(Question(
             index: i++,
-            position: whitespacePosition,
-            pair: Pair(left: -1, right: -1),
+            position: position,
+            pair: Pair(left: 0, right: 0),
             isWhitespace: true,
           ));
         } else {
-          final position = Position(x: x, y: y);
-          correctPositions.add(position);
-          currentPositions.add(position);
           final pair = pairs[i];
           questions.add(Question(
             index: i++,
