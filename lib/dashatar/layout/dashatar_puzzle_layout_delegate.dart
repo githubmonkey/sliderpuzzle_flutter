@@ -74,7 +74,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(int size, List<Widget> tiles, List<Widget> questions) {
     return Stack(
       children: [
         Positioned(
@@ -119,11 +119,6 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   List<Object?> get props => [];
-
-  @override
-  Widget challengeBuilder(int size, List<Widget> questions) {
-    return const SizedBox();
-  }
 
   @override
   Widget questionBuilder(Question question, PuzzleState state) {

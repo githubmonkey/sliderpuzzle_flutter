@@ -7,7 +7,7 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/simple/simple_puzzle_layout_delegate.dart';
+import 'package:very_good_slide_puzzle/puzzle/widgets/puzzle_grid.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 abstract class _BoardSize {
@@ -76,10 +76,9 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
         }
       },
       child: ResponsiveLayoutBuilder(
-        // TODO: don't reue simplesizeboard
         small: (_, child) => SizedBox.square(
           dimension: _BoardSize.small,
-          child: SimplePuzzleBoard(
+          child: PuzzleGrid(
             key: const Key('mslide_puzzle_board_small'),
             size: widget.size,
             tiles: widget.tiles,
@@ -87,7 +86,7 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
         ),
         medium: (_, child) => SizedBox.square(
           dimension: _BoardSize.medium,
-          child: SimplePuzzleBoard(
+          child: PuzzleGrid(
             key: const Key('mslide_puzzle_board_medium'),
             size: widget.size,
             tiles: widget.tiles,
@@ -95,7 +94,7 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
         ),
         large: (_, child) => SizedBox.square(
           dimension: _BoardSize.large,
-          child: SimplePuzzleBoard(
+          child: PuzzleGrid(
             key: const Key('mslide_puzzle_board_large'),
             size: widget.size,
             tiles: widget.tiles,

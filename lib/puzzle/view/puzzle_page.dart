@@ -115,7 +115,7 @@ class PuzzleView extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => PuzzleBloc(4)
+                create: (context) => PuzzleBloc(2)
                   ..add(
                     PuzzleInitialized(
                       shufflePuzzle: shufflePuzzle,
@@ -321,6 +321,14 @@ class PuzzleBoard extends StatelessWidget {
                 ),
               )
               .toList(),
+          puzzle.questions
+              .map(
+                (question) => _QuestionTile(
+              key: Key('question_tile_${question.toString()}'),
+              question: question,
+            ),
+          )
+              .toList(),
         ),
       ),
     );
@@ -344,6 +352,24 @@ class _PuzzleTile extends StatelessWidget {
     return tile.isWhitespace
         ? theme.layoutDelegate.whitespaceTileBuilder()
         : theme.layoutDelegate.tileBuilder(tile, state);
+  }
+}
+
+class _QuestionTile extends StatelessWidget {
+  const _QuestionTile({
+    Key? key,
+    required this.question,
+  }) : super(key: key);
+
+  /// The tile to be displayed.
+  final Question question;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
+
+    return theme.layoutDelegate.questionBuilder(question, state);
   }
 }
 

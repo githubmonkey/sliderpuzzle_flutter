@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/mslide/widgets/mslide_challenge_board.dart';
+import 'package:very_good_slide_puzzle/mslide/widgets/mslide_question_tile.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
 abstract class _TileFontSize {
@@ -80,7 +82,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(int size, List<Widget> tiles, List<Widget> questions) {
     return Stack(
       children: [
         Positioned(
@@ -100,7 +102,12 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               medium: 34,
               large: 96,
             ),
-            MslidePuzzleBoard(tiles: tiles, size: size),
+            Stack(
+              children: [
+                //MslidePuzzleBoard(tiles: tiles, size: size),
+                MslideChallengeBoard(questions: questions, size: size),
+              ],
+            ),
             const ResponsiveGap(
               large: 96,
             ),
@@ -108,12 +115,6 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
       ],
     );
-  }
-
-  @override
-  Widget challengeBuilder(int size, List<Widget> questions) {
-    // TODO: implement challengeBuilder
-    throw UnimplementedError();
   }
 
   @override
@@ -139,9 +140,21 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget questionBuilder(Question question, PuzzleState state) {
-    // TODO: implement questionBuilder
-    throw UnimplementedError();
-  }
+      return ResponsiveLayoutBuilder(
+        small: (_, child) => MslideQuestionTile(
+          tileFontSize: _TileFontSize.small,
+          question: question,
+        ),
+        medium: (_, child) => MslideQuestionTile(
+          tileFontSize: _TileFontSize.medium,
+          question: question,
+        ),
+        large: (_, child) => MslideQuestionTile(
+          tileFontSize: _TileFontSize.large,
+          question: question,
+        ),
+      );
+    }
 
   @override
   Widget whitespaceTileBuilder() {

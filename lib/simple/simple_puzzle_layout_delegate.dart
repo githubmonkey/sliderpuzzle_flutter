@@ -6,6 +6,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/puzzle/widgets/puzzle_grid.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -90,7 +91,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(int size, List<Widget> tiles, List<Widget> questions) {
     return Column(
       children: [
         const ResponsiveGap(
@@ -101,7 +102,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ResponsiveLayoutBuilder(
           small: (_, __) => SizedBox.square(
             dimension: _BoardSize.small,
-            child: SimplePuzzleBoard(
+            child: PuzzleGrid(
               key: const Key('simple_puzzle_board_small'),
               size: size,
               tiles: tiles,
@@ -110,7 +111,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
           medium: (_, __) => SizedBox.square(
             dimension: _BoardSize.medium,
-            child: SimplePuzzleBoard(
+            child: PuzzleGrid(
               key: const Key('simple_puzzle_board_medium'),
               size: size,
               tiles: tiles,
@@ -118,7 +119,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
           large: (_, __) => SizedBox.square(
             dimension: _BoardSize.large,
-            child: SimplePuzzleBoard(
+            child: PuzzleGrid(
               key: const Key('simple_puzzle_board_large'),
               size: size,
               tiles: tiles,
@@ -263,44 +264,6 @@ abstract class _BoardSize {
   static double medium = 424;
   static double large = 472;
 }
-
-/// {@template simple_puzzle_board}
-/// Display the board of the puzzle in a [size]x[size] layout
-/// filled with [tiles]. Each tile is spaced with [spacing].
-/// {@endtemplate}
-@visibleForTesting
-class SimplePuzzleBoard extends StatelessWidget {
-  /// {@macro simple_puzzle_board}
-  const SimplePuzzleBoard({
-    Key? key,
-    required this.size,
-    required this.tiles,
-    this.spacing = 8,
-  }) : super(key: key);
-
-  /// The size of the board.
-  final int size;
-
-  /// The tiles to be displayed on the board.
-  final List<Widget> tiles;
-
-  /// The spacing between each tile from [tiles].
-  final double spacing;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: size,
-      mainAxisSpacing: spacing,
-      crossAxisSpacing: spacing,
-      children: tiles,
-    );
-  }
-}
-
 abstract class _TileFontSize {
   static double small = 36;
   static double medium = 50;

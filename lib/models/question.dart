@@ -6,14 +6,15 @@ import 'package:very_good_slide_puzzle/models/position.dart';
 class Question extends Equatable {
   /// {@macro question}
   const Question({
-    required this.value,
+    required this.index,
     required this.position,
     required this.left,
-    required this.right
+    required this.right,
+    this.isWhitespace = false,
   });
 
-  /// Might be used as key or label, decribes the position
-  final int value;
+  /// Might be used as key or label, describes the position
+  final int index;
 
   /// Position
   final Position position;
@@ -24,11 +25,21 @@ class Question extends Equatable {
   /// Right multiplier
   final int right;
 
+  /// Denotes if the [Tile] is the whitespace tile or not.
+  final bool isWhitespace;
+
+  /// Calculate answer
+  int get answer => left * right;
+
+  /// Renerate string for display
+  String get questionStr => '${left} x ${right}';
+
   @override
   List<Object?> get props => [
-    value,
+    index,
     position,
     left,
     right,
+    isWhitespace
   ];
 }

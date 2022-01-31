@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/models/question.dart';
 
 part 'puzzle_event.dart';
+
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
@@ -101,12 +102,19 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         if (x == size && y == size) {
           correctPositions.add(whitespacePosition);
           currentPositions.add(whitespacePosition);
+          questions.add(Question(
+            index: i++,
+            position: whitespacePosition,
+            left: 0,
+            right: 0,
+            isWhitespace: true,
+          ));
         } else {
           final position = Position(x: x, y: y);
           correctPositions.add(position);
           currentPositions.add(position);
           questions.add(Question(
-            value: i++,
+            index: i++,
             position: position,
             left: x,
             right: y,
@@ -159,7 +167,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           Tile(
             value: i,
             // TODO: fix
-            answer: 1*10,
+            answer: 1 * 10,
             correctPosition: whitespacePosition,
             currentPosition: currentPositions[i - 1],
             isWhitespace: true,
@@ -167,7 +175,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         else
           Tile(
             value: i,
-            answer: i+10,
+            answer: i + 10,
             correctPosition: correctPositions[i - 1],
             currentPosition: currentPositions[i - 1],
           )

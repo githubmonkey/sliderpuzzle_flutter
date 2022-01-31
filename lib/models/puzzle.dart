@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/models/question.dart';
 
 // A 3x3 puzzle board visualization:
 //
