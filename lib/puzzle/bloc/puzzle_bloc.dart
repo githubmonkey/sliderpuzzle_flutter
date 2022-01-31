@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/models/pair.dart';
 import 'package:very_good_slide_puzzle/models/question.dart';
 
 part 'puzzle_event.dart';
@@ -88,12 +89,26 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
+  List<Pair> _generateQuestionPairs(int size) {
+    final set = Set<Pair>();
+    final random = Random();
+
+    while (set.length < (size * size)) {
+      set.add(Pair(
+        left: random.nextInt(10) + 1,
+        right: random.nextInt(10) + 1,
+      ));
+    }
+    return set.toList();
+  }
+
   /// Build a randomized, solvable puzzle of the given size.
   Puzzle _generatePuzzle(int size, {bool shuffle = true}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final whitespacePosition = Position(x: size, y: size);
     final questions = <Question>[];
+    final pairs = _generateQuestionPairs(size);
 
     // Create all possible board positions.
     int i = 1;
@@ -113,11 +128,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           final position = Position(x: x, y: y);
           correctPositions.add(position);
           currentPositions.add(position);
+          final pair = pairs[i];
           questions.add(Question(
             index: i++,
             position: position,
-            left: x,
-            right: y,
+            left: pair.left,
+            right: pair.right,
           ));
         }
       }
