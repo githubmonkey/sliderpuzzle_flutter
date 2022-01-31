@@ -120,8 +120,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           questions.add(Question(
             index: i++,
             position: whitespacePosition,
-            left: 0,
-            right: 0,
+            pair: Pair(left: -1, right: -1),
             isWhitespace: true,
           ));
         } else {
@@ -132,8 +131,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           questions.add(Question(
             index: i++,
             position: position,
-            left: pair.left,
-            right: pair.right,
+            pair: pair,
           ));
         }
       }

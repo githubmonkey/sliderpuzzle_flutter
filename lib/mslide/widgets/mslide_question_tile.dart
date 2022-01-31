@@ -44,12 +44,12 @@ class MslideQuestionTile extends StatelessWidget {
                   Expanded(
                     child: Center(
                       child: Text(
-                        question.questionStr,
+                        question.pair.questionStr,
                         textAlign: TextAlign.center,
                         style: PuzzleTextStyle.headline2.copyWith(
                             fontSize: tileFontSize, color: PuzzleColors.grey1),
                         semanticsLabel:
-                            'Question: ${question.questionStr}, index: ${question.index}',
+                            'Question: ${question.pair.questionStr}, index: ${question.index}',
                       ),
                     ),
                   ),
