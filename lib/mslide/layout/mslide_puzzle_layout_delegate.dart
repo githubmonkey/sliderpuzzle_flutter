@@ -12,6 +12,12 @@ abstract class _TileFontSize {
   static double large = 54;
 }
 
+abstract class _QuestionFontSize {
+  static double small = 24;
+  static double medium = 38;
+  static double large = 42;
+}
+
 /// {@template mslide_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [MslideTheme].
@@ -142,15 +148,15 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget questionBuilder(Question question, PuzzleState state) {
       return ResponsiveLayoutBuilder(
         small: (_, child) => MslideQuestionTile(
-          tileFontSize: _TileFontSize.small,
+          tileFontSize: _QuestionFontSize.small,
           question: question,
         ),
         medium: (_, child) => MslideQuestionTile(
-          tileFontSize: _TileFontSize.medium,
+          tileFontSize: _QuestionFontSize.medium,
           question: question,
         ),
         large: (_, child) => MslideQuestionTile(
-          tileFontSize: _TileFontSize.large,
+          tileFontSize: _QuestionFontSize.large,
           question: question,
         ),
       );
