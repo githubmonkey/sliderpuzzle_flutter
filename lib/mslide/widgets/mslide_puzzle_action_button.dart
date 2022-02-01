@@ -28,8 +28,7 @@ class MslidePuzzleActionButton extends StatefulWidget {
       _MslidePuzzleActionButtonState();
 }
 
-class _MslidePuzzleActionButtonState
-    extends State<MslidePuzzleActionButton> {
+class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   late final AudioPlayer _audioPlayer;
 
   @override
@@ -49,8 +48,7 @@ class _MslidePuzzleActionButtonState
   Widget build(BuildContext context) {
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
 
-    final status =
-        context.select((MslidePuzzleBloc bloc) => bloc.state.status);
+    final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mslidePuzzleStatus.loading;
     final isStarted = status == mslidePuzzleStatus.started;
 
@@ -86,7 +84,10 @@ class _MslidePuzzleActionButtonState
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            const PuzzleInitialized(shufflePuzzle: false),
+                            const PuzzleInitialized(
+                              shufflePuzzle: false,
+                              pinTrailingWhitespace: true,
+                            ),
                           );
                     }
 

@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/bloc/mslide_puzzle_bloc.dart';
 import 'package:very_good_slide_puzzle/mslide/bloc/mslide_theme_bloc.dart';
+import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mslide/themes/blue_mslide_theme.dart';
 import 'package:very_good_slide_puzzle/mslide/themes/green_mslide_theme.dart';
 import 'package:very_good_slide_puzzle/mslide/themes/yellow_mslide_theme.dart';
@@ -132,6 +133,7 @@ class PuzzleView extends StatelessWidget {
                   ..add(
                     PuzzleInitialized(
                       shufflePuzzle: shufflePuzzle,
+                      pinTrailingWhitespace: theme is MslideTheme,
                     ),
                   ),
               ),
@@ -518,6 +520,7 @@ class PuzzleMenuItem extends StatelessWidget {
                 context.read<PuzzleBloc>().add(
                       PuzzleInitialized(
                         shufflePuzzle: theme is SimpleTheme,
+                        pinTrailingWhitespace: theme is MslideTheme,
                       ),
                     );
               },
