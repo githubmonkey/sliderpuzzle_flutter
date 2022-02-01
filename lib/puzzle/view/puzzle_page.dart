@@ -509,6 +509,11 @@ class PuzzleMenuItem extends StatelessWidget {
                       const DashatarCountdownStopped(),
                     );
 
+                // Stop the Mslide countdown if it has been started.
+                context.read<MslidePuzzleBloc>().add(
+                  const MslideCountdownStopped(),
+                );
+
                 // Initialize the puzzle board for the newly selected theme.
                 context.read<PuzzleBloc>().add(
                       PuzzleInitialized(
