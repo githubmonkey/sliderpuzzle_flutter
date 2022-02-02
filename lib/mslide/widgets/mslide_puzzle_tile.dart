@@ -14,11 +14,6 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
-abstract class _TileSize {
-  static double small = 75;
-  static double medium = 100;
-  static double large = 112;
-}
 
 /// {@template mslide_puzzle_tile}
 /// Displays the puzzle tile associated with [tile]
@@ -94,9 +89,11 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
 
   @override
   Widget build(BuildContext context) {
+    final size = widget.state.puzzle.getDimension();
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final hasStarted = status == mslidePuzzleStatus.started;
+    final loading = status == mslidePuzzleStatus.loading;
     final notStarted = status == mslidePuzzleStatus.notStarted;
 
     final puzzleIncomplete =
@@ -106,96 +103,115 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
     final canPress = hasStarted && puzzleIncomplete;
 
     if (notStarted) {
-      return SizedBox();
+      return const SizedBox();
     }
+
+    final movementDuration = loading
+        ? const Duration(milliseconds: 800)
+        : const Duration(milliseconds: 370);
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => SizedBox.square(
-          key: Key('mslide_puzzle_tile_small_${widget.tile.value}'),
-          dimension: _TileSize.small,
-          child: child,
+      child: AnimatedAlign(
+        alignment: FractionalOffset(
+          (widget.tile.currentPosition.x - 1) / (size - 1),
+          (widget.tile.currentPosition.y - 1) / (size - 1),
         ),
-        medium: (_, child) => SizedBox.square(
-          key: Key('mslide_puzzle_tile_medium_${widget.tile.value}'),
-          dimension: _TileSize.medium,
-          child: child,
-        ),
-        large: (_, child) => SizedBox.square(
-          key: Key('mslide_puzzle_tile_large_${widget.tile.value}'),
-          dimension: _TileSize.large,
-          child: child,
-        ),
-        child: (_) => notStarted
-            ? SizedBox() : AnimatedOpacity(
-          opacity: (hasStarted ? 1.0 : 0.0),
-          duration: const Duration(milliseconds: 5000),
-          child: MouseRegion(
-            onEnter: (_) {
-              if (canPress) {
-                _controller.forward();
-              }
-            },
-            onExit: (_) {
-              if (canPress) {
-                _controller.reverse();
-              }
-            },
-            child: ScaleTransition(
-              key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
-              scale: _scale,
-              child: TextButton(
-                  style: TextButton.styleFrom(
-                    primary: PuzzleColors.white,
-                    textStyle: PuzzleTextStyle.headline2.copyWith(
-                      fontSize: widget.tileFontSize,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                  ).copyWith(
-                    foregroundColor:
-                        MaterialStateProperty.all(PuzzleColors.black),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                      (states) {
-                        if (states.contains(MaterialState.hovered)) {
-                          return theme.hoverColor;
-                        } else {
-                          return theme.defaultColor.withOpacity(0.5);
+        duration: movementDuration,
+        curve: Curves.easeInOut,
+        child: ResponsiveLayoutBuilder(
+          small: (_, child) => SizedBox.square(
+            key: Key('mslide_puzzle_tile_small_${widget.tile.value}'),
+            dimension: BoardSize.TileSize(BoardSize.small, size),
+            child: child,
+          ),
+          medium: (_, child) => SizedBox.square(
+            key: Key('mslide_puzzle_tile_medium_${widget.tile.value}'),
+            dimension: BoardSize.TileSize(BoardSize.medium, size),
+            child: child,
+          ),
+          large: (_, child) => SizedBox.square(
+            key: Key('mslide_puzzle_tile_large_${widget.tile.value}'),
+            dimension: BoardSize.TileSize(BoardSize.large, size),
+            child: child,
+          ),
+          child: (_) => notStarted
+              ? const SizedBox()
+              : Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: AnimatedOpacity(
+                    opacity: hasStarted ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 1000),
+                    child: MouseRegion(
+                      onEnter: (_) {
+                        if (canPress) {
+                          _controller.forward();
                         }
                       },
-                    ),
-                  ),
-                  onPressed: canPress
-                      ? () {
-                          context
-                              .read<PuzzleBloc>()
-                              .add(TileTapped(widget.tile));
-                          unawaited(_audioPlayer?.replay());
+                      onExit: (_) {
+                        if (canPress) {
+                          _controller.reverse();
                         }
-                      : null,
-                  child: Column(
-                    children: [
-                      Expanded(child: SizedBox()),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            widget.tile.pair.answer.toString(),
-                            semanticsLabel: context.l10n.puzzleTileLabelText(
-                              widget.tile.pair.answer.toString(),
-                              widget.tile.currentPosition.x.toString(),
-                              widget.tile.currentPosition.y.toString(),
+                      },
+                      child: ScaleTransition(
+                        key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
+                        scale: _scale,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            primary: PuzzleColors.white,
+                            textStyle: PuzzleTextStyle.headline2.copyWith(
+                              fontSize: widget.tileFontSize,
                             ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                          ).copyWith(
+                            foregroundColor:
+                                MaterialStateProperty.all(PuzzleColors.black),
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color?>(
+                              (states) {
+                                if (states.contains(MaterialState.hovered)) {
+                                  return theme.hoverColor;
+                                } else {
+                                  return theme.defaultColor.withOpacity(0.5);
+                                }
+                              },
+                            ),
+                          ),
+                          onPressed: canPress
+                              ? () {
+                                  context
+                                      .read<PuzzleBloc>()
+                                      .add(TileTapped(widget.tile));
+                                  unawaited(_audioPlayer?.replay());
+                                }
+                              : null,
+                          child: Column(
+                            children: [
+                              const Expanded(child: SizedBox()),
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    widget.tile.pair.answer.toString(),
+                                    semanticsLabel:
+                                        context.l10n.puzzleTileLabelText(
+                                      widget.tile.pair.answer.toString(),
+                                      widget.tile.currentPosition.x.toString(),
+                                      widget.tile.currentPosition.y.toString(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  )),
-            ),
-          ),
+                    ),
+                  ),
+              ),
         ),
       ),
     );

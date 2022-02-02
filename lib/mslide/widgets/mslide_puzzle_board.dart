@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
@@ -7,13 +8,17 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/puzzle/widgets/puzzle_grid.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
-abstract class _BoardSize {
+abstract class BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
+
+  static double TileSize(double cat, int dimension) {
+    assert(cat == small || cat == medium || cat == large);
+    return (cat - (dimension - 1) * 8) / dimension;
+  }
 }
 
 /// {@template mslide_puzzle_board}
@@ -78,29 +83,21 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
       },
       child: ResponsiveLayoutBuilder(
         small: (_, child) => SizedBox.square(
-          dimension: _BoardSize.small,
-          child: PuzzleGrid(
-            key: const Key('mslide_puzzle_board_small'),
-            size: widget.size,
-            tiles: widget.tiles,
-          ),
+          dimension: BoardSize.small,
+          key: const Key('mslide_puzzle_board_small'),
+          child: child,
         ),
         medium: (_, child) => SizedBox.square(
-          dimension: _BoardSize.medium,
-          child: PuzzleGrid(
-            key: const Key('mslide_puzzle_board_medium'),
-            size: widget.size,
-            tiles: widget.tiles,
-          ),
+          dimension: BoardSize.medium,
+          key: const Key('mslide_puzzle_board_medium'),
+          child: child,
         ),
         large: (_, child) => SizedBox.square(
-          dimension: _BoardSize.large,
-          child: PuzzleGrid(
-            key: const Key('mslide_puzzle_board_large'),
-            size: widget.size,
-            tiles: widget.tiles,
-          ),
+          dimension: BoardSize.large,
+          key: const Key('mslide_puzzle_board_large'),
+          child: child,
         ),
+        child: (_) => Stack(children: widget.tiles),
       ),
     );
   }
