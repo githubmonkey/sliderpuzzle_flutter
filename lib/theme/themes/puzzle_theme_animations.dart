@@ -16,6 +16,6 @@ abstract class PuzzleThemeAnimationDuration {
   /// The animation may happen when a user hovers over a puzzle tile.
   static const puzzleTileScale = Duration(milliseconds: 230);
 
-  // The duration of the question reveal during launch sequence.
+  /// The duration of the question reveal during launch sequence.
   static const questionLaunch = Duration(milliseconds: 1000);
 }

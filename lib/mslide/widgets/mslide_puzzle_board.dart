@@ -30,6 +30,7 @@ class MslidePuzzleBoard extends StatefulWidget {
   /// The tiles to be displayed on the board.
   final List<Widget> tiles;
 
+  /// The board size
   final int size;
 
   @override

@@ -88,7 +88,7 @@ class _DashatarPuzzleActionButtonState
                       context.read<PuzzleBloc>().add(
                             const PuzzleInitialized(
                                 shufflePuzzle: false,
-                                pinTrailingWhitespace: false),
+                                pinTrailingWhitespace: false,),
                           );
                     }
 

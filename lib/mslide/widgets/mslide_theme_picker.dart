@@ -87,29 +87,30 @@ class _MslideThemePickerState extends State<MslideThemePicker> {
                   return Padding(
                     padding: EdgeInsets.only(left: padding),
                     child: AnimatedContainer(
-                        width: size,
-                        height: size,
-                        curve: Curves.easeInOut,
-                        duration: const Duration(milliseconds: 350),
-                        child: PuzzleButton(
-                          child: Text(theme.name),
-                          textColor: PuzzleColors.primary0,
-                          backgroundColor: theme.buttonColor,
-                          onPressed: () async {
-                            if (isActiveTheme) {
-                              return;
-                            }
+                      width: size,
+                      height: size,
+                      curve: Curves.easeInOut,
+                      duration: const Duration(milliseconds: 350),
+                      child: PuzzleButton(
+                        textColor: PuzzleColors.primary0,
+                        backgroundColor: theme.buttonColor,
+                        onPressed: () async {
+                          if (isActiveTheme) {
+                            return;
+                          }
 
-                            // Update the current mslide theme.
-                            context
-                                .read<MslideThemeBloc>()
-                                .add(MslideThemeChanged(themeIndex: index));
+                          // Update the current mslide theme.
+                          context
+                              .read<MslideThemeBloc>()
+                              .add(MslideThemeChanged(themeIndex: index));
 
-                            // Play the audio of the current mslide theme.
-                            await _audioPlayer.setAsset(theme.audioAsset);
-                            unawaited(_audioPlayer.play());
-                          },
-                        )),
+                          // Play the audio of the current mslide theme.
+                          await _audioPlayer.setAsset(theme.audioAsset);
+                          unawaited(_audioPlayer.play());
+                        },
+                        child: Text(theme.name),
+                      ),
+                    ),
                   );
                 },
               ),

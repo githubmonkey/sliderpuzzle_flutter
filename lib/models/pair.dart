@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:very_good_slide_puzzle/models/position.dart';
 
 /// A par of multipliers. For comparison, use the solution only
 
@@ -20,7 +19,7 @@ class Pair extends Equatable {
   int get answer => left * right;
 
   /// Renerate string for display
-  String get questionStr => '${left} x ${right}';
+  String get questionStr => '$left x $right';
 
   @override
   List<Object?> get props => [

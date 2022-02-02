@@ -18,7 +18,7 @@ class Tile extends Equatable {
   /// Value representing the correct position of [Tile] in a list.
   final int value;
 
-  // The value according to the question in the correct position.
+  /// The value according to the question in the correct position.
   final Pair pair;
 
   /// The correct 2D [Position] of the [Tile]. All tiles must be in their

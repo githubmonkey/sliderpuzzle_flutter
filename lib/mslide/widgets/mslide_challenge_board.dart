@@ -10,7 +10,7 @@ abstract class _BoardSize {
 }
 
 /// {@template mslide_puzzle_board}
-/// Displays the board of the puzzle in a [Stack] filled with [tiles].
+/// Displays the board of the puzzle in a [Stack] filled with [questions].
 /// {@endtemplate}
 class MslideChallengeBoard extends StatelessWidget {
   /// {@macro mslide_puzzle_board}
@@ -23,6 +23,7 @@ class MslideChallengeBoard extends StatelessWidget {
   /// The tiles to be displayed on the board.
   final List<Widget> questions;
 
+  /// The board size
   final int size;
 
   @override

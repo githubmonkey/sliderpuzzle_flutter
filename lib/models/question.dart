@@ -22,7 +22,7 @@ class Question extends Equatable {
   /// Multipliers
   final Pair pair;
 
-  /// Denotes if the [Tile] is the whitespace tile or not.
+  /// Denotes if the [Question] is the whitespace tile or not.
   final bool isWhitespace;
 
   @override

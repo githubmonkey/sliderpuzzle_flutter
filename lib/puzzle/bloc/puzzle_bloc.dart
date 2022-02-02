@@ -6,7 +6,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/models/pair.dart';
-import 'package:very_good_slide_puzzle/models/question.dart';
 
 part 'puzzle_event.dart';
 
@@ -95,7 +94,9 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleShuffleAnswers(
-      PuzzleShuffleAnswers event, Emitter<PuzzleState> emit) {
+    PuzzleShuffleAnswers event,
+    Emitter<PuzzleState> emit,
+  ) {
     final puzzle = _shufflePuzzle(state.puzzle, pinTrailingWhitespace: true);
     emit(
       PuzzleState(
@@ -106,14 +107,16 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   List<Pair> _generateQuestionPairs(int size) {
-    final set = Set<Pair>();
+    final set = <Pair>{};
     final random = Random();
 
     while (set.length < (size * size)) {
-      set.add(Pair(
-        left: random.nextInt(10) + 1,
-        right: random.nextInt(10) + 1,
-      ));
+      set.add(
+        Pair(
+          left: random.nextInt(10) + 1,
+          right: random.nextInt(10) + 1,
+        ),
+      );
     }
     return set.toList();
   }
@@ -130,7 +133,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final pairs = _generateQuestionPairs(size);
 
     // Create all possible board positions.
-    int i = 1;
+    var i = 1;
     for (var y = 1; y <= size; y++) {
       for (var x = 1; x <= size; x++) {
         final position = Position(x: x, y: y);
@@ -138,24 +141,28 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         currentPositions.add(position);
 
         if (x == size && y == size) {
-          questions.add(Question(
-            index: i++,
-            position: position,
-            pair: Pair(left: 0, right: 0),
-            isWhitespace: true,
-          ));
+          questions.add(
+            Question(
+              index: i++,
+              position: position,
+              pair: const Pair(left: 0, right: 0),
+              isWhitespace: true,
+            ),
+          );
         } else {
           final pair = pairs[i];
-          questions.add(Question(
-            index: i++,
-            position: position,
-            pair: pair,
-          ));
+          questions.add(
+            Question(
+              index: i++,
+              position: position,
+              pair: pair,
+            ),
+          );
         }
       }
     }
 
-    var tiles = _getTileListFromPositions(
+    final tiles = _getTileListFromPositions(
       size,
       correctPositions,
       currentPositions,
@@ -177,10 +184,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   /// Build a list of tiles - giving each tile their correct position and a
   /// current position.
   List<Tile> _shuffleTileList(List<Tile> tiles, bool pinTrailingWhitespace) {
-    var size = sqrt(tiles.length).round();
+    final size = sqrt(tiles.length).round();
 
     if (pinTrailingWhitespace && tiles.last.isWhitespace) {
-      var whitetile = tiles.removeLast();
+      final whitetile = tiles.removeLast();
       tiles.shuffle(random);
       tiles.add(whitetile);
     } else {
@@ -188,12 +195,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     }
 
     return tiles.asMap().entries.map((entry) {
-      int i = entry.key;
-      Tile t = entry.value;
+      final i = entry.key;
+      final t = entry.value;
 
       return t.copyWith(
-          currentPosition:
-              Position(x: ((i + 1) ~/ size + 1), y: ((i + 1) % size + 1)));
+        currentPosition: Position(
+          x: (i + 1) ~/ size + 1,
+          y: (i + 1) % size + 1,
+        ),
+      );
     }).toList();
   }
 
@@ -201,7 +211,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   // zero tiles are in their correct position.
   Puzzle _shufflePuzzle(Puzzle puzzle, {bool pinTrailingWhitespace = true}) {
     while (true) {
-      var shuffled = Puzzle(
+      final shuffled = Puzzle(
         tiles: _shuffleTileList(puzzle.tiles, pinTrailingWhitespace),
         questions: puzzle.questions,
       );

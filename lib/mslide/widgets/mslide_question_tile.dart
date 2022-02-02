@@ -7,8 +7,8 @@ import 'package:very_good_slide_puzzle/theme/themes/puzzle_theme_animations.dart
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
 /// {@template mslide_puzzle_tile}
-/// Displays the puzzle tile associated with [tile]
-/// based on the puzzle [state].
+/// Displays the puzzle tile associated with [question]
+/// based on the puzzle state.
 /// {@endtemplate}
 class MslideQuestionTile extends StatefulWidget {
   /// {@macro mslide_puzzle_tile}
@@ -16,7 +16,7 @@ class MslideQuestionTile extends StatefulWidget {
     Key? key,
     required this.question,
     required this.tileFontSize,
-  });
+  }) : super(key: key);
 
   /// The tile to be displayed.
   final Question question;
@@ -29,7 +29,6 @@ class MslideQuestionTile extends StatefulWidget {
 }
 
 /// The state of [MslideQuestionTile].
-@visibleForTesting
 class _MslideQuestionTileState extends State<MslideQuestionTile>
     with SingleTickerProviderStateMixin {
   /// The controller that drives [_fade] animation.
@@ -60,8 +59,8 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
   @override
   Widget build(BuildContext context) {
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
-    final notStarted = (status == mslidePuzzleStatus.notStarted);
-    final loading = (status == mslidePuzzleStatus.loading);
+    final notStarted = status == mslidePuzzleStatus.notStarted;
+    final loading = status == mslidePuzzleStatus.loading;
 
     if (notStarted) {
       _controller.reset();
@@ -76,14 +75,13 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
           color: PuzzleColors.white,
           border: Border.all(
             color: PuzzleColors.grey2,
-            width: 1,
           ),
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(12),
           ),
         ),
         child: widget.question.isWhitespace
-            ? SizedBox()
+            ? const SizedBox()
             : Column(
                 children: [
                   Expanded(
@@ -91,18 +89,20 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                       child: FadeTransition(
                         opacity: _fade,
                         child: Text(
-                              widget.question.pair.questionStr,
-                              textAlign: TextAlign.center,
-                              style: PuzzleTextStyle.headline2.copyWith(
-                                  fontSize: widget.tileFontSize,
-                                  color: PuzzleColors.grey1),
-                              semanticsLabel:
-                                  'Question: ${widget.question.pair.questionStr}, index: ${widget.question.index}',
-                            ),
+                          widget.question.pair.questionStr,
+                          textAlign: TextAlign.center,
+                          style: PuzzleTextStyle.headline2.copyWith(
+                            fontSize: widget.tileFontSize,
+                            color: PuzzleColors.grey1,
+                          ),
+                          semanticsLabel:
+                              'Question: ${widget.question.pair.questionStr}, '
+                              'index: ${widget.question.index}',
+                        ),
                       ),
                     ),
                   ),
-                  Expanded(child: SizedBox())
+                  const Expanded(child: SizedBox())
                 ],
               ),
       ),
