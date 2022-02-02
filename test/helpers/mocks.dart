@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -15,6 +16,8 @@ import 'package:very_good_slide_puzzle/timer/timer.dart';
 class MockPuzzleTheme extends Mock implements PuzzleTheme {}
 
 class MockDashatarTheme extends Mock implements DashatarTheme {}
+
+class MockMslideTheme extends Mock implements MslideTheme {}
 
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>
     implements ThemeBloc {}
@@ -28,6 +31,16 @@ class MockDashatarPuzzleBloc
     implements DashatarPuzzleBloc {}
 
 class MockDashatarPuzzleState extends Mock implements DashatarPuzzleState {}
+
+class MockMslideThemeBloc
+    extends MockBloc<MslideThemeEvent, MslideThemeState>
+    implements MslideThemeBloc {}
+
+class MockMslidePuzzleBloc
+    extends MockBloc<MslidePuzzleEvent, MslidePuzzleState>
+    implements MslidePuzzleBloc {}
+
+class MockMslidePuzzleState extends Mock implements MslidePuzzleState {}
 
 class MockPuzzleBloc extends MockBloc<PuzzleEvent, PuzzleState>
     implements PuzzleBloc {}

@@ -228,9 +228,7 @@ void main() {
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
-              const SizedBox(),
-            ]),
+            child: layoutDelegate.boardBuilder(4, [const SizedBox()], []),
           ),
           themeBloc: themeBloc,
         );
@@ -248,9 +246,7 @@ void main() {
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
-              const SizedBox(),
-            ]),
+            child: layoutDelegate.boardBuilder(4, [const SizedBox()], []),
           ),
           themeBloc: themeBloc,
         );
@@ -268,9 +264,7 @@ void main() {
 
         await tester.pumpApp(
           SingleChildScrollView(
-            child: layoutDelegate.boardBuilder(4, [
-              const SizedBox(),
-            ]),
+            child: layoutDelegate.boardBuilder(4, [const SizedBox()], []),
           ),
           themeBloc: themeBloc,
         );

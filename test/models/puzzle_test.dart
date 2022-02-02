@@ -60,6 +60,7 @@ void main() {
       unsolvable3x3Tile7,
       unsolvable3x3Tile8,
     ],
+    questions: [],
   );
 
   const solvable3x3Puzzle = Puzzle(
@@ -111,6 +112,7 @@ void main() {
         isWhitespace: true,
       ),
     ],
+    questions: [],
   );
 
   const unsolvable4x4Puzzle = Puzzle(
@@ -197,6 +199,7 @@ void main() {
         isWhitespace: true,
       ),
     ],
+    questions: [],
   );
 
   const solvable2x2Tile0 = Tile(
@@ -227,6 +230,7 @@ void main() {
       solvable2x2Tile2,
       solvable2x2Tile3,
     ],
+    questions: [],
   );
 
   group('Puzzle', () {
@@ -236,9 +240,12 @@ void main() {
         correctPosition: Position(x: 1, y: 1),
         currentPosition: Position(x: 1, y: 1),
       );
-      const puzzleEmpty = Puzzle(tiles: []);
-      const puzzle1x1 = Puzzle(tiles: [tile]);
-      const puzzle2x2 = Puzzle(tiles: [tile, tile, tile, tile]);
+      const puzzleEmpty = Puzzle(tiles: [], questions: []);
+      const puzzle1x1 = Puzzle(tiles: [tile], questions: []);
+      const puzzle2x2 = Puzzle(
+        tiles: [tile, tile, tile, tile],
+        questions: [],
+      );
 
       test('returns 0 when given an empty list', () {
         expect(puzzleEmpty.getDimension(), equals(0));
@@ -292,6 +299,7 @@ void main() {
               isWhitespace: true,
             ),
           ],
+          questions: [],
         );
         expect(puzzle.getNumberOfCorrectTiles(), equals(0));
       });
@@ -357,7 +365,7 @@ void main() {
           'moves one tile that is adjacent to the whitespace to the '
           'position of the whitespace tile', () {
         final mutableSolvable2x2Puzzle =
-            Puzzle(tiles: [...solvable2x2Puzzle.tiles]);
+            Puzzle(tiles: [...solvable2x2Puzzle.tiles], questions: const []);
         final newPuzzle = Puzzle(
           tiles: [
             solvable2x2Tile0.copyWith(
@@ -369,6 +377,7 @@ void main() {
               currentPosition: solvable2x2Tile0.currentPosition,
             ),
           ],
+          questions: const [],
         );
         expect(
           mutableSolvable2x2Puzzle.moveTiles(solvable2x2Tile3, []),
@@ -380,7 +389,7 @@ void main() {
           'moves multiple tiles that are in the same row/column as the '
           'whitespace tile', () {
         final mutableUnsolvable3x3Puzzle =
-            Puzzle(tiles: [...unsolvable3x3Puzzle.tiles]);
+            Puzzle(tiles: [...unsolvable3x3Puzzle.tiles], questions: const []);
         final newPuzzle = Puzzle(
           tiles: [
             unsolvable3x3Tile0.copyWith(
@@ -399,6 +408,7 @@ void main() {
             unsolvable3x3Tile7,
             unsolvable3x3Tile8,
           ],
+          questions: const [],
         );
         expect(
           mutableUnsolvable3x3Puzzle.moveTiles(unsolvable3x3Tile3, []),
@@ -416,6 +426,7 @@ void main() {
             solvable2x2Tile3,
             solvable2x2Tile2,
           ],
+          questions: [],
         );
         expect(solvable2x2Puzzle.sort(), sortedPuzzle);
       });

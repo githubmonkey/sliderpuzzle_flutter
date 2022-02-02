@@ -12,7 +12,7 @@ void main() {
     correctPosition: position,
     currentPosition: position,
   );
-  final puzzle = Puzzle(tiles: [tile]);
+  final puzzle = Puzzle(tiles: [tile], questions: const []);
 
   group('PuzzleState', () {
     test('supports value comparisons', () {
@@ -25,7 +25,7 @@ void main() {
 
       expect(
         PuzzleState(
-          puzzle: Puzzle(tiles: tiles),
+          puzzle: Puzzle(tiles: tiles, questions: const []),
           numberOfCorrectTiles: numberOfCorrectTiles,
         ).numberOfTilesLeft,
         equals(tiles.length - numberOfCorrectTiles - 1),

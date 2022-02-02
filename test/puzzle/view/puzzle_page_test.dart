@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -42,6 +43,25 @@ void main() {
       );
     });
 
+    testWidgets('provides all Mslide themes to PuzzleView', (tester) async {
+      await tester.pumpApp(PuzzlePage());
+
+      final BuildContext puzzleViewContext =
+          tester.element(find.byType(PuzzleView));
+
+      final mslideThemes =
+          puzzleViewContext.read<MslideThemeBloc>().state.themes;
+
+      expect(
+        mslideThemes,
+        equals([
+          BlueMslideTheme(),
+          GreenMslideTheme(),
+          YellowMslideTheme(),
+        ]),
+      );
+    });
+
     testWidgets('provides correct initial themes to PuzzleView',
         (tester) async {
       await tester.pumpApp(PuzzlePage());
@@ -54,6 +74,7 @@ void main() {
       expect(
         initialThemes,
         equals([
+          GreenMslideTheme(),
           SimpleTheme(),
           GreenDashatarTheme(),
         ]),
@@ -110,6 +131,7 @@ void main() {
     late ThemeBloc themeBloc;
     late PuzzleTheme theme;
     late DashatarThemeBloc dashatarThemeBloc;
+    late MslideThemeBloc mslideThemeBloc;
     late PuzzleLayoutDelegate layoutDelegate;
     late AudioControlBloc audioControlBloc;
 
@@ -128,7 +150,7 @@ void main() {
       when(() => layoutDelegate.backgroundBuilder(any()))
           .thenReturn(SizedBox());
 
-      when(() => layoutDelegate.boardBuilder(any(), any()))
+      when(() => layoutDelegate.boardBuilder(any(), any(), any()))
           .thenReturn(SizedBox());
 
       when(() => layoutDelegate.tileBuilder(any(), any()))
@@ -153,6 +175,10 @@ void main() {
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state)
           .thenReturn(DashatarThemeState(themes: [GreenDashatarTheme()]));
+
+      mslideThemeBloc = MockMslideThemeBloc();
+      when(() => mslideThemeBloc.state)
+          .thenReturn(MslideThemeState(themes: [GreenMslideTheme()]));
 
       audioControlBloc = MockAudioControlBloc();
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
@@ -180,6 +206,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -201,6 +228,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -226,6 +254,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -241,6 +270,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -256,6 +286,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -267,6 +298,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -278,6 +310,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -291,6 +324,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -304,39 +338,45 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
       await tester.pumpAndSettle();
 
-      verify(() => layoutDelegate.boardBuilder(any(), any())).called(1);
+      verify(() => layoutDelegate.boardBuilder(any(), any(), any())).called(1);
     });
 
     testWidgets(
-        'builds 15 tiles '
-        'with layoutDelegate.tileBuilder', (tester) async {
-      when(() => layoutDelegate.boardBuilder(any(), any()))
-          .thenAnswer((invocation) {
-        final tiles = invocation.positionalArguments[1] as List<Widget>;
-        return Row(children: tiles);
-      });
+      'builds 15 tiles '
+      'with layoutDelegate.tileBuilder',
+      (tester) async {
+        when(() => layoutDelegate.boardBuilder(any(), any(), any()))
+            .thenAnswer((invocation) {
+          final tiles = invocation.positionalArguments[1] as List<Widget>;
+          return Row(children: tiles);
+        });
 
-      await tester.pumpApp(
-        PuzzleView(),
-        themeBloc: themeBloc,
-        dashatarThemeBloc: dashatarThemeBloc,
-        audioControlBloc: audioControlBloc,
-      );
+        await tester.pumpApp(
+          PuzzleView(),
+          themeBloc: themeBloc,
+          dashatarThemeBloc: dashatarThemeBloc,
+          mslideThemeBloc: mslideThemeBloc,
+          audioControlBloc: audioControlBloc,
+        );
 
-      await tester.pumpAndSettle();
+        await tester.pumpAndSettle();
 
-      verify(() => layoutDelegate.tileBuilder(any(), any())).called(15);
-    });
+        verify(() => layoutDelegate.tileBuilder(any(), any())).called(15);
+      },
+      // TODO(s): Make board size configurable
+      skip: true,
+    );
 
     testWidgets(
         'builds 1 whitespace tile '
         'with layoutDelegate.whitespaceTileBuilder', (tester) async {
-      when(() => layoutDelegate.boardBuilder(any(), any()))
+      when(() => layoutDelegate.boardBuilder(any(), any(), any()))
           .thenAnswer((invocation) {
         final tiles = invocation.positionalArguments[1] as List<Widget>;
         return Row(children: tiles);
@@ -346,6 +386,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -374,6 +415,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         dashatarThemeBloc: dashatarThemeBloc,
+        mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
       );
 
@@ -439,6 +481,7 @@ void main() {
 
         when(puzzle.getDimension).thenReturn(4);
         when(() => puzzle.tiles).thenReturn([]);
+        when(() => puzzle.questions).thenReturn([]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
         whenListen(
@@ -607,6 +650,7 @@ void main() {
 
         when(puzzle.getDimension).thenReturn(4);
         when(() => puzzle.tiles).thenReturn([]);
+        when(() => puzzle.questions).thenReturn([]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
         whenListen(
@@ -630,6 +674,7 @@ void main() {
           PuzzleBoard(),
           themeBloc: themeBloc,
           dashatarThemeBloc: dashatarThemeBloc,
+          mslideThemeBloc: mslideThemeBloc,
           audioControlBloc: audioControlBloc,
           timerBloc: timerBloc,
           puzzleBloc: puzzleBloc,
@@ -789,8 +834,14 @@ void main() {
 
           await tester.tap(find.byType(PuzzleMenuItem));
 
-          verify(() => puzzleBloc.add(PuzzleInitialized(shufflePuzzle: true)))
-              .called(1);
+          verify(
+            () => puzzleBloc.add(
+              PuzzleInitialized(
+                shufflePuzzle: true,
+                pinTrailingWhitespace: false,
+              ),
+            ),
+          ).called(1);
         });
 
         testWidgets(
@@ -817,8 +868,14 @@ void main() {
 
           await tester.tap(find.byType(PuzzleMenuItem));
 
-          verify(() => puzzleBloc.add(PuzzleInitialized(shufflePuzzle: false)))
-              .called(1);
+          verify(
+            () => puzzleBloc.add(
+              PuzzleInitialized(
+                shufflePuzzle: false,
+                pinTrailingWhitespace: false,
+              ),
+            ),
+          ).called(1);
         });
       });
 
