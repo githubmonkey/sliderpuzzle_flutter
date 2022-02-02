@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-import 'dart:math';
+import 'dart:math' hide log;
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +12,9 @@ part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this._size, {this.random}) : super(const PuzzleState()) {
+  PuzzleBloc(this._size, {Random? random})
+      : random = random ?? Random(),
+        super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
@@ -21,7 +23,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   final int _size;
 
-  final Random? random;
+  final Random random;
 
   void _onPuzzleInitialized(
     PuzzleInitialized event,
@@ -108,7 +110,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   List<Pair> _generateQuestionPairs(int size) {
     final set = <Pair>{};
-    final random = Random();
 
     while (set.length < (size * size)) {
       set.add(
@@ -140,25 +141,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         correctPositions.add(position);
         currentPositions.add(position);
 
-        if (x == size && y == size) {
-          questions.add(
-            Question(
-              index: i++,
-              position: position,
-              pair: const Pair(left: 0, right: 0),
-              isWhitespace: true,
-            ),
-          );
-        } else {
-          final pair = pairs[i];
-          questions.add(
-            Question(
-              index: i++,
-              position: position,
-              pair: pair,
-            ),
-          );
-        }
+        final pair = pairs[i - 1];
+        questions.add(
+          Question(
+            index: i++,
+            position: position,
+            pair: pair,
+            isWhitespace: x == size && y == size,
+          ),
+        );
       }
     }
 
@@ -178,18 +169,18 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       );
     }
 
+    //log('generatePuzzle: ${puzzle.tiles}');
     return puzzle;
   }
 
   /// Build a list of tiles - giving each tile their correct position and a
   /// current position.
   List<Tile> _shuffleTileList(List<Tile> tiles, bool pinTrailingWhitespace) {
-    final size = sqrt(tiles.length).round();
-
     if (pinTrailingWhitespace && tiles.last.isWhitespace) {
       final whitetile = tiles.removeLast();
-      tiles.shuffle(random);
-      tiles.add(whitetile);
+      tiles
+        ..shuffle(random)
+        ..add(whitetile);
     } else {
       tiles.shuffle(random);
     }
@@ -200,15 +191,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
       return t.copyWith(
         currentPosition: Position(
-          x: (i + 1) ~/ size + 1,
-          y: (i + 1) % size + 1,
+          x: i % _size + 1,
+          y: i ~/ _size + 1,
         ),
       );
     }).toList();
   }
 
-  // Assign the tiles new current positions until the puzzle is solvable and
-  // zero tiles are in their correct position.
+// Assign the tiles new current positions until the puzzle is solvable and
+// zero tiles are in their correct position.
   Puzzle _shufflePuzzle(Puzzle puzzle, {bool pinTrailingWhitespace = true}) {
     while (true) {
       final shuffled = Puzzle(
@@ -217,6 +208,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       );
 
       if (shuffled.isSolvable() && shuffled.getNumberOfCorrectTiles() == 0) {
+        //log('shufflePuzzle: ${shuffled.tiles}');
         return shuffled;
       }
     }
@@ -236,7 +228,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         if (i == size * size)
           Tile(
             value: i,
-            // TODO: fix
             pair: questions[i - 1].pair,
             correctPosition: whitespacePosition,
             currentPosition: currentPositions[i - 1],
