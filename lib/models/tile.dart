@@ -9,17 +9,14 @@ class Tile extends Equatable {
   /// {@macro tile}
   const Tile({
     required this.value,
-    required this.pair,
     required this.correctPosition,
     required this.currentPosition,
+    this.pair = const Pair(left: -1, right: -1),
     this.isWhitespace = false,
   });
 
   /// Value representing the correct position of [Tile] in a list.
   final int value;
-
-  /// The value according to the question in the correct position.
-  final Pair pair;
 
   /// The correct 2D [Position] of the [Tile]. All tiles must be in their
   /// correct position to complete the puzzle.
@@ -27,6 +24,9 @@ class Tile extends Equatable {
 
   /// The current 2D [Position] of the [Tile].
   final Position currentPosition;
+
+  /// The value according to the question in the correct position.
+  final Pair pair;
 
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
@@ -50,4 +50,12 @@ class Tile extends Equatable {
         currentPosition,
         isWhitespace,
       ];
+
+
+  @override
+  String toString() {
+    return 'tile i($value) p(${pair.questionStr}=${pair.answer}) '
+    'cur(${currentPosition.x},${currentPosition.y}) '
+    'fin(${correctPosition.x},${correctPosition.y})${isWhitespace ? '*' : ''} ';
+  }
 }

@@ -43,7 +43,7 @@ class Puzzle extends Equatable {
   /// List of [Tile]s representing the puzzle's current arrangement.
   final List<Tile> tiles;
 
-  /// List of [Question]s marking the final position
+  /// List of [Question] marking the final position
   final List<Question> questions;
 
   /// Get the dimension of a puzzle given its tile arrangement.
