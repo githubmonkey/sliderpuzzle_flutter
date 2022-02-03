@@ -1,10 +1,14 @@
 {
   "hosting": {
     "public": "build/web",
+    "site": "sliderpuzzle-flutter",
+    "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": [
       ".firebase",
       "firebase.json",
-      "__/**","**/.*",
+      "__/**",
+      "**/.*",
       "**/node_modules/**"
     ]
   }
