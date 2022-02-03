@@ -84,12 +84,12 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
             Radius.circular(12),
           ),
         ),
-        child: widget.question.isWhitespace
-            ? const SizedBox()
-            : Column(
-                children: [
-                  Expanded(
-                    child: Center(
+        child: Column(
+          children: [
+            Expanded(
+              child: widget.question.isWhitespace
+                  ? const SizedBox()
+                  : Center(
                       child: FadeTransition(
                         opacity: _fade,
                         child: Text(
@@ -105,10 +105,10 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                         ),
                       ),
                     ),
-                  ),
-                  const Expanded(child: SizedBox())
-                ],
-              ),
+            ),
+            const Expanded(child: SizedBox())
+          ],
+        ),
       ),
     );
   }
