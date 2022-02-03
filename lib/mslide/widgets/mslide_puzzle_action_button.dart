@@ -76,7 +76,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                     context.read<TimerBloc>().add(const TimerReset());
                     context.read<MslidePuzzleBloc>().add(
                           MslideCountdownReset(
-                            secondsToBegin: hasStarted ? 5 : 3,
+                            secondsToBegin: hasStarted ? 4 : 3,
                           ),
                         );
 

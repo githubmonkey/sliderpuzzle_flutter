@@ -14,6 +14,8 @@ enum mslidePuzzleStatus {
   started
 }
 
+enum LaunchStages { finished, scatterAnswers, showAnswers, showQuestions, resetting }
+
 class MslidePuzzleState extends Equatable {
   const MslidePuzzleState({
     required this.secondsToBegin,
@@ -32,6 +34,8 @@ class MslidePuzzleState extends Equatable {
       : (secondsToBegin == 0
           ? mslidePuzzleStatus.started
           : mslidePuzzleStatus.notStarted);
+
+  LaunchStages get launchStage => LaunchStages.values[secondsToBegin];
 
   @override
   List<Object> get props => [isCountdownRunning, secondsToBegin];

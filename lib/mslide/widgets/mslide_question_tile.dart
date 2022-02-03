@@ -59,12 +59,16 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
   @override
   Widget build(BuildContext context) {
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
-    final notStarted = status == mslidePuzzleStatus.notStarted;
-    final loading = status == mslidePuzzleStatus.loading;
+    final launchStage =
+        context.select((MslidePuzzleBloc bloc) => bloc.state.launchStage);
+    final hide = status == mslidePuzzleStatus.notStarted ||
+        launchStage == LaunchStages.resetting;
+    final reveal = status == mslidePuzzleStatus.loading &&
+        launchStage == LaunchStages.showQuestions;
 
-    if (notStarted) {
+    if (hide) {
       _controller.reset();
-    } else if (loading) {
+    } else if (reveal) {
       _controller.forward();
     }
 

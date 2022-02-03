@@ -14,7 +14,6 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
-
 /// {@template mslide_puzzle_tile}
 /// Displays the puzzle tile associated with [tile]
 /// based on the puzzle [state].
@@ -48,28 +47,41 @@ class MslidePuzzleTile extends StatefulWidget {
 /// The state of [MslidePuzzleTile].
 @visibleForTesting
 class MslidePuzzleTileState extends State<MslidePuzzleTile>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   AudioPlayer? _audioPlayer;
   late final Timer _timer;
 
-  /// The controller that drives [_scale] animation.
-  late AnimationController _controller;
-  late Animation<double> _scale;
+  /// The controller that drives [_hoverScale] animation.
+  late AnimationController _hoverController;
+  late Animation<double> _hoverScale;
+
+  /// The controller that drives [_fade] animation for the launch sequence.
+  late AnimationController _revealController;
+  late Animation<double> _revealFade;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
+    _hoverController = AnimationController(
       vsync: this,
       duration: PuzzleThemeAnimationDuration.puzzleTileScale,
     );
 
-    _scale = Tween<double>(begin: 1, end: 0.94).animate(
+    _hoverScale = Tween<double>(begin: 1, end: 0.94).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: _hoverController,
         curve: const Interval(0, 1, curve: Curves.easeInOut),
       ),
+    );
+    _revealController = AnimationController(
+      vsync: this,
+      duration: PuzzleThemeAnimationDuration.questionLaunch,
+    );
+
+    _revealFade = CurvedAnimation(
+      parent: _revealController,
+      curve: const Interval(0, 1, curve: Curves.easeIn),
     );
 
     // Delay the initialization of the audio player for performance reasons,
@@ -82,6 +94,8 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
 
   @override
   void dispose() {
+    _hoverController.dispose();
+    _revealController.dispose();
     _timer.cancel();
     _audioPlayer?.dispose();
     super.dispose();
@@ -92,9 +106,16 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
     final size = widget.state.puzzle.getDimension();
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
+    final launchStage =
+        context.select((MslidePuzzleBloc bloc) => bloc.state.launchStage);
+    final hide = status == mslidePuzzleStatus.notStarted ||
+        launchStage == LaunchStages.resetting ||
+        launchStage == LaunchStages.showQuestions;
+    final reveal = status == mslidePuzzleStatus.loading &&
+        launchStage == LaunchStages.showAnswers;
+
     final hasStarted = status == mslidePuzzleStatus.started;
     final loading = status == mslidePuzzleStatus.loading;
-    final notStarted = status == mslidePuzzleStatus.notStarted;
 
     final puzzleIncomplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
@@ -102,8 +123,11 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
 
     final canPress = hasStarted && puzzleIncomplete;
 
-    if (notStarted) {
+    if (hide) {
+      _revealController.reset();
       return const SizedBox();
+    } else if (reveal) {
+      _revealController.forward();
     }
 
     final movementDuration = loading
@@ -112,106 +136,102 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
-      child: AnimatedAlign(
-        alignment: FractionalOffset(
-          (widget.tile.currentPosition.x - 1) / (size - 1),
-          (widget.tile.currentPosition.y - 1) / (size - 1),
-        ),
-        duration: movementDuration,
-        curve: Curves.easeInOut,
-        child: ResponsiveLayoutBuilder(
-          small: (_, child) => SizedBox.square(
-            key: Key('mslide_puzzle_tile_small_${widget.tile.value}'),
-            dimension: BoardSize.TileSize(BoardSize.small, size),
-            child: child,
+      child: FadeTransition(
+        opacity: _revealFade,
+        child: AnimatedAlign(
+          alignment: FractionalOffset(
+            (widget.tile.currentPosition.x - 1) / (size - 1),
+            (widget.tile.currentPosition.y - 1) / (size - 1),
           ),
-          medium: (_, child) => SizedBox.square(
-            key: Key('mslide_puzzle_tile_medium_${widget.tile.value}'),
-            dimension: BoardSize.TileSize(BoardSize.medium, size),
-            child: child,
-          ),
-          large: (_, child) => SizedBox.square(
-            key: Key('mslide_puzzle_tile_large_${widget.tile.value}'),
-            dimension: BoardSize.TileSize(BoardSize.large, size),
-            child: child,
-          ),
-          child: (_) => notStarted
-              ? const SizedBox()
-              : Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: AnimatedOpacity(
-                    opacity: hasStarted ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 1000),
-                    child: MouseRegion(
-                      onEnter: (_) {
-                        if (canPress) {
-                          _controller.forward();
-                        }
-                      },
-                      onExit: (_) {
-                        if (canPress) {
-                          _controller.reverse();
-                        }
-                      },
-                      child: ScaleTransition(
-                        key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
-                        scale: _scale,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            primary: PuzzleColors.white,
-                            textStyle: PuzzleTextStyle.headline2.copyWith(
-                              fontSize: widget.tileFontSize,
-                            ),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                          ).copyWith(
-                            foregroundColor:
-                                MaterialStateProperty.all(PuzzleColors.black),
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                              (states) {
-                                if (states.contains(MaterialState.hovered)) {
-                                  return theme.hoverColor;
-                                } else {
-                                  return theme.defaultColor.withOpacity(0.5);
-                                }
-                              },
-                            ),
-                          ),
-                          onPressed: canPress
-                              ? () {
-                                  context
-                                      .read<PuzzleBloc>()
-                                      .add(TileTapped(widget.tile));
-                                  unawaited(_audioPlayer?.replay());
-                                }
-                              : null,
-                          child: Column(
-                            children: [
-                              const Expanded(child: SizedBox()),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    widget.tile.pair.answer.toString(),
-                                    semanticsLabel:
-                                        context.l10n.puzzleTileLabelText(
-                                      widget.tile.pair.answer.toString(),
-                                      widget.tile.currentPosition.x.toString(),
-                                      widget.tile.currentPosition.y.toString(),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+          duration: movementDuration,
+          curve: Curves.easeInOut,
+          child: ResponsiveLayoutBuilder(
+            small: (_, child) => SizedBox.square(
+              key: Key('mslide_puzzle_tile_small_${widget.tile.value}'),
+              dimension: BoardSize.TileSize(BoardSize.small, size),
+              child: child,
+            ),
+            medium: (_, child) => SizedBox.square(
+              key: Key('mslide_puzzle_tile_medium_${widget.tile.value}'),
+              dimension: BoardSize.TileSize(BoardSize.medium, size),
+              child: child,
+            ),
+            large: (_, child) => SizedBox.square(
+              key: Key('mslide_puzzle_tile_large_${widget.tile.value}'),
+              dimension: BoardSize.TileSize(BoardSize.large, size),
+              child: child,
+            ),
+            child: (_) => Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: MouseRegion(
+                onEnter: (_) {
+                  if (canPress) {
+                    _hoverController.forward();
+                  }
+                },
+                onExit: (_) {
+                  if (canPress) {
+                    _hoverController.reverse();
+                  }
+                },
+                child: ScaleTransition(
+                  key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
+                  scale: _hoverScale,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: PuzzleColors.white,
+                      textStyle: PuzzleTextStyle.headline2.copyWith(
+                        fontSize: widget.tileFontSize,
+                      ),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
                         ),
                       ),
+                    ).copyWith(
+                      foregroundColor:
+                          MaterialStateProperty.all(PuzzleColors.black),
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith<Color?>(
+                        (states) {
+                          if (states.contains(MaterialState.hovered)) {
+                            return theme.hoverColor;
+                          } else {
+                            return theme.defaultColor.withOpacity(0.5);
+                          }
+                        },
+                      ),
+                    ),
+                    onPressed: canPress
+                        ? () {
+                            context
+                                .read<PuzzleBloc>()
+                                .add(TileTapped(widget.tile));
+                            unawaited(_audioPlayer?.replay());
+                          }
+                        : null,
+                    child: Column(
+                      children: [
+                        const Expanded(child: SizedBox()),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              widget.tile.pair.answer.toString(),
+                              semanticsLabel: context.l10n.puzzleTileLabelText(
+                                widget.tile.pair.answer.toString(),
+                                widget.tile.currentPosition.x.toString(),
+                                widget.tile.currentPosition.y.toString(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                ),
               ),
+            ),
+          ),
         ),
       ),
     );
