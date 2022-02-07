@@ -10,10 +10,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
 class App extends StatefulWidget {
@@ -170,19 +172,34 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
+    return BlocProvider<LanguageControlBloc>(
+      create: (context) => LanguageControlBloc(),
+      child: BlocBuilder<LanguageControlBloc, LanguageControlState>(
+        builder: (context, state) {
+          return MaterialApp(
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+              colorScheme: ColorScheme.fromSwatch(
+                accentColor: const Color(0xFF13B9FF),
+              ),
+            ),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: state.locale,
+            localeResolutionCallback:
+                (Locale? locale, Iterable<Locale> supportedLocales) {
+              //if locale is not supported, set english by default
+              return supportedLocales.contains(locale)
+                  ? locale
+                  : const Locale('en', 'US');
+            },
+            home: const PuzzlePage(),
+          );
+        },
       ),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const PuzzlePage(),
     );
   }
 }
