@@ -31,7 +31,7 @@ class BlueMslideTheme extends MslideTheme {
 
   @override
   String get audioControlOffAsset =>
-      'assets/images/audio_control/blue_mslide_off.png';
+      'assets/images/audio_control/blue_dashatar_off.png';
 
   @override
   String get audioAsset => 'assets/audio/dumbbell.mp3';

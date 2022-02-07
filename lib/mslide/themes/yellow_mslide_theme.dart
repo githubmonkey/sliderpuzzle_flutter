@@ -31,7 +31,7 @@ class YellowMslideTheme extends MslideTheme {
 
   @override
   String get audioControlOffAsset =>
-      'assets/images/audio_control/yellow_mslide_off.png';
+      'assets/images/audio_control/yellow_dashatar_off.png';
 
   @override
   String get audioAsset => 'assets/audio/sandwich.mp3';

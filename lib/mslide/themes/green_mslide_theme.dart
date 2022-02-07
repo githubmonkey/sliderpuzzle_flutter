@@ -31,7 +31,7 @@ class GreenMslideTheme extends MslideTheme {
 
   @override
   String get audioControlOffAsset =>
-      'assets/images/audio_control/green_mslide_off.png';
+      'assets/images/audio_control/green_dashatar_off.png';
 
   @override
   String get audioAsset => 'assets/audio/skateboard.mp3';
