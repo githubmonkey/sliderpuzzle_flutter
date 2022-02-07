@@ -1,66 +1,66 @@
 {
-    "@@locale": "en",
-    "languageChangeTooltip": "Two languages only for simplicity ",
+    "@@locale": "de",
+    "languageChangeTooltip": "Nur zwei Sprachen zur Einfachheit.",
     "@languageChangeTooltip": {
         "description": "Shown as a tooltip for language toggle menu buttons"
     },
-    "puzzleChangeTooltip": "Changing the theme will reset your score",
+    "puzzleChangeTooltip": "Der Spielstand wird zurückgesetzt",
     "@puzzleChangeTooltip": {
         "description": "Shown as a tooltip for puzzle menu buttons"
     },
-    "puzzleRestartTooltip": "Restarting the puzzle will reset your score",
+    "puzzleRestartTooltip": "Der Spielstand wird zurückgesetzt",
     "@puzzleRestartTooltip": {
         "description": "Shown as a tooltip for the puzzle restart button"
     },
-    "puzzleChallengeTitle": "Times Table Puzzle",
+    "puzzleChallengeTitle": "Einmaleins Puzzle",
     "@puzzleChallengeTitle": {
         "description": "Shown as the title of the puzzle"
     },
-    "puzzleNumberOfMoves": "Moves",
+    "puzzleNumberOfMoves": "Züge",
     "@puzzleNumberOfMoves": {
         "description": "Indicates how many moves have been made on the current puzzle"
     },
-    "puzzleNumberOfTilesLeft": "Tiles",
+    "puzzleNumberOfTilesLeft": "Kacheln",
     "@puzzleNumberOfTilesLeft": {
         "description": "Indicates how many puzzle tiles are not in their correct position"
     },
-    "puzzleShuffle": "Shuffle",
+    "puzzleShuffle": "Mischen",
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"
     },
-    "puzzleCompleted": "Well done. Congrats!",
+    "puzzleCompleted": "Gut gemacht. Herzlichen Glückwunsch!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
     },
-    "dashatarStartGame": "Start Game",
+    "dashatarStartGame": "Starten",
     "@dashatarStartGame": {
         "description": "Shown before the puzzle is started"
     },
-    "dashatarGetReady": "Get ready...",
+    "dashatarGetReady": "Und los...",
     "@dashatarStartPuzzle": {
         "description": "Shown when the puzzle is loading"
     },
-    "dashatarRestart": "Restart",
+    "dashatarRestart": "Noch mal",
     "@dashatarRestart": {
         "description": "Shown after the puzzle is started and may be restarted"
     },
-    "dashatarCountdownGo": "GO!",
+    "dashatarCountdownGo": "LOS!",
     "@dashatarCountdownGo": {
         "description": "Shown when the countdown has just finished and the puzzle is about to start"
     },
-    "dashatarSuccessCompleted": "Puzzle challenge completed",
+    "dashatarSuccessCompleted": "Geschafft!",
     "@dashatarSuccessCompleted": {
         "description": "Shown as a title in the Dashatar success state"
     },
-    "dashatarSuccessWellDone": "Well done.\nCongrats!",
+    "dashatarSuccessWellDone": "Gut gemacht. Herzlichen Glückwunsch!",
     "@dashatarSuccessWellDone": {
         "description": "Shown as a subtitle in the Dashatar success state"
     },
-    "dashatarSuccessScore": "Score",
+    "dashatarSuccessScore": "Ergebnis",
     "@dashatarSuccessScore": {
         "description": "Shown as a score title in the Dashatar success state"
     },
-    "dashatarSuccessNumberOfMoves": "{numberOfMoves} Moves",
+    "dashatarSuccessNumberOfMoves": "{numberOfMoves} Züge",
     "@dashatarSuccessNumberOfMoves": {
         "description": "Shown as a number of moves in the Dashatar success state",
         "placeholders": {
@@ -70,7 +70,7 @@
             }
         }
     },
-    "puzzleTileLabelText": "Value: {value}, position: {x}, {y}",
+    "puzzleTileLabelText": "Wert: {value}, Position: {x}, {y}",
     "@puzzleTileLabelText": {
         "description": "Semantic label for the puzzle tile",
         "placeholders": {
@@ -88,7 +88,7 @@
             }
         }
     },
-    "puzzleNumberOfMovesAndTilesLeftLabelText": "Moves: {numberOfMoves}, tiles: {tilesLeft}",
+    "puzzleNumberOfMovesAndTilesLeftLabelText": "Züge: {numberOfMoves}, Kacheln: {tilesLeft}",
     "@puzzleNumberOfMovesAndTilesLeftLabelText": {
         "description": "Semantic label for the puzzle tile",
         "placeholders": {
@@ -102,7 +102,7 @@
             }
         }
     },
-    "dashatarPuzzleDurationLabelText": "{hours} hours {minutes} minutes {seconds} seconds",
+    "dashatarPuzzleDurationLabelText": "{hours} Stunden {minutes} Minuten {seconds} Sekunden",
     "@dashatarPuzzleDurationLabelText": {
         "description": "Semantic label for the Dashatar timer",
         "placeholders": {
@@ -132,15 +132,15 @@
     "@dashatarYellowDashLabelText": {
         "description": "Semantic label for the yellow Dash"
     },
-    "dashatarSuccessShareYourScoreTitle": "Share your score!",
+    "dashatarSuccessShareYourScoreTitle": "Ergebnis teilen!",
     "@dashatarSuccessShareYourScoreTitle": {
         "description": "Shown as a share title in the Dashatar success state"
     },
-    "dashatarSuccessShareYourScoreMessage": "Share this puzzle to challenge your friends and be sure to check out the Flutter Puzzle Hack.",
+    "dashatarSuccessShareYourScoreMessage": "Teile das Puzzle und forder Deine Freunde heraus. Schau Dir auch den Flutter Puzzle Hack an.",
     "@dashatarSuccessShareYourScoreMessage": {
         "description": "Shown as a share message in the Dashatar success state"
     },
-    "dashatarSuccessShareText": "Just solved the #FlutterPuzzleHack! Check it out ↓",
+    "dashatarSuccessShareText": "Ich hab den #FlutterPuzzleHack geschafft! Guck mal ↓",
     "@dashatarSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
     }

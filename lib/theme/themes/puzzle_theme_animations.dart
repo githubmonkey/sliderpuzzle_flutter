@@ -18,4 +18,7 @@ abstract class PuzzleThemeAnimationDuration {
 
   /// The duration of the question reveal during launch sequence.
   static const questionLaunch = Duration(milliseconds: 1000);
+
+  /// The duration of the language label change
+  static const languageToggle = Duration(microseconds: 230);
 }

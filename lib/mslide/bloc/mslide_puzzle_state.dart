@@ -14,7 +14,13 @@ enum mslidePuzzleStatus {
   started
 }
 
-enum LaunchStages { finished, scatterAnswers, showAnswers, showQuestions, resetting }
+enum LaunchStages {
+  finished,
+  scatterAnswers,
+  showAnswers,
+  showQuestions,
+  resetting
+}
 
 class MslidePuzzleState extends Equatable {
   const MslidePuzzleState({

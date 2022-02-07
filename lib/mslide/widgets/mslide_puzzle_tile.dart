@@ -55,7 +55,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
   late AnimationController _hoverController;
   late Animation<double> _hoverScale;
 
-  /// The controller that drives [_fade] animation for the launch sequence.
+  /// The controller that drives [_revealFade] animation for the launch sequence.
   late AnimationController _revealController;
   late Animation<double> _revealFade;
 
@@ -162,7 +162,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
               child: child,
             ),
             child: (_) => Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(4),
               child: MouseRegion(
                 onEnter: (_) {
                   if (canPress) {

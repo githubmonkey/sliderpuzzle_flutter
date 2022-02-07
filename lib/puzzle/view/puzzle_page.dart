@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
@@ -199,9 +200,18 @@ class PuzzleHeader extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 34),
-                child: AudioControl(key: audioControlKey),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: LanguageControl(key: languageControlKey),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 34),
+                    child: AudioControl(key: audioControlKey),
+                  ),
+                ],
               ),
             ),
           ],
@@ -412,7 +422,22 @@ class PuzzleMenu extends StatelessWidget {
           child: (currentSize) {
             return Row(
               children: [
-                const Gap(44),
+                const Gap(20),
+                LanguageControl(
+                  key: languageControlKey,
+                )
+              ],
+            );
+          },
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, child) => const SizedBox(),
+          medium: (_, child) => child!,
+          large: (_, child) => child!,
+          child: (currentSize) {
+            return Row(
+              children: [
+                const Gap(4),
                 AudioControl(
                   key: audioControlKey,
                 )
@@ -473,7 +498,7 @@ class PuzzleMenuItem extends StatelessWidget {
       child: (currentSize) {
         final leftPadding =
             themeIndex > 0 && currentSize != ResponsiveLayoutSize.small
-                ? 40.0
+                ? 20.0
                 : 0.0;
 
         return Padding(
@@ -563,3 +588,9 @@ final numberOfMovesAndTilesLeftKey =
 /// Used to animate the transition of [AudioControl]
 /// when changing a theme.
 final audioControlKey = GlobalKey(debugLabel: 'audio_control');
+
+/// The global key of [LanguageControl].
+///
+/// Used to animate the transition of [LanguageControl]
+/// when changing a theme.
+final languageControlKey = GlobalKey(debugLabel: 'language_control');

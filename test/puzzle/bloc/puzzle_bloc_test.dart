@@ -148,36 +148,40 @@ void main() {
       );
     });
 
-    group('PuzzleInitializedPinned', () {
-      blocTest<PuzzleBloc, PuzzleState>(
-        'emits solvable 3x3 puzzle, [incomplete], 0 correct tiles, and 0 moves '
-        'when initialized with size 3, shuffled twice, and pinnedWhiteSpace',
-        build: () => PuzzleBloc(3, random: Random(seed)),
-        act: (bloc) => bloc.add(
-          PuzzleInitialized(shufflePuzzle: true, pinTrailingWhitespace: true),
-        ),
-        expect: () => [PuzzleState(puzzle: puzzleSize3Pinned)],
-        verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
-      );
+    group(
+      'PuzzleInitializedPinned',
+      () {
+        blocTest<PuzzleBloc, PuzzleState>(
+          'emits solvable 3x3 puzzle, [incomplete], 0 correct tiles, and 0 moves '
+          'when initialized with size 3, shuffled twice, and pinnedWhiteSpace',
+          build: () => PuzzleBloc(3, random: Random(seed)),
+          act: (bloc) => bloc.add(
+            PuzzleInitialized(shufflePuzzle: true, pinTrailingWhitespace: true),
+          ),
+          expect: () => [PuzzleState(puzzle: puzzleSize3Pinned)],
+          verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
+        );
 
-      blocTest<PuzzleBloc, PuzzleState>(
-        'emits unshuffled 3x3 puzzle, 8 correct tiles, and 0 moves '
-        'when initialized with size 3 and shuffle equal to false',
-        build: () => PuzzleBloc(3, random: Random(seed)),
-        act: (bloc) => bloc.add(
-          PuzzleInitialized(shufflePuzzle: false, pinTrailingWhitespace: false),
-        ),
-        expect: () => [
-          PuzzleState(
-            puzzle: puzzleSize3Unshuffled,
-            numberOfCorrectTiles: 8,
-          )
-        ],
-        verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
-      );
-    },
-    // evaluation doesn't work
-    skip: true);
+        blocTest<PuzzleBloc, PuzzleState>(
+          'emits unshuffled 3x3 puzzle, 8 correct tiles, and 0 moves '
+          'when initialized with size 3 and shuffle equal to false',
+          build: () => PuzzleBloc(3, random: Random(seed)),
+          act: (bloc) => bloc.add(
+            PuzzleInitialized(
+                shufflePuzzle: false, pinTrailingWhitespace: false),
+          ),
+          expect: () => [
+            PuzzleState(
+              puzzle: puzzleSize3Unshuffled,
+              numberOfCorrectTiles: 8,
+            )
+          ],
+          verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
+        );
+      },
+      // evaluation doesn't work
+      skip: true,
+    );
 
     group('TileTapped', () {
       const size = 3;
