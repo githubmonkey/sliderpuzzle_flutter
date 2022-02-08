@@ -130,6 +130,11 @@ class PuzzleTextStyle {
     );
   }
 
+  /// Settings text style
+  static TextStyle get settingsLabel {
+    return PuzzleTextStyle.bodySmall;
+  }
+
   static const _baseTextStyle = TextStyle(
     fontFamily: 'GoogleSans',
     color: PuzzleColors.black,

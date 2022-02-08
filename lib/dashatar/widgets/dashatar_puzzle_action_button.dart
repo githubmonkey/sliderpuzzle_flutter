@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -54,6 +55,8 @@ class _DashatarPuzzleActionButtonState
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
+    final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+
     final text = isStarted
         ? context.l10n.dashatarRestart
         : (isLoading
@@ -86,9 +89,12 @@ class _DashatarPuzzleActionButtonState
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            const PuzzleInitialized(
-                                shufflePuzzle: false,
-                                pinTrailingWhitespace: false,),
+                            PuzzleInitialized(
+                              size: size,
+                              elevenToTwenty: false,
+                              shufflePuzzle: false,
+                              pinTrailingWhitespace: false,
+                            ),
                           );
                     }
 

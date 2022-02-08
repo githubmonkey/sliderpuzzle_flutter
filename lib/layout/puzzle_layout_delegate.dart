@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 /// {@template puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI.
@@ -33,6 +34,10 @@ abstract class PuzzleLayoutDelegate extends Equatable {
   /// A widget builder for the background of the puzzle based on
   /// the puzzle [state].
   Widget backgroundBuilder(PuzzleState state);
+
+  /// A widget builder for anything settings related, based on the s
+  /// ettings [state]
+  Widget settingsBuilder(SettingsState state);
 
   /// A widget builder for the puzzle board.
   ///

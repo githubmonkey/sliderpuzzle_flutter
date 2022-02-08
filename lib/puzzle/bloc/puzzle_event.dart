@@ -11,15 +11,24 @@ abstract class PuzzleEvent extends Equatable {
 
 class PuzzleInitialized extends PuzzleEvent {
   const PuzzleInitialized({
+    required this.size,
+    this.elevenToTwenty = false,
     required this.shufflePuzzle,
     required this.pinTrailingWhitespace,
   });
 
+  final int size;
+  final bool elevenToTwenty;
   final bool shufflePuzzle;
   final bool pinTrailingWhitespace;
 
   @override
-  List<Object> get props => [shufflePuzzle];
+  List<Object> get props => [
+        size,
+        elevenToTwenty,
+        shufflePuzzle,
+        pinTrailingWhitespace,
+      ];
 }
 
 class TileTapped extends PuzzleEvent {
@@ -32,7 +41,12 @@ class TileTapped extends PuzzleEvent {
 }
 
 class PuzzleReset extends PuzzleEvent {
-  const PuzzleReset();
+  const PuzzleReset({required this.size});
+
+  final int size;
+
+  @override
+  List<Object> get props => [size];
 }
 
 class PuzzleShuffleAnswers extends PuzzleEvent {

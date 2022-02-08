@@ -1,5 +1,33 @@
 {
     "@@locale": "en",
+    "settingsLabelBoardSize": "Board Size",
+    "@settingsLabelBoardSize": {
+        "description": "Shown on the settings control"
+    },
+    "settingsLabelElevenToTwenty": "11 - 20",
+    "@settingsLabelElevenToTwenty": {
+        "description": "Shown on the settings control"
+    },
+    "settingsLabelAnswerEncoding": "Encoding",
+    "@settingsLabelAnswerEncoding": {
+        "description": "Shown on the settings control"
+    },
+    "settingsAnswerEncodingValueDecimal": "Decimal",
+    "@settingsAnswerEncodingValueDecimal": {
+        "description": "Shown on the menu"
+    },
+    "settingsAnswerEncodingValueRoman": "Roman",
+    "@settingsAnswerEncodingValueRoman": {
+        "description": "Shown on the menu"
+    },
+    "settingsAnswerEncodingValueBinary": "Binary",
+    "@settingsAnswerEncodingValueBinary": {
+        "description": "Shown on the menu"
+    },
+    "settingsAnswerEncodingValueHex": "Hex",
+    "@settingsAnswerEncodingValueHex": {
+        "description": "Shown on the menu"
+    },
     "languageChangeTooltip": "Two languages only for simplicity ",
     "@languageChangeTooltip": {
         "description": "Shown as a tooltip for language toggle menu buttons"

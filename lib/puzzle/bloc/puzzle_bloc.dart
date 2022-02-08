@@ -12,7 +12,7 @@ part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this._size, {Random? random})
+  PuzzleBloc({Random? random})
       : random = random ?? Random(),
         super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
@@ -21,8 +21,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleShuffleAnswers>(_onPuzzleShuffleAnswers);
   }
 
-  final int _size;
-
   final Random random;
 
   void _onPuzzleInitialized(
@@ -30,7 +28,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Emitter<PuzzleState> emit,
   ) {
     final puzzle = _generatePuzzle(
-      _size,
+      event.size,
+      elevenToTwenty: event.elevenToTwenty,
       shuffle: event.shufflePuzzle,
       pinTrailingWhitespace: event.pinTrailingWhitespace,
     );
@@ -86,7 +85,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    final puzzle = _generatePuzzle(_size);
+    final puzzle = _generatePuzzle(event.size);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -108,14 +107,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  List<Pair> _generateQuestionPairs(int size) {
+  List<Pair> _generateQuestionPairs(int size, bool elevenToTwenty) {
     final set = <Pair>{};
 
     while (set.length < (size * size)) {
       set.add(
         Pair(
-          left: random.nextInt(10) + 1,
-          right: random.nextInt(10) + 1,
+          left: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
+          right: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
         ),
       );
     }
@@ -127,11 +126,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     int size, {
     bool shuffle = true,
     bool pinTrailingWhitespace = false,
+    bool elevenToTwenty = false,
   }) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final questions = <Question>[];
-    final pairs = _generateQuestionPairs(size);
+    final pairs = _generateQuestionPairs(size, elevenToTwenty);
 
     // Create all possible board positions.
     var i = 1;
@@ -175,7 +175,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   /// Build a list of tiles - giving each tile their correct position and a
   /// current position.
-  List<Tile> _shuffleTileList(List<Tile> tiles, bool pinTrailingWhitespace) {
+  List<Tile> _shuffleTileList(
+    List<Tile> tiles,
+    int size,
+    bool pinTrailingWhitespace,
+  ) {
     if (pinTrailingWhitespace && tiles.last.isWhitespace) {
       final whitetile = tiles.removeLast();
       tiles
@@ -191,8 +195,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
       return t.copyWith(
         currentPosition: Position(
-          x: i % _size + 1,
-          y: i ~/ _size + 1,
+          x: i % size + 1,
+          y: i ~/ size + 1,
         ),
       );
     }).toList();
@@ -203,7 +207,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   Puzzle _shufflePuzzle(Puzzle puzzle, {bool pinTrailingWhitespace = true}) {
     while (true) {
       final shuffled = Puzzle(
-        tiles: _shuffleTileList(puzzle.tiles, pinTrailingWhitespace),
+        tiles: _shuffleTileList(
+          puzzle.tiles,
+          puzzle.getDimension(),
+          pinTrailingWhitespace,
+        ),
         questions: puzzle.questions,
       );
 

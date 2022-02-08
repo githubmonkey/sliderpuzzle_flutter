@@ -9,6 +9,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -75,6 +76,9 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (_) => AudioControlBloc(),
         ),
+        BlocProvider(
+          create: (_) => SettingsBloc(),
+        )
       ],
       child: const PuzzleView(),
     );
@@ -91,51 +95,60 @@ class PuzzleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
-    /// Shuffle only if the current theme is Simple.
-    final shufflePuzzle = theme is SimpleTheme;
-
-    return Scaffold(
-      body: AnimatedContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: BoxDecoration(color: theme.backgroundColor),
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<MslideThemeBloc, MslideThemeState>(
-              listener: (context, state) {
-                final mslideTheme = context.read<MslideThemeBloc>().state.theme;
-                context.read<ThemeBloc>().add(ThemeUpdated(theme: mslideTheme));
-              },
-            ),
-            BlocListener<DashatarThemeBloc, DashatarThemeState>(
-              listener: (context, state) {
-                final dashatarTheme =
-                    context.read<DashatarThemeBloc>().state.theme;
-                context
-                    .read<ThemeBloc>()
-                    .add(ThemeUpdated(theme: dashatarTheme));
-              },
-            ),
-          ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => TimerBloc(
-                  ticker: const Ticker(),
-                ),
+    return BlocProvider(
+      create: (context) => SettingsBloc(),
+      child: Scaffold(
+        body: AnimatedContainer(
+          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+          decoration: BoxDecoration(color: theme.backgroundColor),
+          child: MultiBlocListener(
+            listeners: [
+              BlocListener<MslideThemeBloc, MslideThemeState>(
+                listener: (context, state) {
+                  final mslideTheme =
+                      context.read<MslideThemeBloc>().state.theme;
+                  context
+                      .read<ThemeBloc>()
+                      .add(ThemeUpdated(theme: mslideTheme));
+                },
               ),
-              BlocProvider(
-                create: (context) => PuzzleBloc(3)
-                  ..add(
-                    PuzzleInitialized(
-                      shufflePuzzle: shufflePuzzle,
-                      pinTrailingWhitespace: theme is MslideTheme,
-                    ),
-                  ),
+              BlocListener<DashatarThemeBloc, DashatarThemeState>(
+                listener: (context, state) {
+                  final dashatarTheme =
+                      context.read<DashatarThemeBloc>().state.theme;
+                  context
+                      .read<ThemeBloc>()
+                      .add(ThemeUpdated(theme: dashatarTheme));
+                },
               ),
             ],
-            child: const _Puzzle(
-              key: Key('puzzle_view_puzzle'),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => TimerBloc(
+                    ticker: const Ticker(),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => PuzzleBloc()
+                    ..add(
+                      PuzzleInitialized(
+                        size: boardSize,
+                        elevenToTwenty: elevenToTwenty,
+                        shufflePuzzle: theme is SimpleTheme,
+                        pinTrailingWhitespace: theme is MslideTheme,
+                      ),
+                    ),
+                ),
+              ],
+              child: const _Puzzle(
+                key: Key('puzzle_view_puzzle'),
+              ),
             ),
           ),
         ),
@@ -151,31 +164,54 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final settings = context.select((SettingsBloc bloc) => bloc.state);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          children: [
-            if (theme is SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
-            SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
-                child: Column(
-                  children: const [
-                    PuzzleHeader(),
-                    PuzzleSections(),
-                  ],
+    return BlocListener<SettingsBloc, SettingsState>(
+      listener: (context, state) {
+        // Settings have changed, reinitialize the board
+        // Reset the timer and the countdown.
+        context.read<TimerBloc>().add(const TimerReset());
+        context.read<MslidePuzzleBloc>().add(
+          const MslideCountdownReset(
+            secondsToBegin: 3,
+          ),
+        );
+
+        context.read<PuzzleBloc>().add(
+              PuzzleInitialized(
+                size: state.boardSize,
+                elevenToTwenty: state.elevenToTwenty,
+                shufflePuzzle: theme is SimpleTheme,
+                pinTrailingWhitespace: theme is MslideTheme,
+              ),
+            );
+      },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              if (theme is SimpleTheme)
+                theme.layoutDelegate.backgroundBuilder(state),
+              SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Column(
+                    children: const [
+                      PuzzleHeader(),
+                      PuzzleSections(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            if (theme is! SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
-          ],
-        );
-      },
+              if (theme is! SimpleTheme)
+                theme.layoutDelegate.backgroundBuilder(state),
+              theme.layoutDelegate.settingsBuilder(settings),
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -472,6 +508,10 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
@@ -533,12 +573,14 @@ class PuzzleMenuItem extends StatelessWidget {
 
                 // Stop the Mslide countdown if it has been started.
                 context.read<MslidePuzzleBloc>().add(
-                  const MslideCountdownStopped(),
-                );
+                      const MslideCountdownStopped(),
+                    );
 
                 // Initialize the puzzle board for the newly selected theme.
                 context.read<PuzzleBloc>().add(
                       PuzzleInitialized(
+                        size: boardSize,
+                        elevenToTwenty: elevenToTwenty,
                         shufflePuzzle: theme is SimpleTheme,
                         pinTrailingWhitespace: theme is MslideTheme,
                       ),

@@ -20,9 +20,14 @@ void main() {
     group('PuzzleInitialized', () {
       test('supports value comparisons', () {
         expect(
-          PuzzleInitialized(shufflePuzzle: true, pinTrailingWhitespace: false),
+          PuzzleInitialized(
+            size: 2,
+            shufflePuzzle: true,
+            pinTrailingWhitespace: false,
+          ),
           equals(
             PuzzleInitialized(
+              size: 2,
               shufflePuzzle: true,
               pinTrailingWhitespace: false,
             ),
@@ -30,9 +35,14 @@ void main() {
         );
 
         expect(
-          PuzzleInitialized(shufflePuzzle: true, pinTrailingWhitespace: false),
+          PuzzleInitialized(
+            size: 2,
+            shufflePuzzle: true,
+            pinTrailingWhitespace: false,
+          ),
           isNot(
             PuzzleInitialized(
+              size: 2,
               shufflePuzzle: false,
               pinTrailingWhitespace: false,
             ),
@@ -50,7 +60,7 @@ void main() {
 
     group('PuzzleReset', () {
       test('supports value comparisons', () {
-        expect(PuzzleReset(), equals(PuzzleReset()));
+        expect(PuzzleReset(size: 2), equals(PuzzleReset(size: 2)));
       });
     });
   });

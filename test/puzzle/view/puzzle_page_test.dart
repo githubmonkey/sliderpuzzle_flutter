@@ -837,6 +837,7 @@ void main() {
           verify(
             () => puzzleBloc.add(
               PuzzleInitialized(
+                size: 4,
                 shufflePuzzle: true,
                 pinTrailingWhitespace: false,
               ),
@@ -871,6 +872,7 @@ void main() {
           verify(
             () => puzzleBloc.add(
               PuzzleInitialized(
+                size: 4,
                 shufflePuzzle: false,
                 pinTrailingWhitespace: false,
               ),

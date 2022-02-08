@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mslide/widgets/mslide_challenge_board.dart';
 import 'package:very_good_slide_puzzle/mslide/widgets/mslide_question_tile.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 abstract class _TileFontSize {
   static double small = 36;
@@ -76,6 +77,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
+    // TODO: CLEAN UP
     return Positioned(
       bottom: 74,
       right: 50,
@@ -83,6 +85,20 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         small: (_, child) => const SizedBox(),
         medium: (_, child) => const SizedBox(),
         large: (_, child) => const MslideThemePicker(),
+      ),
+    );
+  }
+
+  @override
+  Widget settingsBuilder(SettingsState state) {
+    // TODO: clean up
+    return Positioned(
+      bottom: 74,
+      right: 50,
+      child: ResponsiveLayoutBuilder(
+        small: (_, child) => const SizedBox(),
+        medium: (_, child) => const SizedBox(),
+        large: (_, child) =>  const SettingsList(),
       ),
     );
   }

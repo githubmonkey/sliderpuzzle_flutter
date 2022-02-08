@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/puzzle/widgets/puzzle_grid.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -88,6 +89,11 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
       ),
     );
+  }
+
+  @override
+  Widget settingsBuilder(SettingsState state) {
+    return const SizedBox();
   }
 
   @override
@@ -259,6 +265,7 @@ abstract class _BoardSize {
   static double medium = 424;
   static double large = 472;
 }
+
 abstract class _TileFontSize {
   static double small = 36;
   static double medium = 50;
@@ -342,10 +349,14 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+
     return PuzzleButton(
       textColor: PuzzleColors.primary0,
       backgroundColor: PuzzleColors.primary6,
-      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
+      onPressed: () =>
+          context.read<PuzzleBloc>().add(PuzzleReset(size: boardSize)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

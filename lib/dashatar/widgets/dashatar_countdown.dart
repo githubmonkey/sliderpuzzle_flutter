@@ -9,6 +9,7 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
@@ -67,7 +68,9 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
 
           // Shuffle the puzzle on every countdown tick.
           if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
-            context.read<PuzzleBloc>().add(const PuzzleReset());
+            final boardSize =
+                context.select((SettingsBloc bloc) => bloc.state.boardSize);
+            context.read<PuzzleBloc>().add(PuzzleReset(size: boardSize));
           }
         },
         child: ResponsiveLayoutBuilder(

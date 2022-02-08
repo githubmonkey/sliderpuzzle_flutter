@@ -55,7 +55,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
   late AnimationController _hoverController;
   late Animation<double> _hoverScale;
 
-  /// The controller that drives [_revealFade] animation for the launch sequence.
+  /// The controller that drives [_revealFade] animation for the launch seq.
   late AnimationController _revealController;
   late Animation<double> _revealFade;
 

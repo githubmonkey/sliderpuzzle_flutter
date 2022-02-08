@@ -143,6 +143,7 @@ void main() {
       verify(
         () => puzzleBloc.add(
           PuzzleInitialized(
+            size: 3,
             shufflePuzzle: false,
             pinTrailingWhitespace: false,
           ),

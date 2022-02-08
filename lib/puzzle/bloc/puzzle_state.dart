@@ -8,6 +8,7 @@ enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
 class PuzzleState extends Equatable {
   const PuzzleState({
+    this.size = 4,
     this.puzzle = const Puzzle(tiles: [], questions: []),
     this.puzzleStatus = PuzzleStatus.incomplete,
     this.tileMovementStatus = TileMovementStatus.nothingTapped,
@@ -15,6 +16,9 @@ class PuzzleState extends Equatable {
     this.numberOfMoves = 0,
     this.lastTappedTile,
   });
+
+  /// [Dimensions of current puzzle]
+  final int size;
 
   /// [Puzzle] containing the current tile arrangement.
   final Puzzle puzzle;

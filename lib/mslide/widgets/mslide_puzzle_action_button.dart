@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -47,6 +48,10 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mslidePuzzleStatus.loading;
@@ -84,7 +89,9 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            const PuzzleInitialized(
+                            PuzzleInitialized(
+                              size: boardSize,
+                              elevenToTwenty: elevenToTwenty,
                               shufflePuzzle: false,
                               pinTrailingWhitespace: true,
                             ),
