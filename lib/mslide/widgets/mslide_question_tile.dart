@@ -72,6 +72,11 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
       _controller.forward();
     }
 
+    final style = PuzzleTextStyle.headline2.copyWith(
+      fontSize: widget.tileFontSize,
+      color: PuzzleColors.grey1,
+    );
+
     return SizedBox.square(
       key: Key('mslide_question_${widget.question.index}'),
       child: DecoratedBox(
@@ -92,16 +97,24 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                   : Center(
                       child: FadeTransition(
                         opacity: _fade,
-                        child: Text(
-                          widget.question.pair.questionStr,
-                          textAlign: TextAlign.center,
-                          style: PuzzleTextStyle.headline2.copyWith(
-                            fontSize: widget.tileFontSize,
-                            color: PuzzleColors.grey1,
+                        child: RichText(
+                          text: TextSpan(
+                              text: widget.question.pair.left.toString(),
+                            style: style,
+                            semanticsLabel:
+                                'Question: ${widget.question.pair.questionStr}, '
+                                'index: ${widget.question.index}',
+                            children: <InlineSpan>[
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child:
+                                    Text(' x ', style: PuzzleTextStyle.label),
+                              ),
+                              TextSpan(
+                                  text: widget.question.pair.right.toString(),
+                                  style: style),
+                            ],
                           ),
-                          semanticsLabel:
-                              'Question: ${widget.question.pair.questionStr}, '
-                              'index: ${widget.question.index}',
                         ),
                       ),
                     ),
