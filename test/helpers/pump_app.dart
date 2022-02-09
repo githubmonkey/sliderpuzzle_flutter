@@ -14,6 +14,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -23,6 +24,7 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     ThemeBloc? themeBloc,
+    SettingsBloc? settingsBloc,
     DashatarThemeBloc? dashatarThemeBloc,
     DashatarPuzzleBloc? dashatarPuzzleBloc,
     MslideThemeBloc? mslideThemeBloc,
@@ -36,6 +38,9 @@ extension PumpApp on WidgetTester {
         providers: [
           BlocProvider.value(
             value: themeBloc ?? MockThemeBloc(),
+          ),
+          BlocProvider.value(
+            value: settingsBloc ?? MockSettingsBloc(),
           ),
           BlocProvider.value(
             value: dashatarThemeBloc ?? MockDashatarThemeBloc(),

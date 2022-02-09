@@ -7,6 +7,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/simple/simple_puzzle_layout_delegate.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
@@ -16,6 +17,7 @@ void main() {
   group('SimplePuzzleLayoutDelegate', () {
     late SimplePuzzleLayoutDelegate layoutDelegate;
     late ThemeBloc themeBloc;
+    late SettingsBloc settingsBloc;
     late PuzzleTheme theme;
     late PuzzleState state;
 
@@ -33,8 +35,10 @@ void main() {
       layoutDelegate = SimplePuzzleLayoutDelegate();
       themeBloc = MockThemeBloc();
       theme = MockPuzzleTheme();
+      settingsBloc = MockSettingsBloc();
       state = MockPuzzleState();
       final themeState = ThemeState(themes: [theme], theme: theme);
+      final settingsState = SettingsState(boardSize: 2);
 
       when(() => state.puzzleStatus).thenReturn(PuzzleStatus.incomplete);
       when(() => state.numberOfMoves).thenReturn(5);
@@ -46,6 +50,8 @@ void main() {
       when(() => theme.defaultColor).thenReturn(Colors.black);
       when(() => theme.buttonColor).thenReturn(Colors.black);
       when(() => themeBloc.state).thenReturn(themeState);
+
+      when(() => settingsBloc.state).thenReturn(settingsState);
     });
 
     group('startSectionBuilder', () {
@@ -59,6 +65,7 @@ void main() {
             child: layoutDelegate.startSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(

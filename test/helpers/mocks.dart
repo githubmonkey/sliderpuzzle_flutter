@@ -10,6 +10,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -53,6 +54,13 @@ class MockTimerBloc extends MockBloc<TimerEvent, TimerState>
     implements TimerBloc {}
 
 class MockTimerState extends Mock implements TimerState {}
+
+class MockSettingsBloc extends MockBloc<SettingsEvent, SettingsState>
+    implements SettingsBloc {}
+
+class MockSettingsEvent extends Mock implements SettingsEvent {}
+
+class MockSettingsState extends Mock implements SettingsState {}
 
 class MockPuzzle extends Mock implements Puzzle {}
 

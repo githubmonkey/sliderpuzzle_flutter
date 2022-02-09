@@ -11,6 +11,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -130,6 +131,7 @@ void main() {
   group('PuzzleView', () {
     late ThemeBloc themeBloc;
     late PuzzleTheme theme;
+    late SettingsBloc settingsBloc;
     late DashatarThemeBloc dashatarThemeBloc;
     late MslideThemeBloc mslideThemeBloc;
     late PuzzleLayoutDelegate layoutDelegate;
@@ -139,6 +141,8 @@ void main() {
       theme = MockPuzzleTheme();
       final themeState = ThemeState(themes: [theme], theme: theme);
       themeBloc = MockThemeBloc();
+      final settingsState = SettingsState(boardSize: 2);
+      settingsBloc = MockSettingsBloc();
       layoutDelegate = MockPuzzleLayoutDelegate();
 
       when(() => layoutDelegate.startSectionBuilder(any()))
@@ -171,6 +175,7 @@ void main() {
       when(() => theme.audioControlOffAsset)
           .thenReturn('assets/images/audio_control/simple_off.png');
       when(() => themeBloc.state).thenReturn(themeState);
+      when(() => settingsBloc.state).thenReturn(settingsState);
 
       dashatarThemeBloc = MockDashatarThemeBloc();
       when(() => dashatarThemeBloc.state)
@@ -205,6 +210,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -227,6 +233,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -285,6 +292,7 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
