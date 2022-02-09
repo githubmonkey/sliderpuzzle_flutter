@@ -110,6 +110,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   List<Pair> _generateQuestionPairs(int size, bool elevenToTwenty) {
     final set = <Pair>{};
 
+    // Make sure the longest number is included.
+    // TODO: remove before launch
+    set.add(
+      Pair(
+        left: elevenToTwenty ? 20 : 10,
+        right: elevenToTwenty ? 20 : 10,
+      ),
+    );
+
     while (set.length < (size * size)) {
       set.add(
         Pair(

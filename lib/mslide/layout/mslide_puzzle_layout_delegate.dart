@@ -8,10 +8,10 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 abstract class _TileFontSize {
-  static double small = 36;
-  static double medium = 44;
-  static double large = 50;
-  static double xlarge = 54;
+  static double small = 32;
+  static double medium = 40;
+  static double large = 54;
+  static double xlarge = 50;
 }
 
 abstract class _QuestionFontSize {
