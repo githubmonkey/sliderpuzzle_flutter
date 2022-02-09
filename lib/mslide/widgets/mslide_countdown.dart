@@ -73,8 +73,9 @@ class _MslideCountdownState extends State<MslideCountdown> {
         child: ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) =>
-              BlocBuilder<MslidePuzzleBloc, MslidePuzzleState>(
+          large: (_, child) => child!,
+          xlarge: (_, child) => child!,
+          child: (_) => BlocBuilder<MslidePuzzleBloc, MslidePuzzleState>(
             builder: (context, state) {
               if (!state.isCountdownRunning || state.secondsToBegin > 3) {
                 return const SizedBox();

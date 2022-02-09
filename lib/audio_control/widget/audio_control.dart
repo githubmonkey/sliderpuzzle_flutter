@@ -45,6 +45,12 @@ class AudioControl extends StatelessWidget {
               width: 33,
               height: 33,
             ),
+            xlarge: (_, __) => Image.asset(
+              audioAsset,
+              key: const Key('audio_control_xlarge'),
+              width: 33,
+              height: 33,
+            ),
           ),
         ),
       ),

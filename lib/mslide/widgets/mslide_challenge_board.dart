@@ -7,6 +7,7 @@ abstract class _BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
+  static double xlarge = 600;
 }
 
 /// {@template mslide_puzzle_board}
@@ -49,6 +50,14 @@ class MslideChallengeBoard extends StatelessWidget {
         dimension: _BoardSize.large,
         child: PuzzleGrid(
           key: const Key('mslide_puzzle_board_large'),
+          size: size,
+          tiles: questions,
+        ),
+      ),
+      xlarge: (_, child) => SizedBox.square(
+        dimension: _BoardSize.xlarge,
+        child: PuzzleGrid(
+          key: const Key('mslide_puzzle_board_xlarge'),
           size: size,
           tiles: questions,
         ),

@@ -9,14 +9,16 @@ import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 abstract class _TileFontSize {
   static double small = 36;
-  static double medium = 50;
-  static double large = 54;
+  static double medium = 44;
+  static double large = 50;
+  static double xlarge = 54;
 }
 
 abstract class _QuestionFontSize {
-  static double small = 24;
-  static double medium = 38;
-  static double large = 42;
+  static double small = 18;
+  static double medium = 28;
+  static double large = 36;
+  static double xlarge = 42;
 }
 
 /// {@template mslide_puzzle_layout_delegate}
@@ -33,6 +35,10 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
       small: (_, child) => child!,
       medium: (_, child) => child!,
       large: (_, child) => Padding(
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      xlarge: (_, child) => Padding(
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
@@ -53,6 +59,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: (_, child) => const MslidePuzzleActionButton(),
           medium: (_, child) => const MslidePuzzleActionButton(),
           large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
           small: 32,
@@ -62,6 +69,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: (_, child) => const MslideThemePicker(),
           medium: (_, child) => const MslideThemePicker(),
           large: (_, child) => const SizedBox(),
+          xlarge: (_, child) => const SizedBox(),
         ),
         const ResponsiveGap(
           small: 32,
@@ -85,6 +93,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         small: (_, child) => const SizedBox(),
         medium: (_, child) => const SizedBox(),
         large: (_, child) => const MslideThemePicker(),
+        xlarge: (_, child) => const MslideThemePicker(),
       ),
     );
   }
@@ -99,6 +108,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         small: (_, child) => const SizedBox(),
         medium: (_, child) => const SizedBox(),
         large: (_, child) =>  const SettingsList(),
+        xlarge: (_, child) =>  const SettingsList(),
       ),
     );
   }
@@ -115,6 +125,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             small: (_, child) => const SizedBox(),
             medium: (_, child) => const SizedBox(),
             large: (_, child) => const MslideTimer(),
+            xlarge: (_, child) => const MslideTimer(),
           ),
         ),
         Column(
@@ -123,6 +134,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               small: 21,
               medium: 34,
               large: 96,
+              xlarge: 96,
             ),
             Stack(
               children: [
@@ -132,6 +144,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
             const ResponsiveGap(
               large: 96,
+              xlarge: 96,
             ),
           ],
         ),
@@ -157,6 +170,11 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         tile: tile,
         state: state,
       ),
+      xlarge: (_, child) => MslidePuzzleTile(
+        tileFontSize: _TileFontSize.xlarge,
+        tile: tile,
+        state: state,
+      ),
     );
   }
 
@@ -173,6 +191,10 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
         large: (_, child) => MslideQuestionTile(
           tileFontSize: _QuestionFontSize.large,
+          question: question,
+        ),
+        xlarge: (_, child) => MslideQuestionTile(
+          tileFontSize: _QuestionFontSize.xlarge,
           question: question,
         ),
       );

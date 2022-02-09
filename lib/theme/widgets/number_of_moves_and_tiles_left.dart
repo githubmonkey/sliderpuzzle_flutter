@@ -38,8 +38,10 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
       small: (context, child) => Center(child: child),
       medium: (context, child) => Center(child: child),
       large: (context, child) => child!,
+      xlarge: (context, child) => child!,
       child: (currentSize) {
-        final mainAxisAlignment = currentSize == ResponsiveLayoutSize.large
+        final mainAxisAlignment = currentSize == ResponsiveLayoutSize.large ||
+                currentSize == ResponsiveLayoutSize.xlarge
             ? MainAxisAlignment.start
             : MainAxisAlignment.center;
 

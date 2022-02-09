@@ -16,6 +16,7 @@ abstract class _TileSize {
   static double small = 75;
   static double medium = 100;
   static double large = 112;
+  static double xlarge = 112;
 }
 
 /// {@template dashatar_puzzle_tile}
@@ -126,6 +127,11 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
           large: (_, child) => SizedBox.square(
             key: Key('dashatar_puzzle_tile_large_${widget.tile.value}'),
             dimension: _TileSize.large,
+            child: child,
+          ),
+          xlarge: (_, child) => SizedBox.square(
+            key: Key('dashatar_puzzle_tile_xlarge_${widget.tile.value}'),
+            dimension: _TileSize.xlarge,
             child: child,
           ),
           child: (_) => MouseRegion(

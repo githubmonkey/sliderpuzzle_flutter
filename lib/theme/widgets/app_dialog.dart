@@ -28,6 +28,7 @@ class AppDialog extends StatelessWidget {
       ),
       medium: (_, child) => child!,
       large: (_, child) => child!,
+      xlarge: (_, child) => child!,
       child: (currentSize) {
         final dialogWidth =
             currentSize == ResponsiveLayoutSize.large ? 740.0 : 700.0;

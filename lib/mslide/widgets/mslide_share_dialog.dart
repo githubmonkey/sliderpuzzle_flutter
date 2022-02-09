@@ -73,6 +73,7 @@ class _MslideShareDialogState extends State<MslideShareDialog>
           small: (_, child) => child!,
           medium: (_, child) => child!,
           large: (_, child) => child!,
+          xlarge: (_, child) => child!,
           child: (currentSize) {
             final padding = currentSize == ResponsiveLayoutSize.large
                 ? const EdgeInsets.fromLTRB(68, 82, 68, 73)

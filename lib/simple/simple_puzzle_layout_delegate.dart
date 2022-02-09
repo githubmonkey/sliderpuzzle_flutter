@@ -29,6 +29,10 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
+      xlarge: (_, child) => Padding(
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
       child: (_) => SimpleStartSection(state: state),
     );
   }
@@ -45,6 +49,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: (_, child) => const SimplePuzzleShuffleButton(),
           medium: (_, child) => const SimplePuzzleShuffleButton(),
           large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
           small: 32,
@@ -77,6 +82,17 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
         ),
         large: (_, __) => Padding(
+          padding: const EdgeInsets.only(bottom: 53),
+          child: SizedBox(
+            width: 568.99,
+            height: 320,
+            child: Image.asset(
+              'assets/images/simple_dash_large.png',
+              key: const Key('simple_puzzle_dash_large'),
+            ),
+          ),
+        ),
+        xlarge: (_, __) => Padding(
           padding: const EdgeInsets.only(bottom: 53),
           child: SizedBox(
             width: 568.99,
@@ -131,6 +147,14 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               tiles: tiles,
             ),
           ),
+          xlarge: (_, __) => SizedBox.square(
+            dimension: _BoardSize.xlarge,
+            child: PuzzleGrid(
+              key: const Key('simple_puzzle_board_xlarge'),
+              size: size,
+              tiles: tiles,
+            ),
+          ),
         ),
         const ResponsiveGap(
           large: 96,
@@ -158,6 +182,12 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         key: Key('simple_puzzle_tile_${tile.value}_large'),
         tile: tile,
         tileFontSize: _TileFontSize.large,
+        state: state,
+      ),
+      xlarge: (_, __) => SimplePuzzleTile(
+        key: Key('simple_puzzle_tile_${tile.value}_xlarge'),
+        tile: tile,
+        tileFontSize: _TileFontSize.xlarge,
         state: state,
       ),
     );
@@ -226,6 +256,7 @@ class SimpleStartSection extends StatelessWidget {
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
           large: (_, __) => const SimplePuzzleShuffleButton(),
+          xlarge: (_, __) => const SimplePuzzleShuffleButton(),
         ),
       ],
     );
@@ -264,12 +295,14 @@ abstract class _BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
+  static double xlarge = 600;
 }
 
 abstract class _TileFontSize {
   static double small = 36;
   static double medium = 50;
   static double large = 54;
+  static double xlarge = 58;
 }
 
 /// {@template simple_puzzle_tile}

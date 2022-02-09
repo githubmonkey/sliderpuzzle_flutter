@@ -13,6 +13,7 @@ abstract class _BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
+  static double xlarge = 472;
 }
 
 /// {@template dashatar_puzzle_board}
@@ -87,6 +88,11 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
           dimension: _BoardSize.large,
           child: child,
         ),
+        xlarge: (_, child) => SizedBox.square(
+        key: const Key('dashatar_puzzle_board_xlarge'),
+        dimension: _BoardSize.xlarge,
+        child: child,
+      ),
         child: (_) => Stack(children: widget.tiles),
       ),
     );

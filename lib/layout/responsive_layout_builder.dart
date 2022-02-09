@@ -10,7 +10,10 @@ enum ResponsiveLayoutSize {
   medium,
 
   /// Large layout
-  large
+  large,
+
+  /// XLarge layout
+  xlarge
 }
 
 /// Signature for the individual builders (`small`, `medium`, `large`).
@@ -27,6 +30,7 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
     required this.small,
     required this.medium,
     required this.large,
+    required this.xlarge,
     this.child,
   }) : super(key: key);
 
@@ -38,6 +42,9 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
 
   /// [ResponsiveLayoutWidgetBuilder] for large layout.
   final ResponsiveLayoutWidgetBuilder large;
+
+  /// [ResponsiveLayoutWidgetBuilder] for xlarge layout.
+  final ResponsiveLayoutWidgetBuilder xlarge;
 
   /// Optional child widget builder based on the current layout size
   /// which will be passed to the `small`, `medium` and `large` builders
@@ -60,7 +67,7 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
           return large(context, child?.call(ResponsiveLayoutSize.large));
         }
 
-        return large(context, child?.call(ResponsiveLayoutSize.large));
+        return xlarge(context, child?.call(ResponsiveLayoutSize.xlarge));
       },
     );
   }

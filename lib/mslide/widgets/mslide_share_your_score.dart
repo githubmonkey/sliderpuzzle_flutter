@@ -27,6 +27,7 @@ class MslideShareYourScore extends StatelessWidget {
       small: (_, child) => child!,
       medium: (_, child) => child!,
       large: (_, child) => child!,
+      xlarge: (_, child) => child!,
       child: (currentSize) {
         final titleTextStyle = currentSize == ResponsiveLayoutSize.small
             ? PuzzleTextStyle.headline4

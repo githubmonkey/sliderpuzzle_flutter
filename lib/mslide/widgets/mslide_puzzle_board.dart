@@ -14,9 +14,11 @@ abstract class BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
+  static double xlarge = 600;
 
-  static double TileSize(double cat, int dimension) {
-    assert(cat == small || cat == medium || cat == large);
+  static double getTileSize(double cat, int dimension) {
+    assert(cat == small || cat == medium || cat == large || cat == xlarge,
+        'wrong size');
     return (cat - (dimension - 1) * 8) / dimension;
   }
 }
@@ -95,6 +97,11 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
         large: (_, child) => SizedBox.square(
           dimension: BoardSize.large,
           key: const Key('mslide_puzzle_board_large'),
+          child: child,
+        ),
+        xlarge: (_, child) => SizedBox.square(
+          dimension: BoardSize.xlarge,
+          key: const Key('mslide_puzzle_board_xlarge'),
           child: child,
         ),
         child: (_) => Stack(children: widget.tiles),

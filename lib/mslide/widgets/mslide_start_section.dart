@@ -31,6 +31,7 @@ class MslideStartSection extends StatelessWidget {
           small: 20,
           medium: 83,
           large: 151,
+          xlarge: 211,
         ),
         PuzzleName(
           key: puzzleNameKey,
@@ -44,6 +45,7 @@ class MslideStartSection extends StatelessWidget {
           small: 12,
           medium: 16,
           large: 32,
+          xlarge: 42,
         ),
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
@@ -56,16 +58,19 @@ class MslideStartSection extends StatelessWidget {
           small: 8,
           medium: 18,
           large: 32,
+          xlarge: 42,
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
           large: (_, __) => const MslidePuzzleActionButton(),
+          xlarge: (_, __) => const MslidePuzzleActionButton(),
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const MslideTimer(),
           medium: (_, __) => const MslideTimer(),
           large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(small: 12),
       ],

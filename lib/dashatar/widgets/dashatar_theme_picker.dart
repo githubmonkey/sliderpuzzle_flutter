@@ -60,6 +60,7 @@ class _DashatarThemePickerState extends State<DashatarThemePicker> {
         small: (_, child) => child!,
         medium: (_, child) => child!,
         large: (_, child) => child!,
+        xlarge: (_, child) => child!,
         child: (currentSize) {
           final isSmallSize = currentSize == ResponsiveLayoutSize.small;
           final activeSize = isSmallSize

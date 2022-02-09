@@ -62,6 +62,7 @@ class _MslideThemePickerState extends State<MslideThemePicker> {
         small: (_, child) => child!,
         medium: (_, child) => child!,
         large: (_, child) => child!,
+        xlarge: (_, child) => child!,
         child: (currentSize) {
           final isSmallSize = currentSize == ResponsiveLayoutSize.small;
           final activeSize = isSmallSize

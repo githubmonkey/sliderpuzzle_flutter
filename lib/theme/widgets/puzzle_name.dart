@@ -26,7 +26,9 @@ class PuzzleName extends StatelessWidget {
     return ResponsiveLayoutBuilder(
       small: (context, child) => const SizedBox(),
       medium: (context, child) => const SizedBox(),
-      large: (context, child) => AnimatedDefaultTextStyle(
+      large: (context, child) => child!,
+      xlarge: (context, child) => child!,
+      child: (child) => AnimatedDefaultTextStyle(
         style: PuzzleTextStyle.headline5.copyWith(
           color: nameColor,
         ),

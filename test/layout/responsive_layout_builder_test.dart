@@ -14,18 +14,21 @@ void main() {
       const smallKey = Key('__small__');
       const mediumKey = Key('__medium__');
       const largeKey = Key('__large__');
+      const xlargeKey = Key('__xlarge__');
 
       await tester.pumpApp(
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(key: smallKey),
           medium: (_, __) => const SizedBox(key: mediumKey),
           large: (_, __) => const SizedBox(key: largeKey),
+          xlarge: (_, __) => const SizedBox(key: xlargeKey),
         ),
       );
 
       expect(find.byKey(smallKey), findsNothing);
       expect(find.byKey(mediumKey), findsNothing);
       expect(find.byKey(largeKey), findsOneWidget);
+      expect(find.byKey(xlargeKey), findsNothing);
     });
 
     group('on a large display', () {
@@ -35,18 +38,21 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
             small: (_, __) => const SizedBox(key: smallKey),
             medium: (_, __) => const SizedBox(key: mediumKey),
             large: (_, __) => const SizedBox(key: largeKey),
+            xlarge: (_, __) => const SizedBox(key: largeKey),
           ),
         );
 
         expect(find.byKey(smallKey), findsNothing);
         expect(find.byKey(mediumKey), findsNothing);
         expect(find.byKey(largeKey), findsOneWidget);
+        expect(find.byKey(xlargeKey), findsNothing);
       });
 
       testWidgets('displays child when available', (tester) async {
@@ -55,6 +61,7 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
         const childKey = Key('__child__');
 
         await tester.pumpApp(
@@ -62,6 +69,7 @@ void main() {
             small: (_, child) => SizedBox(key: smallKey, child: child),
             medium: (_, child) => SizedBox(key: mediumKey, child: child),
             large: (_, child) => SizedBox(key: largeKey, child: child),
+            xlarge: (_, child) => SizedBox(key: xlargeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -69,6 +77,7 @@ void main() {
         expect(find.byKey(smallKey), findsNothing);
         expect(find.byKey(mediumKey), findsNothing);
         expect(find.byKey(largeKey), findsOneWidget);
+        expect(find.byKey(xlargeKey), findsNothing);
         expect(find.byKey(childKey), findsOneWidget);
       });
 
@@ -81,6 +90,7 @@ void main() {
             small: (_, child) => child!,
             medium: (_, child) => child!,
             large: (_, child) => child!,
+            xlarge: (_, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();
@@ -102,18 +112,21 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
             small: (_, __) => const SizedBox(key: smallKey),
             medium: (_, __) => const SizedBox(key: mediumKey),
             large: (_, __) => const SizedBox(key: largeKey),
+            xlarge: (_, __) => const SizedBox(key: xlargeKey),
           ),
         );
 
         expect(find.byKey(smallKey), findsNothing);
         expect(find.byKey(mediumKey), findsOneWidget);
         expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsNothing);
       });
 
       testWidgets('displays child when available', (tester) async {
@@ -122,6 +135,7 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
         const childKey = Key('__child__');
 
         await tester.pumpApp(
@@ -129,6 +143,7 @@ void main() {
             small: (_, child) => SizedBox(key: smallKey, child: child),
             medium: (_, child) => SizedBox(key: mediumKey, child: child),
             large: (_, child) => SizedBox(key: largeKey, child: child),
+            xlarge: (_, child) => SizedBox(key: largeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -136,6 +151,7 @@ void main() {
         expect(find.byKey(smallKey), findsNothing);
         expect(find.byKey(mediumKey), findsOneWidget);
         expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsNothing);
         expect(find.byKey(childKey), findsOneWidget);
       });
 
@@ -148,6 +164,7 @@ void main() {
             small: (_, child) => child!,
             medium: (_, child) => child!,
             large: (_, child) => child!,
+            xlarge: (_, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();
@@ -169,18 +186,21 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
 
         await tester.pumpApp(
           ResponsiveLayoutBuilder(
             small: (_, __) => const SizedBox(key: smallKey),
             medium: (_, __) => const SizedBox(key: mediumKey),
             large: (_, __) => const SizedBox(key: largeKey),
+            xlarge: (_, __) => const SizedBox(key: xlargeKey),
           ),
         );
 
         expect(find.byKey(smallKey), findsOneWidget);
         expect(find.byKey(mediumKey), findsNothing);
         expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsNothing);
       });
 
       testWidgets('displays child when available', (tester) async {
@@ -189,6 +209,7 @@ void main() {
         const smallKey = Key('__small__');
         const mediumKey = Key('__medium__');
         const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
         const childKey = Key('__child__');
 
         await tester.pumpApp(
@@ -196,6 +217,7 @@ void main() {
             small: (_, child) => SizedBox(key: smallKey, child: child),
             medium: (_, child) => SizedBox(key: mediumKey, child: child),
             large: (_, child) => SizedBox(key: largeKey, child: child),
+            xlarge: (_, child) => SizedBox(key: largeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );
@@ -203,6 +225,7 @@ void main() {
         expect(find.byKey(smallKey), findsOneWidget);
         expect(find.byKey(mediumKey), findsNothing);
         expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsNothing);
         expect(find.byKey(childKey), findsOneWidget);
 
         addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
@@ -217,6 +240,7 @@ void main() {
             small: (_, child) => child!,
             medium: (_, child) => child!,
             large: (_, child) => child!,
+            xlarge: (_, child) => child!,
             child: (currentLayoutSize) {
               layoutSize = currentLayoutSize;
               return const SizedBox();

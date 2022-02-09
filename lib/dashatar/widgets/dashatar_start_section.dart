@@ -61,11 +61,13 @@ class DashatarStartSection extends StatelessWidget {
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
           large: (_, __) => const DashatarPuzzleActionButton(),
+          xlarge: (_, __) => const DashatarPuzzleActionButton(),
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const DashatarTimer(),
           medium: (_, __) => const DashatarTimer(),
           large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(small: 12),
       ],

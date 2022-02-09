@@ -43,6 +43,7 @@ class DashatarTimer extends StatelessWidget {
       small: (_, child) => child!,
       medium: (_, child) => child!,
       large: (_, child) => child!,
+      xlarge: (_, child) => child!,
       child: (currentSize) {
         final currentTextStyle = textStyle ??
             (currentSize == ResponsiveLayoutSize.small

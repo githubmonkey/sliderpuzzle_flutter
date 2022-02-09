@@ -148,17 +148,22 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
           child: ResponsiveLayoutBuilder(
             small: (_, child) => SizedBox.square(
               key: Key('mslide_puzzle_tile_small_${widget.tile.value}'),
-              dimension: BoardSize.TileSize(BoardSize.small, size),
+              dimension: BoardSize.getTileSize(BoardSize.small, size),
               child: child,
             ),
             medium: (_, child) => SizedBox.square(
               key: Key('mslide_puzzle_tile_medium_${widget.tile.value}'),
-              dimension: BoardSize.TileSize(BoardSize.medium, size),
+              dimension: BoardSize.getTileSize(BoardSize.medium, size),
               child: child,
             ),
             large: (_, child) => SizedBox.square(
               key: Key('mslide_puzzle_tile_large_${widget.tile.value}'),
-              dimension: BoardSize.TileSize(BoardSize.large, size),
+              dimension: BoardSize.getTileSize(BoardSize.large, size),
+              child: child,
+            ),
+            xlarge: (_, child) => SizedBox.square(
+              key: Key('mslide_puzzle_tile_xlarge_${widget.tile.value}'),
+              dimension: BoardSize.getTileSize(BoardSize.xlarge, size),
               child: child,
             ),
             child: (_) => Padding(

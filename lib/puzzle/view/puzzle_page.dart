@@ -276,6 +276,18 @@ class PuzzleHeader extends StatelessWidget {
             ],
           ),
         ),
+        xlarge: (context, child) => Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 50,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              PuzzleLogo(),
+              PuzzleMenu(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -340,6 +352,18 @@ class PuzzleSections extends StatelessWidget {
           ),
         ],
       ),
+      xlarge: (context, child) => Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: theme.layoutDelegate.startSectionBuilder(state),
+        ),
+        const PuzzleBoard(),
+        Expanded(
+          child: theme.layoutDelegate.endSectionBuilder(state),
+        ),
+      ],
+    ),
     );
   }
 }
@@ -455,6 +479,7 @@ class PuzzleMenu extends StatelessWidget {
           small: (_, child) => const SizedBox(),
           medium: (_, child) => child!,
           large: (_, child) => child!,
+          xlarge: (_, child) => child!,
           child: (currentSize) {
             return Row(
               children: [
@@ -470,6 +495,7 @@ class PuzzleMenu extends StatelessWidget {
           small: (_, child) => const SizedBox(),
           medium: (_, child) => child!,
           large: (_, child) => child!,
+          xlarge: (_, child) => child!,
           child: (currentSize) {
             return Row(
               children: [
@@ -535,6 +561,7 @@ class PuzzleMenuItem extends StatelessWidget {
       ),
       medium: (_, child) => child!,
       large: (_, child) => child!,
+      xlarge: (_, child) => child!,
       child: (currentSize) {
         final leftPadding =
             themeIndex > 0 && currentSize != ResponsiveLayoutSize.small
