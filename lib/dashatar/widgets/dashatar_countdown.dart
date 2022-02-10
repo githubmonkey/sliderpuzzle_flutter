@@ -68,8 +68,7 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
 
           // Shuffle the puzzle on every countdown tick.
           if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
-            final boardSize =
-                context.select((SettingsBloc bloc) => bloc.state.boardSize);
+            final boardSize = context.read<SettingsBloc>().state.boardSize;
             context.read<PuzzleBloc>().add(PuzzleReset(size: boardSize));
           }
         },
