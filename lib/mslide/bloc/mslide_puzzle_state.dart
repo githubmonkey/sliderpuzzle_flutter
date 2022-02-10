@@ -14,6 +14,7 @@ enum mslidePuzzleStatus {
   started
 }
 
+// WARNING: keep order, it is matched to countdown seconds
 enum LaunchStages {
   finished,
   scatterAnswers,

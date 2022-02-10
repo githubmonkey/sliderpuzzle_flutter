@@ -63,10 +63,11 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final launchStage =
         context.select((MslidePuzzleBloc bloc) => bloc.state.launchStage);
-    final hide = status == mslidePuzzleStatus.notStarted ||
+    final hide = status == mslidePuzzleStatus.loading &&
         launchStage == LaunchStages.resetting;
-    final reveal = status == mslidePuzzleStatus.loading &&
-        launchStage == LaunchStages.showQuestions;
+    final reveal = status == mslidePuzzleStatus.notStarted ||
+        (status == mslidePuzzleStatus.loading &&
+            launchStage == LaunchStages.showQuestions);
 
     final encoding =
         context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
