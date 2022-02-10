@@ -13,7 +13,6 @@ import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
-import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_puzzle_tile}
@@ -235,7 +234,11 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                                 widget.tile.pair.answer,
                                 encoding: encoding,
                               ),
-                              semanticsLabel: context.l10n.puzzleTileLabelText(
+                              // TODO(s): does this even make sense here?
+                              semanticsLabel:
+                                  context.l10n.puzzleTileMathLabelText(
+                                '?',
+                                '?',
                                 widget.tile.pair.answer.toString(),
                                 widget.tile.currentPosition.x.toString(),
                                 widget.tile.currentPosition.y.toString(),

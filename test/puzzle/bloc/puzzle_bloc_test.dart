@@ -125,11 +125,7 @@ void main() {
         'when initialized with size 3 and shuffle equal to true',
         build: () => PuzzleBloc(random: Random(seed)),
         act: (bloc) => bloc.add(
-          PuzzleInitialized(
-            size: 3,
-            shufflePuzzle: true,
-            pinTrailingWhitespace: false,
-          ),
+          PuzzleInitialized(size: 3),
         ),
         expect: () => [PuzzleState(puzzle: puzzleSize3)],
         verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
@@ -140,11 +136,7 @@ void main() {
         'when initialized with size 3 and shuffle equal to false',
         build: () => PuzzleBloc(random: Random(seed)),
         act: (bloc) => bloc.add(
-          PuzzleInitialized(
-            size: 3,
-            shufflePuzzle: false,
-            pinTrailingWhitespace: false,
-          ),
+          PuzzleInitialized(size: 3),
         ),
         expect: () => [
           PuzzleState(
@@ -164,11 +156,7 @@ void main() {
           'when initialized with size 3, shuffled twice, and pinnedWhiteSpace',
           build: () => PuzzleBloc(random: Random(seed)),
           act: (bloc) => bloc.add(
-            PuzzleInitialized(
-              size: 3,
-              shufflePuzzle: true,
-              pinTrailingWhitespace: true,
-            ),
+            PuzzleInitialized(size: 3),
           ),
           expect: () => [PuzzleState(puzzle: puzzleSize3Pinned)],
           verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
@@ -179,11 +167,7 @@ void main() {
           'when initialized with size 3 and shuffle equal to false',
           build: () => PuzzleBloc(random: Random(seed)),
           act: (bloc) => bloc.add(
-            PuzzleInitialized(
-              size: 3,
-              shufflePuzzle: false,
-              pinTrailingWhitespace: false,
-            ),
+            PuzzleInitialized(size: 3),
           ),
           expect: () => [
             PuzzleState(

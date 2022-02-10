@@ -20,32 +20,16 @@ void main() {
     group('PuzzleInitialized', () {
       test('supports value comparisons', () {
         expect(
-          PuzzleInitialized(
-            size: 2,
-            shufflePuzzle: true,
-            pinTrailingWhitespace: false,
-          ),
+          PuzzleInitialized(size: 2),
           equals(
-            PuzzleInitialized(
-              size: 2,
-              shufflePuzzle: true,
-              pinTrailingWhitespace: false,
-            ),
+            PuzzleInitialized(size: 2),
           ),
         );
 
         expect(
-          PuzzleInitialized(
-            size: 2,
-            shufflePuzzle: true,
-            pinTrailingWhitespace: false,
-          ),
+          PuzzleInitialized(size: 2),
           isNot(
-            PuzzleInitialized(
-              size: 2,
-              shufflePuzzle: false,
-              pinTrailingWhitespace: false,
-            ),
+            PuzzleInitialized(size: 2),
           ),
         );
       });

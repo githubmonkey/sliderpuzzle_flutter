@@ -73,7 +73,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
-    // TODO: CLEAN UP
+    // TODO(s): CLEAN UP
     return Positioned(
       bottom: 74,
       right: 50,
@@ -88,7 +88,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget settingsBuilder(SettingsState state) {
-    // TODO: clean up
+    // TODO(s): clean up
     return Positioned(
       bottom: 74,
       right: 50,

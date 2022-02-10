@@ -115,9 +115,6 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                               encoding: encoding,
                             ),
                             style: style,
-                            semanticsLabel:
-                                'Question: ${widget.question.pair.questionStr}, '
-                                'index: ${widget.question.index}',
                             children: <InlineSpan>[
                               WidgetSpan(
                                 alignment: PlaceholderAlignment.middle,
@@ -125,11 +122,12 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                                     Text(' x ', style: PuzzleTextStyle.label),
                               ),
                               TextSpan(
-                                  text: getEncodingHelper().encoded(
-                                    widget.question.pair.right,
-                                    encoding: encoding,
-                                  ),
-                                  style: style),
+                                text: getEncodingHelper().encoded(
+                                  widget.question.pair.right,
+                                  encoding: encoding,
+                                ),
+                                style: style,
+                              ),
                             ],
                           ),
                         ),

@@ -5,7 +5,9 @@ import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
+/// Complete settings block
 class SettingsList extends StatelessWidget {
+  /// Constructor
   const SettingsList({Key? key}) : super(key: key);
 
   @override
@@ -64,7 +66,6 @@ class SettingsList extends StatelessWidget {
               ),
             ],
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -100,7 +101,8 @@ class SettingsList extends StatelessWidget {
                     ),
                     DropdownMenuItem<AnswerEncoding>(
                       value: AnswerEncoding.roman,
-                      child: Text(context.l10n.settingsAnswerEncodingValueRoman),
+                      child:
+                          Text(context.l10n.settingsAnswerEncodingValueRoman),
                     ),
                     DropdownMenuItem<AnswerEncoding>(
                       value: AnswerEncoding.hex,
@@ -108,7 +110,8 @@ class SettingsList extends StatelessWidget {
                     ),
                     DropdownMenuItem<AnswerEncoding>(
                       value: AnswerEncoding.binary,
-                      child: Text(context.l10n.settingsAnswerEncodingValueBinary),
+                      child:
+                          Text(context.l10n.settingsAnswerEncodingValueBinary),
                     ),
                   ],
                 ),

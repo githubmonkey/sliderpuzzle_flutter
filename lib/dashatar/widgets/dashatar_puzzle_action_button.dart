@@ -89,12 +89,7 @@ class _DashatarPuzzleActionButtonState
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            PuzzleInitialized(
-                              size: size,
-                              elevenToTwenty: false,
-                              shufflePuzzle: false,
-                              pinTrailingWhitespace: false,
-                            ),
+                            PuzzleInitialized(size: size),
                           );
                     }
 

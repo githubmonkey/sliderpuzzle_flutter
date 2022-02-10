@@ -116,6 +116,32 @@
             }
         }
     },
+    "puzzleTileMathLabelText": "Frage: {left}x{right}, Antwort: {answer}, Position: {x}, {y}",
+    "@puzzleTileMathLabelText": {
+        "description": "Semantic label for the puzzle tile for math puzzles",
+        "placeholders": {
+            "left": {
+                "type": "String",
+                "example": "3"
+            },
+            "right": {
+                "type": "String",
+                "example": "5"
+            },
+            "answer": {
+                "type": "String",
+                "example": "15"
+            },
+            "x": {
+                "type": "String",
+                "example": "1"
+            },
+            "y": {
+                "type": "String",
+                "example": "3"
+            }
+        }
+    },
     "puzzleNumberOfMovesAndTilesLeftLabelText": "Züge: {numberOfMoves}, Kacheln: {tilesLeft}",
     "@puzzleNumberOfMovesAndTilesLeftLabelText": {
         "description": "Semantic label for the puzzle tile",

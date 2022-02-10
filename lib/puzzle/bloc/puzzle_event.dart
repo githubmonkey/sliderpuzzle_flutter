@@ -13,21 +13,21 @@ class PuzzleInitialized extends PuzzleEvent {
   const PuzzleInitialized({
     required this.size,
     this.elevenToTwenty = false,
-    required this.shufflePuzzle,
-    required this.pinTrailingWhitespace,
+    //required this.shufflePuzzle,
+    //required this.pinTrailingWhitespace,
   });
 
   final int size;
   final bool elevenToTwenty;
-  final bool shufflePuzzle;
-  final bool pinTrailingWhitespace;
+  //final bool shufflePuzzle;
+  //final bool pinTrailingWhitespace;
 
   @override
   List<Object> get props => [
         size,
         elevenToTwenty,
-        shufflePuzzle,
-        pinTrailingWhitespace,
+  //      shufflePuzzle,
+  //      pinTrailingWhitespace,
       ];
 }
 

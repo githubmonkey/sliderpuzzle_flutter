@@ -948,11 +948,7 @@ void main() {
 
           verify(
             () => puzzleBloc.add(
-              PuzzleInitialized(
-                size: 4,
-                shufflePuzzle: true,
-                pinTrailingWhitespace: false,
-              ),
+              PuzzleInitialized(size: 4),
             ),
           ).called(1);
         });
@@ -985,11 +981,7 @@ void main() {
 
           verify(
             () => puzzleBloc.add(
-              PuzzleInitialized(
-                size: 4,
-                shufflePuzzle: false,
-                pinTrailingWhitespace: false,
-              ),
+              PuzzleInitialized(size: 4),
             ),
           ).called(1);
         });

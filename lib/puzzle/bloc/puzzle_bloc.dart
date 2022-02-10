@@ -30,8 +30,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final puzzle = _generatePuzzle(
       event.size,
       elevenToTwenty: event.elevenToTwenty,
-      shuffle: event.shufflePuzzle,
-      pinTrailingWhitespace: event.pinTrailingWhitespace,
+      shuffle: false,
+      //pinTrailingWhitespace: event.pinTrailingWhitespace,
     );
     emit(
       PuzzleState(
@@ -98,7 +98,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleShuffleAnswers event,
     Emitter<PuzzleState> emit,
   ) {
-    final puzzle = _shufflePuzzle(state.puzzle, pinTrailingWhitespace: true);
+    final puzzle = _shufflePuzzle(state.puzzle);
     emit(
       PuzzleState(
         puzzle: puzzle,
@@ -111,7 +111,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final set = <Pair>{};
 
     // Make sure the longest number is included.
-    // TODO: remove before launch
+    // TODO(s): remove before launch
     set.add(
       Pair(
         left: elevenToTwenty ? 20 : 10,

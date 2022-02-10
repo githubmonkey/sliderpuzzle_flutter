@@ -140,8 +140,6 @@ class PuzzleView extends StatelessWidget {
                       PuzzleInitialized(
                         size: boardSize,
                         elevenToTwenty: elevenToTwenty,
-                        shufflePuzzle: theme is SimpleTheme,
-                        pinTrailingWhitespace: theme is MslideTheme,
                       ),
                     ),
                 ),
@@ -172,17 +170,13 @@ class _Puzzle extends StatelessWidget {
         // Reset the timer and the countdown.
         context.read<TimerBloc>().add(const TimerReset());
         context.read<MslidePuzzleBloc>().add(
-          const MslideCountdownReset(
-            secondsToBegin: 3,
-          ),
-        );
+              const MslideCountdownReset(secondsToBegin: 3),
+            );
 
         context.read<PuzzleBloc>().add(
               PuzzleInitialized(
                 size: state.boardSize,
                 elevenToTwenty: state.elevenToTwenty,
-                shufflePuzzle: theme is SimpleTheme,
-                pinTrailingWhitespace: theme is MslideTheme,
               ),
             );
       },
@@ -353,17 +347,17 @@ class PuzzleSections extends StatelessWidget {
         ],
       ),
       xlarge: (context, child) => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: theme.layoutDelegate.startSectionBuilder(state),
-        ),
-        const PuzzleBoard(),
-        Expanded(
-          child: theme.layoutDelegate.endSectionBuilder(state),
-        ),
-      ],
-    ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: theme.layoutDelegate.startSectionBuilder(state),
+          ),
+          const PuzzleBoard(),
+          Expanded(
+            child: theme.layoutDelegate.endSectionBuilder(state),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -608,8 +602,6 @@ class PuzzleMenuItem extends StatelessWidget {
                       PuzzleInitialized(
                         size: boardSize,
                         elevenToTwenty: elevenToTwenty,
-                        shufflePuzzle: theme is SimpleTheme,
-                        pinTrailingWhitespace: theme is MslideTheme,
                       ),
                     );
               },

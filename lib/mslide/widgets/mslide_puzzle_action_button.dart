@@ -92,8 +92,6 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                             PuzzleInitialized(
                               size: boardSize,
                               elevenToTwenty: elevenToTwenty,
-                              shufflePuzzle: false,
-                              pinTrailingWhitespace: true,
                             ),
                           );
                     }
