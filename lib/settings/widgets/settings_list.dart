@@ -74,38 +74,44 @@ class SettingsList extends StatelessWidget {
                   color: theme.defaultColor,
                 ),
               ),
-              DropdownButton<AnswerEncoding>(
-                value: answerEncoding,
-                style: PuzzleTextStyle.settingsLabel.copyWith(
-                  color: theme.defaultColor,
+              Theme(
+                data: Theme.of(context).copyWith(
+                  canvasColor: theme.buttonColor,
                 ),
-                onChanged: (AnswerEncoding? result) {
-                  if (null != result) {
-                    context
-                        .read<SettingsBloc>()
-                        .add(AnswerEncodingChanged(answerEncoding: result));
-                  }
-                },
-                items: [
-                  DropdownMenuItem<AnswerEncoding>(
-                    value: AnswerEncoding.decimal,
-                    child: Text(
-                      context.l10n.settingsAnswerEncodingValueDecimal,
+                child: DropdownButton<AnswerEncoding>(
+                  value: answerEncoding,
+                  style: PuzzleTextStyle.settingsLabel.copyWith(
+                    color: theme.defaultColor,
+                    //backgroundColor: theme.buttonColor,
+                  ),
+                  onChanged: (AnswerEncoding? result) {
+                    if (null != result) {
+                      context
+                          .read<SettingsBloc>()
+                          .add(AnswerEncodingChanged(answerEncoding: result));
+                    }
+                  },
+                  items: [
+                    DropdownMenuItem<AnswerEncoding>(
+                      value: AnswerEncoding.decimal,
+                      child: Text(
+                        context.l10n.settingsAnswerEncodingValueDecimal,
+                      ),
                     ),
-                  ),
-                  DropdownMenuItem<AnswerEncoding>(
-                    value: AnswerEncoding.roman,
-                    child: Text(context.l10n.settingsAnswerEncodingValueRoman),
-                  ),
-                  DropdownMenuItem<AnswerEncoding>(
-                    value: AnswerEncoding.hex,
-                    child: Text(context.l10n.settingsAnswerEncodingValueHex),
-                  ),
-                  DropdownMenuItem<AnswerEncoding>(
-                    value: AnswerEncoding.binary,
-                    child: Text(context.l10n.settingsAnswerEncodingValueBinary),
-                  ),
-                ],
+                    DropdownMenuItem<AnswerEncoding>(
+                      value: AnswerEncoding.roman,
+                      child: Text(context.l10n.settingsAnswerEncodingValueRoman),
+                    ),
+                    DropdownMenuItem<AnswerEncoding>(
+                      value: AnswerEncoding.hex,
+                      child: Text(context.l10n.settingsAnswerEncodingValueHex),
+                    ),
+                    DropdownMenuItem<AnswerEncoding>(
+                      value: AnswerEncoding.binary,
+                      child: Text(context.l10n.settingsAnswerEncodingValueBinary),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
