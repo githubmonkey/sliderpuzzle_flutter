@@ -38,8 +38,8 @@ class SettingsList extends StatelessWidget {
               Slider(
                 value: boardSize.toDouble(),
                 min: 2,
-                max: 6,
-                divisions: 4,
+                max: 5,
+                divisions: 3,
                 activeColor: theme.defaultColor,
                 label: boardSize.toString(),
                 onChanged: (double value) => context
