@@ -75,6 +75,7 @@ class MslideScore extends StatelessWidget {
                         small: 24,
                         medium: 32,
                         large: 32,
+                        xlarge: 32,
                       ),
                       SizedBox(
                         key: const Key('mslide_score_completed'),
@@ -91,6 +92,7 @@ class MslideScore extends StatelessWidget {
                         small: 8,
                         medium: 16,
                         large: 16,
+                        xlarge: 16,
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('mslide_score_well_done'),
@@ -104,6 +106,7 @@ class MslideScore extends StatelessWidget {
                         small: 24,
                         medium: 32,
                         large: 32,
+                        xlarge: 32,
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('mslide_score_score'),
@@ -117,6 +120,7 @@ class MslideScore extends StatelessWidget {
                         small: 8,
                         medium: 9,
                         large: 9,
+                        xlarge: 9,
                       ),
                       MslideTimer(
                         textStyle: timerTextStyle,
@@ -128,6 +132,7 @@ class MslideScore extends StatelessWidget {
                         small: 2,
                         medium: 8,
                         large: 8,
+                        xlarge: 8,
                       ),
                       AnimatedDefaultTextStyle(
                         key: const Key('mslide_score_number_of_moves'),

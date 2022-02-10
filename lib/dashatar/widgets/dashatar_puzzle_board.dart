@@ -9,6 +9,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
+// Overwrite since xlarge isn't working for images
 abstract class _BoardSize {
   static double small = 312;
   static double medium = 424;

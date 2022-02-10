@@ -21,8 +21,7 @@ class MslideStartSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status =
-        context.select((MslidePuzzleBloc bloc) => bloc.state.status);
+    final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +35,10 @@ class MslideStartSection extends StatelessWidget {
         PuzzleName(
           key: puzzleNameKey,
         ),
-        const ResponsiveGap(large: 16),
+        const ResponsiveGap(
+          large: 16,
+          xlarge: 16,
+        ),
         PuzzleTitle(
           key: puzzleTitleKey,
           title: context.l10n.puzzleChallengeTitle,

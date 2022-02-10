@@ -31,11 +31,15 @@ class DashatarStartSection extends StatelessWidget {
           small: 20,
           medium: 83,
           large: 151,
+          xlarge: 151,
         ),
         PuzzleName(
           key: puzzleNameKey,
         ),
-        const ResponsiveGap(large: 16),
+        const ResponsiveGap(
+          large: 16,
+          xlarge: 16,
+        ),
         PuzzleTitle(
           key: puzzleTitleKey,
           title: context.l10n.puzzleChallengeTitle,
@@ -44,6 +48,7 @@ class DashatarStartSection extends StatelessWidget {
           small: 12,
           medium: 16,
           large: 32,
+          xlarge: 32,
         ),
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
@@ -56,6 +61,7 @@ class DashatarStartSection extends StatelessWidget {
           small: 8,
           medium: 18,
           large: 32,
+          xlarge: 32,
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
