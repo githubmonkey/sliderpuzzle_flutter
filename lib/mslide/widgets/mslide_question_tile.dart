@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/helpers/encoding_helper.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/bloc/mslide_puzzle_bloc.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/puzzle_theme_animations.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
@@ -66,14 +68,22 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
     final reveal = status == mslidePuzzleStatus.loading &&
         launchStage == LaunchStages.showQuestions;
 
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+
     if (hide) {
       _controller.reset();
     } else if (reveal) {
       _controller.forward();
     }
 
+    final adjustedFontSize =
+        encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
+            ? widget.tileFontSize / 2
+            : widget.tileFontSize;
+
     final style = PuzzleTextStyle.headline2.copyWith(
-      fontSize: widget.tileFontSize,
+      fontSize: adjustedFontSize,
       color: PuzzleColors.grey1,
     );
 
@@ -99,7 +109,10 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                         opacity: _fade,
                         child: RichText(
                           text: TextSpan(
-                              text: widget.question.pair.left.toString(),
+                            text: getEncodingHelper().encoded(
+                              widget.question.pair.left,
+                              encoding: encoding,
+                            ),
                             style: style,
                             semanticsLabel:
                                 'Question: ${widget.question.pair.questionStr}, '
@@ -111,7 +124,10 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                                     Text(' x ', style: PuzzleTextStyle.label),
                               ),
                               TextSpan(
-                                  text: widget.question.pair.right.toString(),
+                                  text: getEncodingHelper().encoded(
+                                    widget.question.pair.right,
+                                    encoding: encoding,
+                                  ),
                                   style: style),
                             ],
                           ),
