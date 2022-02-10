@@ -11,6 +11,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
@@ -113,6 +114,8 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         launchStage == LaunchStages.showQuestions;
     final reveal = status == mslidePuzzleStatus.loading &&
         launchStage == LaunchStages.showAnswers;
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
 
     final hasStarted = status == mslidePuzzleStatus.started;
     final loading = status == mslidePuzzleStatus.loading;
@@ -133,6 +136,11 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
     final movementDuration = loading
         ? const Duration(milliseconds: 800)
         : const Duration(milliseconds: 370);
+
+    final adjustedFontSize =
+        encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
+            ? widget.tileFontSize / 2
+            : widget.tileFontSize;
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -186,7 +194,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                     style: TextButton.styleFrom(
                       primary: PuzzleColors.white,
                       textStyle: PuzzleTextStyle.headline2.copyWith(
-                        fontSize: widget.tileFontSize,
+                        fontSize: adjustedFontSize,
                       ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
@@ -221,7 +229,10 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                         Expanded(
                           child: Center(
                             child: Text(
-                              widget.tile.pair.answer.toString(),
+                              getEncodingHelper().encoded(
+                                widget.tile.pair.answer,
+                                encoding: encoding,
+                              ),
                               semanticsLabel: context.l10n.puzzleTileLabelText(
                                 widget.tile.pair.answer.toString(),
                                 widget.tile.currentPosition.x.toString(),
