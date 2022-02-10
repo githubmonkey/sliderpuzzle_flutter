@@ -123,7 +123,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => SizedBox.square(
-            dimension: _BoardSize.small,
+            dimension: BoardSize.small,
             child: PuzzleGrid(
               key: const Key('simple_puzzle_board_small'),
               size: size,
@@ -132,7 +132,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
           ),
           medium: (_, __) => SizedBox.square(
-            dimension: _BoardSize.medium,
+            dimension: BoardSize.medium,
             child: PuzzleGrid(
               key: const Key('simple_puzzle_board_medium'),
               size: size,
@@ -140,7 +140,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
           ),
           large: (_, __) => SizedBox.square(
-            dimension: _BoardSize.large,
+            dimension: BoardSize.large,
             child: PuzzleGrid(
               key: const Key('simple_puzzle_board_large'),
               size: size,
@@ -148,7 +148,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
           ),
           xlarge: (_, __) => SizedBox.square(
-            dimension: _BoardSize.xlarge,
+            dimension: BoardSize.xlarge,
             child: PuzzleGrid(
               key: const Key('simple_puzzle_board_xlarge'),
               size: size,
@@ -291,18 +291,11 @@ class SimplePuzzleTitle extends StatelessWidget {
   }
 }
 
-abstract class _BoardSize {
-  static double small = 312;
-  static double medium = 424;
-  static double large = 472;
-  static double xlarge = 600;
-}
-
 abstract class _TileFontSize {
   static double small = 36;
   static double medium = 50;
   static double large = 54;
-  static double xlarge = 58;
+  static double xlarge = 62;
 }
 
 /// {@template simple_puzzle_tile}

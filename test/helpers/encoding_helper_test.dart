@@ -117,6 +117,17 @@ void main() {
     'XCVIII',
     'XCIX',
     'C',
+    // 101
+    'CI',
+    'CII',
+    'CIII',
+    'CIV',
+    'CV',
+    'CVI',
+    'CVII',
+    'CVIII',
+    'CIX',
+    'CXX',
   ];
 
   final helper = getEncodingHelper();

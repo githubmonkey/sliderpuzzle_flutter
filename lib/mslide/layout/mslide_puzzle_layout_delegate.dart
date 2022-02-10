@@ -6,20 +6,8 @@ import 'package:very_good_slide_puzzle/mslide/widgets/mslide_challenge_board.dar
 import 'package:very_good_slide_puzzle/mslide/widgets/mslide_question_tile.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
+import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-abstract class _TileFontSize {
-  static double small = 32;
-  static double medium = 40;
-  static double large = 54;
-  static double xlarge = 50;
-}
-
-abstract class _QuestionFontSize {
-  static double small = 18;
-  static double medium = 28;
-  static double large = 36;
-  static double xlarge = 42;
-}
 
 /// {@template mslide_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -156,22 +144,22 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget tileBuilder(Tile tile, PuzzleState state) {
     return ResponsiveLayoutBuilder(
       small: (_, child) => MslidePuzzleTile(
-        tileFontSize: _TileFontSize.small,
+        tileFontSize: TileFontSize.small,
         tile: tile,
         state: state,
       ),
       medium: (_, child) => MslidePuzzleTile(
-        tileFontSize: _TileFontSize.medium,
+        tileFontSize: TileFontSize.medium,
         tile: tile,
         state: state,
       ),
       large: (_, child) => MslidePuzzleTile(
-        tileFontSize: _TileFontSize.large,
+        tileFontSize: TileFontSize.large,
         tile: tile,
         state: state,
       ),
       xlarge: (_, child) => MslidePuzzleTile(
-        tileFontSize: _TileFontSize.xlarge,
+        tileFontSize: TileFontSize.xlarge,
         tile: tile,
         state: state,
       ),
@@ -182,19 +170,19 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget questionBuilder(Question question, PuzzleState state) {
       return ResponsiveLayoutBuilder(
         small: (_, child) => MslideQuestionTile(
-          tileFontSize: _QuestionFontSize.small,
+          tileFontSize: QuestionFontSize.small,
           question: question,
         ),
         medium: (_, child) => MslideQuestionTile(
-          tileFontSize: _QuestionFontSize.medium,
+          tileFontSize: QuestionFontSize.medium,
           question: question,
         ),
         large: (_, child) => MslideQuestionTile(
-          tileFontSize: _QuestionFontSize.large,
+          tileFontSize: QuestionFontSize.large,
           question: question,
         ),
         xlarge: (_, child) => MslideQuestionTile(
-          tileFontSize: _QuestionFontSize.xlarge,
+          tileFontSize: QuestionFontSize.xlarge,
           question: question,
         ),
       );

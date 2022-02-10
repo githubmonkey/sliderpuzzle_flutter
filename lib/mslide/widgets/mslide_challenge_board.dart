@@ -2,13 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/widgets/puzzle_grid.dart';
-
-abstract class _BoardSize {
-  static double small = 312;
-  static double medium = 424;
-  static double large = 472;
-  static double xlarge = 600;
-}
+import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_puzzle_board}
 /// Displays the board of the puzzle in a [Stack] filled with [questions].
@@ -31,7 +25,7 @@ class MslideChallengeBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveLayoutBuilder(
       small: (_, child) => SizedBox.square(
-        dimension: _BoardSize.small,
+        dimension: BoardSize.small,
         child: PuzzleGrid(
           key: const Key('mslide_puzzle_board_small'),
           size: size,
@@ -39,7 +33,7 @@ class MslideChallengeBoard extends StatelessWidget {
         ),
       ),
       medium: (_, child) => SizedBox.square(
-        dimension: _BoardSize.medium,
+        dimension: BoardSize.medium,
         child: PuzzleGrid(
           key: const Key('mslide_puzzle_board_medium'),
           size: size,
@@ -47,7 +41,7 @@ class MslideChallengeBoard extends StatelessWidget {
         ),
       ),
       large: (_, child) => SizedBox.square(
-        dimension: _BoardSize.large,
+        dimension: BoardSize.large,
         child: PuzzleGrid(
           key: const Key('mslide_puzzle_board_large'),
           size: size,
@@ -55,7 +49,7 @@ class MslideChallengeBoard extends StatelessWidget {
         ),
       ),
       xlarge: (_, child) => SizedBox.square(
-        dimension: _BoardSize.xlarge,
+        dimension: BoardSize.xlarge,
         child: PuzzleGrid(
           key: const Key('mslide_puzzle_board_xlarge'),
           size: size,

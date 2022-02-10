@@ -9,19 +9,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
-
-abstract class BoardSize {
-  static double small = 312;
-  static double medium = 424;
-  static double large = 472;
-  static double xlarge = 600;
-
-  static double getTileSize(double cat, int dimension) {
-    assert(cat == small || cat == medium || cat == large || cat == xlarge,
-        'wrong size');
-    return (cat - (dimension - 1) * 8) / dimension;
-  }
-}
+import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_puzzle_board}
 /// Displays the board of the puzzle in a [Stack] filled with [tiles].

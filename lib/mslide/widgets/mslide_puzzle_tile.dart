@@ -14,6 +14,7 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
+import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_puzzle_tile}
 /// Displays the puzzle tile associated with [tile]
