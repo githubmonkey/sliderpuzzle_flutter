@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
@@ -20,13 +21,27 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('PuzzlePage', () {
+    late LanguageControlBloc languageControlBloc;
+
+    setUp(() {
+      final languageControlState = LanguageControlState();
+      languageControlBloc = MockLanguageControlBloc();
+      when(() => languageControlBloc.state).thenReturn(languageControlState);
+    });
+
     testWidgets('renders PuzzleView', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
       expect(find.byType(PuzzleView), findsOneWidget);
     });
 
     testWidgets('provides all Dashatar themes to PuzzleView', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -45,7 +60,10 @@ void main() {
     });
 
     testWidgets('provides all Mslide themes to PuzzleView', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -65,7 +83,10 @@ void main() {
 
     testWidgets('provides correct initial themes to PuzzleView',
         (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -85,7 +106,10 @@ void main() {
     testWidgets(
         'provides DashatarPuzzleBloc '
         'with secondsToBegin equal to 3', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -102,7 +126,10 @@ void main() {
     testWidgets(
         'provides TimerBloc '
         'with initial state', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -116,7 +143,10 @@ void main() {
     testWidgets(
         'provides AudioControlBloc '
         'with initial state', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(
+        PuzzlePage(),
+        languageControlBloc: languageControlBloc,
+      );
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -132,6 +162,7 @@ void main() {
     late ThemeBloc themeBloc;
     late PuzzleTheme theme;
     late SettingsBloc settingsBloc;
+    late LanguageControlBloc languageControlBloc;
     late DashatarThemeBloc dashatarThemeBloc;
     late MslideThemeBloc mslideThemeBloc;
     late PuzzleLayoutDelegate layoutDelegate;
@@ -145,6 +176,10 @@ void main() {
       settingsBloc = MockSettingsBloc();
       layoutDelegate = MockPuzzleLayoutDelegate();
 
+      final languageControlState = LanguageControlState();
+      languageControlBloc = MockLanguageControlBloc();
+      when(() => languageControlBloc.state).thenReturn(languageControlState);
+
       when(() => layoutDelegate.startSectionBuilder(any()))
           .thenReturn(SizedBox());
 
@@ -153,6 +188,8 @@ void main() {
 
       when(() => layoutDelegate.backgroundBuilder(any()))
           .thenReturn(SizedBox());
+
+      when(() => layoutDelegate.settingsBuilder(any())).thenReturn(SizedBox());
 
       when(() => layoutDelegate.boardBuilder(any(), any(), any()))
           .thenReturn(SizedBox());
@@ -192,6 +229,7 @@ void main() {
     setUpAll(() {
       registerFallbackValue(MockPuzzleState());
       registerFallbackValue(MockTile());
+      registerFallbackValue(MockSettingsState());
     });
 
     testWidgets(
@@ -211,6 +249,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -234,6 +273,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -260,6 +300,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -276,6 +318,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -293,6 +337,7 @@ void main() {
         PuzzleView(),
         themeBloc: themeBloc,
         settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -305,6 +350,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -317,6 +364,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -331,6 +380,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -345,6 +396,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -368,6 +421,8 @@ void main() {
         await tester.pumpApp(
           PuzzleView(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           dashatarThemeBloc: dashatarThemeBloc,
           mslideThemeBloc: mslideThemeBloc,
           audioControlBloc: audioControlBloc,
@@ -393,6 +448,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -422,6 +479,8 @@ void main() {
       await tester.pumpApp(
         PuzzleView(),
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
+        languageControlBloc: languageControlBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         mslideThemeBloc: mslideThemeBloc,
         audioControlBloc: audioControlBloc,
@@ -432,6 +491,19 @@ void main() {
     });
 
     group('PuzzleHeader', () {
+      late SettingsBloc settingsBloc;
+      late LanguageControlBloc languageControlBloc;
+
+      setUp(() {
+        final settingsState = SettingsState(boardSize: 2);
+        settingsBloc = MockSettingsBloc();
+        when(() => settingsBloc.state).thenReturn(settingsState);
+
+        final languageControlState = LanguageControlState();
+        languageControlBloc = MockLanguageControlBloc();
+        when(() => languageControlBloc.state).thenReturn(languageControlState);
+      });
+
       testWidgets(
           'renders PuzzleLogo and PuzzleMenu '
           'on a large display', (tester) async {
@@ -440,6 +512,8 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -455,6 +529,8 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -470,6 +546,8 @@ void main() {
         await tester.pumpApp(
           PuzzleHeader(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -598,6 +676,8 @@ void main() {
           await tester.pumpApp(
             PuzzleSections(),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
           );
@@ -613,6 +693,8 @@ void main() {
           await tester.pumpApp(
             PuzzleSections(),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
           );
@@ -626,6 +708,8 @@ void main() {
           await tester.pumpApp(
             PuzzleSections(),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
           );
@@ -639,6 +723,8 @@ void main() {
           await tester.pumpApp(
             PuzzleSections(),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
           );
@@ -681,6 +767,8 @@ void main() {
         await tester.pumpApp(
           PuzzleBoard(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           dashatarThemeBloc: dashatarThemeBloc,
           mslideThemeBloc: mslideThemeBloc,
           audioControlBloc: audioControlBloc,
@@ -695,6 +783,8 @@ void main() {
         await tester.pumpApp(
           PuzzleBoard(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           puzzleBloc: puzzleBloc,
           audioControlBloc: audioControlBloc,
         );
@@ -714,6 +804,8 @@ void main() {
         await tester.pumpApp(
           PuzzleMenu(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -735,6 +827,8 @@ void main() {
         await tester.pumpApp(
           PuzzleMenu(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -747,6 +841,8 @@ void main() {
         await tester.pumpApp(
           PuzzleMenu(),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
+          languageControlBloc: languageControlBloc,
           audioControlBloc: audioControlBloc,
         );
 
@@ -775,6 +871,8 @@ void main() {
               themeIndex: themes.indexOf(tappedTheme),
             ),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
           );
 
           await tester.tap(find.byType(PuzzleMenuItem));
@@ -791,6 +889,8 @@ void main() {
               themeIndex: themes.indexOf(tappedTheme),
             ),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             timerBloc: timerBloc,
           );
 
@@ -809,6 +909,8 @@ void main() {
               themeIndex: themes.indexOf(tappedTheme),
             ),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             dashatarPuzzleBloc: dashatarPuzzleBloc,
           );
 
@@ -837,6 +939,8 @@ void main() {
               themeIndex: themes.indexOf(SimpleTheme()),
             ),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
           );
 
@@ -872,6 +976,8 @@ void main() {
               themeIndex: themes.indexOf(GreenDashatarTheme()),
             ),
             themeBloc: themeBloc,
+            settingsBloc: settingsBloc,
+            languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
           );
 
@@ -896,6 +1002,7 @@ void main() {
             themeIndex: themes.indexOf(tappedTheme),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(find.byType(Tooltip), findsOneWidget);
@@ -908,6 +1015,7 @@ void main() {
             themeIndex: themes.indexOf(tappedTheme),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(find.text(tappedTheme.name), findsOneWidget);

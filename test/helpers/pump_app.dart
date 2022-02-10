@@ -12,6 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/language_control/bloc/language_control_bloc.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
@@ -25,6 +26,7 @@ extension PumpApp on WidgetTester {
     Widget widget, {
     ThemeBloc? themeBloc,
     SettingsBloc? settingsBloc,
+    LanguageControlBloc? languageControlBloc,
     DashatarThemeBloc? dashatarThemeBloc,
     DashatarPuzzleBloc? dashatarPuzzleBloc,
     MslideThemeBloc? mslideThemeBloc,
@@ -41,6 +43,9 @@ extension PumpApp on WidgetTester {
           ),
           BlocProvider.value(
             value: settingsBloc ?? MockSettingsBloc(),
+          ),
+          BlocProvider.value(
+            value: languageControlBloc ?? MockLanguageControlBloc(),
           ),
           BlocProvider.value(
             value: dashatarThemeBloc ?? MockDashatarThemeBloc(),

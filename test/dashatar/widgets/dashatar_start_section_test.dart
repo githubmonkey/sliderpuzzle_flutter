@@ -6,7 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -20,6 +22,8 @@ void main() {
     late DashatarThemeBloc dashatarThemeBloc;
     late DashatarTheme dashatarTheme;
     late ThemeBloc themeBloc;
+    late SettingsBloc settingsBloc;
+    late LanguageControlBloc languageControlBloc;
     late TimerBloc timerBloc;
     late AudioControlBloc audioControlBloc;
 
@@ -51,6 +55,14 @@ void main() {
 
       when(() => themeBloc.state).thenReturn(themeState);
 
+      final settingsState = SettingsState(boardSize: 2);
+      settingsBloc = MockSettingsBloc();
+      when(() => settingsBloc.state).thenReturn(settingsState);
+
+      final languageControlState = LanguageControlState();
+      languageControlBloc = MockLanguageControlBloc();
+      when(() => languageControlBloc.state).thenReturn(languageControlState);
+
       timerBloc = MockTimerBloc();
       when(() => timerBloc.state).thenReturn(TimerState());
 
@@ -68,6 +80,7 @@ void main() {
         dashatarPuzzleBloc: dashatarPuzzleBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         themeBloc: themeBloc,
+        languageControlBloc: languageControlBloc,
         timerBloc: timerBloc,
       );
 
@@ -179,6 +192,7 @@ void main() {
         dashatarPuzzleBloc: dashatarPuzzleBloc,
         dashatarThemeBloc: dashatarThemeBloc,
         themeBloc: themeBloc,
+        settingsBloc: settingsBloc,
         timerBloc: timerBloc,
         audioControlBloc: audioControlBloc,
       );

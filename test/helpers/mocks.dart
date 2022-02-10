@@ -6,6 +6,7 @@ import 'package:url_launcher_platform_interface/url_launcher_platform_interface.
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
+import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
@@ -33,8 +34,7 @@ class MockDashatarPuzzleBloc
 
 class MockDashatarPuzzleState extends Mock implements DashatarPuzzleState {}
 
-class MockMslideThemeBloc
-    extends MockBloc<MslideThemeEvent, MslideThemeState>
+class MockMslideThemeBloc extends MockBloc<MslideThemeEvent, MslideThemeState>
     implements MslideThemeBloc {}
 
 class MockMslidePuzzleBloc
@@ -54,6 +54,14 @@ class MockTimerBloc extends MockBloc<TimerEvent, TimerState>
     implements TimerBloc {}
 
 class MockTimerState extends Mock implements TimerState {}
+
+class MockLanguageControlBloc
+    extends MockBloc<LanguageControlEvent, LanguageControlState>
+    implements LanguageControlBloc {}
+
+class MockLanguageControlEvent extends Mock implements LanguageControlEvent {}
+
+class MockLanguageControlState extends Mock implements LanguageControlState {}
 
 class MockSettingsBloc extends MockBloc<SettingsEvent, SettingsState>
     implements SettingsBloc {}
