@@ -5,7 +5,7 @@ part of 'mslide_theme_bloc.dart';
 class MslideThemeState extends Equatable {
   const MslideThemeState({
     required this.themes,
-    this.theme = const GreenMslideTheme(),
+    this.theme = const YellowMslideTheme(),
   });
 
   /// The list of all available [MslideTheme]s.
