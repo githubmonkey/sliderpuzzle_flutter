@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
@@ -48,6 +49,15 @@ class PuzzlePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          create: (_) => MswapThemeBloc(
+            themes: const [
+              BlueMswapTheme(),
+              GreenMswapTheme(),
+              YellowMswapTheme()
+            ],
+          ),
+        ),
+        BlocProvider(
           create: (_) => DashatarPuzzleBloc(
             secondsToBegin: 3,
             ticker: const Ticker(),
@@ -60,9 +70,16 @@ class PuzzlePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          create: (_) => MswapPuzzleBloc(
+            secondsToBegin: 3,
+            ticker: const Ticker(),
+          ),
+        ),
+        BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
               context.read<MslideThemeBloc>().state.theme,
+              context.read<MswapThemeBloc>().state.theme,
               const SimpleTheme(),
               context.read<DashatarThemeBloc>().state.theme,
             ],
@@ -115,6 +132,15 @@ class PuzzleView extends StatelessWidget {
                   context
                       .read<ThemeBloc>()
                       .add(ThemeUpdated(theme: mslideTheme));
+                },
+              ),
+              BlocListener<MswapThemeBloc, MswapThemeState>(
+                listener: (context, state) {
+                  final mswapTheme =
+                      context.read<MswapThemeBloc>().state.theme;
+                  context
+                      .read<ThemeBloc>()
+                      .add(ThemeUpdated(theme: mswapTheme));
                 },
               ),
               BlocListener<DashatarThemeBloc, DashatarThemeState>(
@@ -170,6 +196,7 @@ class _Puzzle extends StatelessWidget {
         // Reset the timer and the countdown.
         context.read<TimerBloc>().add(const TimerReset());
         context.read<MslidePuzzleBloc>().add(const MslideCountdownReset());
+        context.read<MswapPuzzleBloc>().add(const MswapCountdownReset());
         context.read<PuzzleBloc>().add(
               PuzzleInitialized(
                 size: state.boardSize,
@@ -591,8 +618,13 @@ class PuzzleMenuItem extends StatelessWidget {
 
                 // Stop the Mslide countdown if it has been started.
                 context.read<MslidePuzzleBloc>().add(
-                      const MslideCountdownStopped(),
-                    );
+                  const MslideCountdownStopped(),
+                );
+
+                // Stop the Mswap countdown if it has been started.
+                context.read<MswapPuzzleBloc>().add(
+                  const MswapCountdownStopped(),
+                );
 
                 // Initialize the puzzle board for the newly selected theme.
                 context.read<PuzzleBloc>().add(
