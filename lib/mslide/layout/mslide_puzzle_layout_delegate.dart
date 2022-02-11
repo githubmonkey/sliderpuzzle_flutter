@@ -88,9 +88,9 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget settingsBuilder(SettingsState state) {
-    // TODO(s): clean up
     return Positioned(
-      bottom: 74,
+      // 74 + 120 for background (themes) + 32 for gap
+      bottom: 226,
       right: 50,
       child: ResponsiveLayoutBuilder(
         small: (_, child) => const SizedBox(),

@@ -21,8 +21,8 @@ class SettingsList extends StatelessWidget {
         context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
 
     return SizedBox(
-      width: 300,
-      height: 400,
+      width: 328,
+      height: 150,
       child: ListView(
         shrinkWrap: true,
         children: [
