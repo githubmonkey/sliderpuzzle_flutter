@@ -501,7 +501,7 @@ class PuzzleMenu extends StatelessWidget {
           child: (currentSize) {
             return Row(
               children: [
-                const Gap(20),
+                const Gap(8),
                 LanguageControl(
                   key: languageControlKey,
                 )
@@ -561,7 +561,7 @@ class PuzzleMenuItem extends StatelessWidget {
       small: (_, child) => Column(
         children: [
           Container(
-            width: 100,
+            width: 90,
             height: 40,
             decoration: isCurrentTheme
                 ? BoxDecoration(

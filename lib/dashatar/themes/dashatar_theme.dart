@@ -15,7 +15,7 @@ abstract class DashatarTheme extends PuzzleTheme {
   const DashatarTheme() : super();
 
   @override
-  String get name => 'Dashatar';
+  String get name => 'Dash';
 
   @override
   String localizedTitle(BuildContext context) =>
