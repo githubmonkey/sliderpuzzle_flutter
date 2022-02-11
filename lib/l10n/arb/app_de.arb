@@ -44,6 +44,22 @@
     "@puzzleChallengeTitle": {
         "description": "Shown as the title of the puzzle"
     },
+    "puzzleTitleMslide": "Rechenkönig",
+    "@puzzleTitleMslide": {
+        "description": "Title of the slider Puzzle"
+    },
+    "puzzleTitleMswap": "Schneller Hopser",
+    "@puzzleTitleMswap": {
+        "description": "Title of the swaper Puzzle"
+    },
+    "puzzleTitleSimple": "Einfacher Schieber",
+    "@puzzleTitleSimple": {
+        "description": "Title of the simple Puzzle"
+    },
+    "puzzleTitleDashatar": "Dash Spass",
+    "@puzzleTitleDashatar": {
+        "description": "Title of the dash Puzzle"
+    },
     "puzzleNumberOfMoves": "Züge",
     "@puzzleNumberOfMoves": {
         "description": "Indicates how many moves have been made on the current puzzle"

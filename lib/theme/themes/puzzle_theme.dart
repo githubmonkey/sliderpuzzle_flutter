@@ -14,7 +14,10 @@ abstract class PuzzleTheme extends Equatable {
   String get name;
 
   /// The tag line of this theme.
-  String get title;
+  /// String get title;
+
+  /// Localized title lookup
+  String localizedTitle(BuildContext context);
 
   /// The summary line of this theme.
   String get summary;

@@ -36,7 +36,7 @@ class PuzzleName extends StatelessWidget {
         child: const Text(
           // TODO(s): rename this to const
           'Flutter Puzzle Hack',
-          key: const Key('flutter_puzzle_hack'),
+          key: Key('flutter_puzzle_hack'),
         ),
       ),
     );

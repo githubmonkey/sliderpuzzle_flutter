@@ -46,7 +46,7 @@ class PuzzleTitle extends StatelessWidget {
           style: textStyle,
           duration: PuzzleThemeAnimationDuration.textStyle,
           child: Text(
-            theme.title,
+            theme.localizedTitle(context),
             textAlign: textAlign,
           ),
         );

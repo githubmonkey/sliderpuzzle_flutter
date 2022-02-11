@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -15,14 +16,15 @@ abstract class MslideTheme extends PuzzleTheme {
   String get name => 'Slide';
 
   @override
-  String get title => 'Slide & Solve';
+  String localizedTitle(BuildContext context) => context.l10n.puzzleTitleMslide;
 
   @override
   String get summary => 'You must be a math wizz and a puzzler to solve!';
 
   @override
-  String get instructions => 'To practice your math, start with the <swap> first.\n'
-  'To practice the sliding try <simple>.';
+  String get instructions =>
+      'To practice your math, start with the <swap> first.\n'
+      'To practice the sliding try <simple>.';
 
   @override
   String get audioControlOnAsset =>
@@ -53,8 +55,7 @@ abstract class MslideTheme extends PuzzleTheme {
   Color get menuUnderlineColor => PuzzleColors.white;
 
   @override
-  PuzzleLayoutDelegate get layoutDelegate =>
-      const MslidePuzzleLayoutDelegate();
+  PuzzleLayoutDelegate get layoutDelegate => const MslidePuzzleLayoutDelegate();
 
   /// The semantics label of this theme.
   String semanticsLabel(BuildContext context);

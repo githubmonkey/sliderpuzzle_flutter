@@ -44,6 +44,22 @@
     "@puzzleChallengeTitle": {
         "description": "Shown as the title of the puzzle"
     },
+    "puzzleTitleMslide": "Slide & Solve",
+    "@puzzleTitleMslide": {
+        "description": "Title of the slider Puzzle"
+    },
+    "puzzleTitleMswap": "Swap & Learn",
+    "@puzzleTitleMswap": {
+        "description": "Title of the swaper Puzzle"
+    },
+    "puzzleTitleSimple": "Basic Slider",
+    "@puzzleTitleSimple": {
+        "description": "Title of the simple Puzzle"
+    },
+    "puzzleTitleDashatar": "Dash Fun",
+    "@puzzleTitleDashatar": {
+        "description": "Title of the dash Puzzle"
+    },
     "puzzleNumberOfMoves": "Moves",
     "@puzzleNumberOfMoves": {
         "description": "Indicates how many moves have been made on the current puzzle"

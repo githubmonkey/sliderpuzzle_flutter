@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -17,7 +18,8 @@ abstract class DashatarTheme extends PuzzleTheme {
   String get name => 'Dashatar';
 
   @override
-  String get title => 'The Fun One';
+  String localizedTitle(BuildContext context) =>
+      context.l10n.puzzleTitleDashatar;
 
   @override
   String get summary => 'This one was provided courtesy of VGV';
