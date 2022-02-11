@@ -81,7 +81,8 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
                     context.read<TimerBloc>().add(const TimerReset());
                     context.read<MswapPuzzleBloc>().add(
                           MswapCountdownRestart(
-                            secondsToBegin: hasStarted ? 4 : 3,
+                            // TODO(s): does the delay on restart matter?
+                            secondsToBegin: hasStarted ? 3 : 3,
                           ),
                         );
 
