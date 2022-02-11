@@ -154,7 +154,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
             (widget.tile.currentPosition.y - 1) / (size - 1),
           ),
           duration: movementDuration,
-          curve: Curves.easeInOut,
+          curve: Curves.easeInOutBack,
           child: ResponsiveLayoutBuilder(
             small: (_, child) => SizedBox.square(
               key: Key('mswap_puzzle_tile_small_${widget.tile.value}'),
