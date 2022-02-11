@@ -50,6 +50,11 @@ class _AppState extends State<App> {
     'assets/audio/skateboard.mp3',
     'assets/audio/success.mp3',
     'assets/audio/tile_move.mp3',
+    'assets/audio/freesound_click1.mp3',
+    //'assets/audio/freesound_click2.mp3',
+    //'assets/audio/freesound_ruffle.mp3',
+    //'assets/audio/freesound_shuffle.mp3',
+    'assets/audio/freesound_whoosh.mp3',
   ];
 
   late final PlatformHelper _platformHelper;
