@@ -15,6 +15,15 @@ abstract class MswapTheme extends PuzzleTheme {
   String get name => 'Swap';
 
   @override
+  String get title => 'Think & Swap';
+
+  @override
+  String get summary => 'Focus on your math';
+
+  @override
+  String get instructions => 'Swap to solve';
+
+  @override
   String get audioControlOnAsset =>
       'assets/images/audio_control/dashatar_on.png';
 

@@ -230,6 +230,7 @@ class SimpleStartSection extends StatelessWidget {
           small: 20,
           medium: 83,
           large: 151,
+          xlarge: 211,
         ),
         PuzzleName(
           key: puzzleNameKey,
@@ -242,6 +243,7 @@ class SimpleStartSection extends StatelessWidget {
           small: 12,
           medium: 16,
           large: 32,
+          xlarge: 42,
         ),
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
@@ -250,7 +252,7 @@ class SimpleStartSection extends StatelessWidget {
         ),
         const ResponsiveGap(
           large: 32,
-          small: 16,
+          xlarge: 42,
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),

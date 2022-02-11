@@ -16,6 +16,16 @@ class SimpleTheme extends PuzzleTheme {
   String get name => 'Simple';
 
   @override
+  String get title => 'The Basic Slider';
+
+  @override
+  String get summary => 'A VGV demo. Practice your '
+      'sliding without distractions.';
+
+  @override
+  String get instructions => 'Slide the tiles in order';
+
+  @override
   bool get hasTimer => false;
 
   @override

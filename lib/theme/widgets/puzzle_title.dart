@@ -27,25 +27,10 @@ class PuzzleTitle extends StatelessWidget {
     final titleColor = color ?? theme.titleColor;
 
     return ResponsiveLayoutBuilder(
-      small: (context, child) => Center(
-        child: SizedBox(
-          width: 300,
-          child: Center(
-            child: child,
-          ),
-        ),
-      ),
-      medium: (context, child) => Center(
-        child: child,
-      ),
-      large: (context, child) => SizedBox(
-        width: 300,
-        child: child,
-      ),
-      xlarge: (context, child) => SizedBox(
-        width: 300,
-        child: child,
-      ),
+      small: (context, child) => Center(child: child),
+      medium: (context, child) => Center(child: child),
+      large: (context, child) => child!,
+      xlarge: (context, child) => child!,
       child: (currentSize) {
         final textStyle = (currentSize == ResponsiveLayoutSize.large ||
                     currentSize == ResponsiveLayoutSize.xlarge
@@ -61,7 +46,7 @@ class PuzzleTitle extends StatelessWidget {
           style: textStyle,
           duration: PuzzleThemeAnimationDuration.textStyle,
           child: Text(
-            title,
+            theme.title,
             textAlign: textAlign,
           ),
         );

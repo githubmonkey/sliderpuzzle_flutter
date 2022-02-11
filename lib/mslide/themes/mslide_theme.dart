@@ -15,6 +15,16 @@ abstract class MslideTheme extends PuzzleTheme {
   String get name => 'Slide';
 
   @override
+  String get title => 'Slide & Solve';
+
+  @override
+  String get summary => 'You must be a math wizz and a puzzler to solve!';
+
+  @override
+  String get instructions => 'To practice your math, start with the <swap> first.\n'
+  'To practice the sliding try <simple>.';
+
+  @override
   String get audioControlOnAsset =>
       'assets/images/audio_control/dashatar_on.png';
 

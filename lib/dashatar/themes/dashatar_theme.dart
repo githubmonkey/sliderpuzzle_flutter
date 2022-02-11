@@ -17,6 +17,15 @@ abstract class DashatarTheme extends PuzzleTheme {
   String get name => 'Dashatar';
 
   @override
+  String get title => 'The Fun One';
+
+  @override
+  String get summary => 'This one was provided courtesy of VGV';
+
+  @override
+  String get instructions => 'Fix a dash';
+
+  @override
   String get audioControlOnAsset =>
       'assets/images/audio_control/dashatar_on.png';
 
