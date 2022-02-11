@@ -221,7 +221,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                         ? () {
                             context
                                 .read<PuzzleBloc>()
-                                .add(TileTapped(widget.tile));
+                                .add(TileKicked(widget.tile));
                             unawaited(_audioPlayer?.replay());
                           }
                         : null,

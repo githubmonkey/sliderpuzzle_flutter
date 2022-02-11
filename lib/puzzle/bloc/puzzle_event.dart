@@ -19,20 +19,27 @@ class PuzzleInitialized extends PuzzleEvent {
 
   final int size;
   final bool elevenToTwenty;
-  //final bool shufflePuzzle;
-  //final bool pinTrailingWhitespace;
 
   @override
   List<Object> get props => [
         size,
         elevenToTwenty,
-  //      shufflePuzzle,
-  //      pinTrailingWhitespace,
       ];
 }
 
+/// Tile tapped for sliding
 class TileTapped extends PuzzleEvent {
   const TileTapped(this.tile);
+
+  final Tile tile;
+
+  @override
+  List<Object> get props => [tile];
+}
+
+/// Tile kicked for swapping
+class TileKicked extends PuzzleEvent {
+  const TileKicked(this.tile);
 
   final Tile tile;
 

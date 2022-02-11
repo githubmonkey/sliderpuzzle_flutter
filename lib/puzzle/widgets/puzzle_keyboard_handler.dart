@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
@@ -80,7 +81,9 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
       }
 
       if (tile != null) {
-        context.read<PuzzleBloc>().add(TileTapped(tile));
+        theme is MswapTheme
+            ? context.read<PuzzleBloc>().add(TileKicked(tile))
+            : context.read<PuzzleBloc>().add(TileTapped(tile));
         unawaited(_audioPlayer.replay());
       }
     }

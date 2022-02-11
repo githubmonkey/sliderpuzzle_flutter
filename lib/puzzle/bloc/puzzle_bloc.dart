@@ -17,6 +17,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
+    on<TileKicked>(_onTileKicked);
     on<PuzzleReset>(_onPuzzleReset);
     on<PuzzleShuffleAnswers>(_onPuzzleShuffleAnswers);
   }
@@ -69,6 +70,45 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
               numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
               numberOfMoves: state.numberOfMoves + 1,
               lastTappedTile: tappedTile,
+            ),
+          );
+        }
+      } else {
+        emit(
+          state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
+        );
+      }
+    } else {
+      emit(
+        state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
+      );
+    }
+  }
+
+  void _onTileKicked(TileKicked event, Emitter<PuzzleState> emit) {
+    final kickedTile = event.tile;
+    if (state.puzzleStatus == PuzzleStatus.incomplete) {
+      if (!kickedTile.isWhitespace) {
+        final puzzle = state.puzzle.swapTiles([kickedTile]);
+        if (puzzle.isComplete()) {
+          emit(
+            state.copyWith(
+              puzzle: puzzle.sort(),
+              puzzleStatus: PuzzleStatus.complete,
+              tileMovementStatus: TileMovementStatus.moved,
+              numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+              numberOfMoves: state.numberOfMoves + 1,
+              lastTappedTile: kickedTile,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              puzzle: puzzle.sort(),
+              tileMovementStatus: TileMovementStatus.moved,
+              numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+              numberOfMoves: state.numberOfMoves + 1,
+              lastTappedTile: kickedTile,
             ),
           );
         }
