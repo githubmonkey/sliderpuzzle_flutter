@@ -10,8 +10,7 @@ part 'mslide_puzzle_state.dart';
 /// {@template mslide_puzzle_bloc}
 /// A bloc responsible for starting the mslide puzzle.
 /// {@endtemplate}
-class MslidePuzzleBloc
-    extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
+class MslidePuzzleBloc extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
   /// {@macro mslide_puzzle_bloc}
   MslidePuzzleBloc({
     required this.secondsToBegin,
@@ -21,6 +20,7 @@ class MslidePuzzleBloc
     on<MslideCountdownStarted>(_onCountdownStarted);
     on<MslideCountdownTicked>(_onCountdownTicked);
     on<MslideCountdownStopped>(_onCountdownStopped);
+    on<MslideCountdownRestart>(_onCountdownRestart);
     on<MslideCountdownReset>(_onCountdownReset);
   }
 
@@ -81,8 +81,8 @@ class MslidePuzzleBloc
     );
   }
 
-  void _onCountdownReset(
-    MslideCountdownReset event,
+  void _onCountdownRestart(
+    MslideCountdownRestart event,
     Emitter<MslidePuzzleState> emit,
   ) {
     _startTicker();
@@ -90,6 +90,19 @@ class MslidePuzzleBloc
       state.copyWith(
         isCountdownRunning: true,
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
+      ),
+    );
+  }
+
+  void _onCountdownReset(
+    MslideCountdownReset event,
+    Emitter<MslidePuzzleState> emit,
+  ) {
+    _tickerSubscription?.cancel();
+    emit(
+      state.copyWith(
+        isCountdownRunning: false,
+        secondsToBegin: 3,
       ),
     );
   }

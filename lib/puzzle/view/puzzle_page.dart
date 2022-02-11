@@ -169,10 +169,7 @@ class _Puzzle extends StatelessWidget {
         // Settings have changed, reinitialize the board
         // Reset the timer and the countdown.
         context.read<TimerBloc>().add(const TimerReset());
-        context.read<MslidePuzzleBloc>().add(
-              const MslideCountdownReset(secondsToBegin: 3),
-            );
-
+        context.read<MslidePuzzleBloc>().add(const MslideCountdownReset());
         context.read<PuzzleBloc>().add(
               PuzzleInitialized(
                 size: state.boardSize,

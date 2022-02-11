@@ -21,8 +21,8 @@ class DashatarCountdownStopped extends DashatarPuzzleEvent {
   const DashatarCountdownStopped();
 }
 
-class DashatarCountdownReset extends DashatarPuzzleEvent {
-  const DashatarCountdownReset({this.secondsToBegin});
+class DashatarCountdownRestart extends DashatarPuzzleEvent {
+  const DashatarCountdownRestart({this.secondsToBegin});
 
   /// The number of seconds to countdown from.
   /// Defaults to [DashatarPuzzleBloc.secondsToBegin] if null.

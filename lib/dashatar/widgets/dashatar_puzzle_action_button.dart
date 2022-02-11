@@ -80,7 +80,7 @@ class _DashatarPuzzleActionButtonState
                     // Reset the timer and the countdown.
                     context.read<TimerBloc>().add(const TimerReset());
                     context.read<DashatarPuzzleBloc>().add(
-                          DashatarCountdownReset(
+                          DashatarCountdownRestart(
                             secondsToBegin: hasStarted ? 5 : 3,
                           ),
                         );

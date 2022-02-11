@@ -119,12 +119,12 @@ void main() {
       });
     });
 
-    group('DashatarCountdownReset', () {
+    group('DashatarCountdownRestart', () {
       test(
           'restarts the countdown '
           'with the given secondsToBegin', () async {
         final bloc = DashatarPuzzleBloc(secondsToBegin: 3, ticker: ticker)
-          ..add(DashatarCountdownReset(secondsToBegin: 5));
+          ..add(DashatarCountdownRestart(secondsToBegin: 5));
 
         final state = await bloc.stream.first;
         expect(

@@ -32,16 +32,16 @@ void main() {
       });
     });
 
-    group('DashatarCountdownReset', () {
+    group('DashatarCountdownRestart', () {
       test('supports value comparisons', () {
         expect(
-          DashatarCountdownReset(secondsToBegin: 3),
-          equals(DashatarCountdownReset(secondsToBegin: 3)),
+          DashatarCountdownRestart(secondsToBegin: 3),
+          equals(DashatarCountdownRestart(secondsToBegin: 3)),
         );
 
         expect(
-          DashatarCountdownReset(secondsToBegin: 3),
-          isNot(DashatarCountdownReset(secondsToBegin: 2)),
+          DashatarCountdownRestart(secondsToBegin: 3),
+          isNot(DashatarCountdownRestart(secondsToBegin: 2)),
         );
       });
     });

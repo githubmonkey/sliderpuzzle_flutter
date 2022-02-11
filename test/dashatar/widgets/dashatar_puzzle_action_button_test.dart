@@ -75,7 +75,7 @@ void main() {
     });
 
     testWidgets(
-        'adds DashatarCountdownReset to DashatarPuzzleBloc '
+        'adds DashatarCountdownRestart to DashatarPuzzleBloc '
         'with secondsToBegin equal to 5 '
         'when tapped and '
         'DashatarPuzzleStatus is started', (tester) async {
@@ -93,12 +93,12 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => dashatarPuzzleBloc.add(DashatarCountdownReset(secondsToBegin: 5)),
+        () => dashatarPuzzleBloc.add(DashatarCountdownRestart(secondsToBegin: 5)),
       ).called(1);
     });
 
     testWidgets(
-        'adds DashatarCountdownReset to DashatarPuzzleBloc '
+        'adds DashatarCountdownRestart to DashatarPuzzleBloc '
         'with secondsToBegin equal to 3 '
         'when tapped and '
         'DashatarPuzzleStatus is notStarted', (tester) async {
@@ -116,7 +116,7 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => dashatarPuzzleBloc.add(DashatarCountdownReset(secondsToBegin: 3)),
+        () => dashatarPuzzleBloc.add(DashatarCountdownRestart(secondsToBegin: 3)),
       ).called(1);
     });
 

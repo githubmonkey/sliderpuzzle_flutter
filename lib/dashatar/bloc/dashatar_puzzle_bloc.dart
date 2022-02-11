@@ -21,7 +21,7 @@ class DashatarPuzzleBloc
     on<DashatarCountdownStarted>(_onCountdownStarted);
     on<DashatarCountdownTicked>(_onCountdownTicked);
     on<DashatarCountdownStopped>(_onCountdownStopped);
-    on<DashatarCountdownReset>(_onCountdownReset);
+    on<DashatarCountdownRestart>(_onCountdownRestart);
   }
 
   /// The number of seconds before the puzzle is started.
@@ -81,8 +81,8 @@ class DashatarPuzzleBloc
     );
   }
 
-  void _onCountdownReset(
-    DashatarCountdownReset event,
+  void _onCountdownRestart(
+    DashatarCountdownRestart event,
     Emitter<DashatarPuzzleState> emit,
   ) {
     _startTicker();

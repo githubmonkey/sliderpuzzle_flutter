@@ -113,6 +113,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         (launchStage == LaunchStages.resetting ||
             launchStage == LaunchStages.showQuestions);
     final reveal = status == mslidePuzzleStatus.notStarted ||
+        status == mslidePuzzleStatus.started ||
         (status == mslidePuzzleStatus.loading &&
             launchStage == LaunchStages.showAnswers);
     final encoding =
