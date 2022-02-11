@@ -3,7 +3,6 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 /// {@template dashatar_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -79,11 +78,6 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         xlarge: (_, child) => const DashatarThemePicker(),
       ),
     );
-  }
-
-  @override
-  Widget settingsBuilder(SettingsState state) {
-    return const SizedBox();
   }
 
   @override

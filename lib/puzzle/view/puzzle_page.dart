@@ -136,8 +136,7 @@ class PuzzleView extends StatelessWidget {
               ),
               BlocListener<MswapThemeBloc, MswapThemeState>(
                 listener: (context, state) {
-                  final mswapTheme =
-                      context.read<MswapThemeBloc>().state.theme;
+                  final mswapTheme = context.read<MswapThemeBloc>().state.theme;
                   context
                       .read<ThemeBloc>()
                       .add(ThemeUpdated(theme: mswapTheme));
@@ -188,7 +187,6 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
-    final settings = context.select((SettingsBloc bloc) => bloc.state);
 
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (context, state) {
@@ -225,7 +223,6 @@ class _Puzzle extends StatelessWidget {
               ),
               if (theme is! SimpleTheme)
                 theme.layoutDelegate.backgroundBuilder(state),
-              theme.layoutDelegate.settingsBuilder(settings),
             ],
           );
         },
@@ -618,13 +615,13 @@ class PuzzleMenuItem extends StatelessWidget {
 
                 // Stop the Mslide countdown if it has been started.
                 context.read<MslidePuzzleBloc>().add(
-                  const MslideCountdownStopped(),
-                );
+                      const MslideCountdownStopped(),
+                    );
 
                 // Stop the Mswap countdown if it has been started.
                 context.read<MswapPuzzleBloc>().add(
-                  const MswapCountdownStopped(),
-                );
+                      const MswapCountdownStopped(),
+                    );
 
                 // Initialize the puzzle board for the newly selected theme.
                 context.read<PuzzleBloc>().add(

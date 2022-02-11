@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/mswap/bloc/bloc.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -54,6 +55,9 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
                 providers: [
                   BlocProvider.value(
                     value: context.read<MslideThemeBloc>(),
+                  ),
+                  BlocProvider.value(
+                    value: context.read<MswapThemeBloc>(),
                   ),
                   BlocProvider.value(
                     value: context.read<PuzzleBloc>(),

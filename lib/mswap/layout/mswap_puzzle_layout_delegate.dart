@@ -8,7 +8,6 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-
 /// {@template mswap_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [MswapTheme].
@@ -42,6 +41,8 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         const ResponsiveGap(
           small: 23,
           medium: 32,
+          large: 151,
+          xlarge: 211,
         ),
         ResponsiveLayoutBuilder(
           small: (_, child) => const MswapPuzzleActionButton(),
@@ -53,12 +54,14 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: 32,
           medium: 54,
         ),
-        ResponsiveLayoutBuilder(
-          small: (_, child) => const MswapThemePicker(),
-          medium: (_, child) => const MswapThemePicker(),
-          large: (_, child) => const SizedBox(),
-          xlarge: (_, child) => const SizedBox(),
+        const SettingsList(),
+        const ResponsiveGap(
+          small: 20,
+          medium: 83,
+          large: 151,
+          xlarge: 211,
         ),
+        const MswapThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,
@@ -73,32 +76,7 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
-    // TODO(s): CLEAN UP
-    return Positioned(
-      bottom: 74,
-      right: 50,
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => const SizedBox(),
-        medium: (_, child) => const SizedBox(),
-        large: (_, child) => const MswapThemePicker(),
-        xlarge: (_, child) => const MswapThemePicker(),
-      ),
-    );
-  }
-
-  @override
-  Widget settingsBuilder(SettingsState state) {
-    return Positioned(
-      // 74 + 120 for background (themes) + 32 for gap
-      bottom: 226,
-      right: 50,
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => const SizedBox(),
-        medium: (_, child) => const SizedBox(),
-        large: (_, child) =>  const SettingsList(),
-        xlarge: (_, child) =>  const SettingsList(),
-      ),
-    );
+    return const SizedBox();
   }
 
   @override
@@ -168,25 +146,25 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget questionBuilder(Question question, PuzzleState state) {
-      return ResponsiveLayoutBuilder(
-        small: (_, child) => MswapQuestionTile(
-          tileFontSize: QuestionFontSize.small,
-          question: question,
-        ),
-        medium: (_, child) => MswapQuestionTile(
-          tileFontSize: QuestionFontSize.medium,
-          question: question,
-        ),
-        large: (_, child) => MswapQuestionTile(
-          tileFontSize: QuestionFontSize.large,
-          question: question,
-        ),
-        xlarge: (_, child) => MswapQuestionTile(
-          tileFontSize: QuestionFontSize.xlarge,
-          question: question,
-        ),
-      );
-    }
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => MswapQuestionTile(
+        tileFontSize: QuestionFontSize.small,
+        question: question,
+      ),
+      medium: (_, child) => MswapQuestionTile(
+        tileFontSize: QuestionFontSize.medium,
+        question: question,
+      ),
+      large: (_, child) => MswapQuestionTile(
+        tileFontSize: QuestionFontSize.large,
+        question: question,
+      ),
+      xlarge: (_, child) => MswapQuestionTile(
+        tileFontSize: QuestionFontSize.xlarge,
+        question: question,
+      ),
+    );
+  }
 
   @override
   Widget whitespaceTileBuilder() {

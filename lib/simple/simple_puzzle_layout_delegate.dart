@@ -108,11 +108,6 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget settingsBuilder(SettingsState state) {
-    return const SizedBox();
-  }
-
-  @override
   Widget boardBuilder(int size, List<Widget> tiles, List<Widget> questions) {
     return Column(
       children: [

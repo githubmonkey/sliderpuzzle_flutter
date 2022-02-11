@@ -38,10 +38,13 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget endSectionBuilder(PuzzleState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.max,
       children: [
         const ResponsiveGap(
-          small: 23,
-          medium: 32,
+          small: 20,
+          medium: 83,
+          large: 151,
+          xlarge: 211,
         ),
         ResponsiveLayoutBuilder(
           small: (_, child) => const MslidePuzzleActionButton(),
@@ -53,12 +56,14 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: 32,
           medium: 54,
         ),
-        ResponsiveLayoutBuilder(
-          small: (_, child) => const MslideThemePicker(),
-          medium: (_, child) => const MslideThemePicker(),
-          large: (_, child) => const SizedBox(),
-          xlarge: (_, child) => const SizedBox(),
+        const SettingsList(),
+        const ResponsiveGap(
+          small: 20,
+          medium: 83,
+          large: 151,
+          xlarge: 211,
         ),
+        const MslideThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,
@@ -73,32 +78,7 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
-    // TODO(s): CLEAN UP
-    return Positioned(
-      bottom: 74,
-      right: 50,
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => const SizedBox(),
-        medium: (_, child) => const SizedBox(),
-        large: (_, child) => const MslideThemePicker(),
-        xlarge: (_, child) => const MslideThemePicker(),
-      ),
-    );
-  }
-
-  @override
-  Widget settingsBuilder(SettingsState state) {
-    return Positioned(
-      // 74 + 120 for background (themes) + 32 for gap
-      bottom: 226,
-      right: 50,
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => const SizedBox(),
-        medium: (_, child) => const SizedBox(),
-        large: (_, child) =>  const SettingsList(),
-        xlarge: (_, child) =>  const SettingsList(),
-      ),
-    );
+    return const SizedBox();
   }
 
   @override
