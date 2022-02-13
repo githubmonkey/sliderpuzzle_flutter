@@ -56,5 +56,14 @@ class PuzzleReset extends PuzzleEvent {
 }
 
 class PuzzleShuffleAnswers extends PuzzleEvent {
-  const PuzzleShuffleAnswers();
+  const PuzzleShuffleAnswers({
+    this.pinTrailingWhitespace = false,
+    this.pinLeadingWhitespace = false,
+  }) : assert(
+          !pinTrailingWhitespace || !pinLeadingWhitespace,
+          'must not both be set',
+        );
+
+  final bool pinTrailingWhitespace;
+  final bool pinLeadingWhitespace;
 }

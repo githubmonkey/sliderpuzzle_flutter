@@ -138,7 +138,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleShuffleAnswers event,
     Emitter<PuzzleState> emit,
   ) {
-    final puzzle = _shufflePuzzle(state.puzzle);
+    final puzzle = _shufflePuzzle(
+      state.puzzle,
+      pinTrailingWhitespace: event.pinTrailingWhitespace,
+      pinLeadingWhitespace: event.pinLeadingWhitespace,
+    );
     emit(
       PuzzleState(
         puzzle: puzzle,
@@ -166,6 +170,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     AnswerEncoding encoding, {
     bool shuffle = true,
     bool pinTrailingWhitespace = false,
+    bool pinLeadingWhitespace = false,
     bool elevenToTwenty = false,
   }) {
     final correctPositions = <Position>[];
@@ -206,6 +211,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       puzzle = _shufflePuzzle(
         puzzle,
         pinTrailingWhitespace: pinTrailingWhitespace,
+        pinLeadingWhitespace: pinLeadingWhitespace,
       );
     }
 
@@ -219,12 +225,23 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     List<Tile> tiles,
     int size,
     bool pinTrailingWhitespace,
+    bool pinLeadingWhitespace,
   ) {
     if (pinTrailingWhitespace && tiles.last.isWhitespace) {
       final whitetile = tiles.removeLast();
       tiles
         ..shuffle(random)
         ..add(whitetile);
+    } else if (pinLeadingWhitespace && tiles.first.isWhitespace) {
+      final whitetile = tiles.removeAt(0);
+      tiles
+        ..shuffle(random)
+        ..insert(0, whitetile);
+    } else if (pinLeadingWhitespace && tiles.last.isWhitespace) {
+      final whitetile = tiles.removeLast();
+      tiles
+        ..shuffle(random)
+        ..insert(0, whitetile);
     } else {
       tiles.shuffle(random);
     }
@@ -244,13 +261,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
 // Assign the tiles new current positions until the puzzle is solvable and
 // zero tiles are in their correct position.
-  Puzzle _shufflePuzzle(Puzzle puzzle, {bool pinTrailingWhitespace = true}) {
+  Puzzle _shufflePuzzle(Puzzle puzzle,
+      {bool pinTrailingWhitespace = false, bool pinLeadingWhitespace = false}) {
     while (true) {
       final shuffled = Puzzle(
         tiles: _shuffleTileList(
           puzzle.tiles,
           puzzle.getDimension(),
           pinTrailingWhitespace,
+          pinLeadingWhitespace,
         ),
         questions: puzzle.questions,
       );

@@ -67,7 +67,9 @@ class _MswapCountdownState extends State<MswapCountdown> {
 
           // Shuffle the puzzle on every countdown tick.
           if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
-            context.read<PuzzleBloc>().add(const PuzzleShuffleAnswers());
+            context.read<PuzzleBloc>().add(
+                  const PuzzleShuffleAnswers(pinLeadingWhitespace: true),
+                );
           }
         },
         child: ResponsiveLayoutBuilder(
