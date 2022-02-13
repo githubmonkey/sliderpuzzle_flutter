@@ -107,7 +107,7 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
                 child: FadeTransition(
                   opacity: _fade,
                   child: widget.question.isWhitespace
-                      ? const SizedBox()
+                      ? const Text('')
                       : RichText(
                           text: TextSpan(
                             text: widget.question.pair.left.toString(),

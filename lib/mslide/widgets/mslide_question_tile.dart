@@ -65,7 +65,7 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
     final hide = status == mslidePuzzleStatus.loading &&
         launchStage == LaunchStages.resetting;
     final reveal = status == mslidePuzzleStatus.started ||
-            status == mslidePuzzleStatus.notStarted ||
+        status == mslidePuzzleStatus.notStarted ||
         (status == mslidePuzzleStatus.loading &&
             launchStage == LaunchStages.showQuestions);
 
@@ -80,8 +80,8 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
 
     final adjustedFontSize =
         encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
-             ? widget.tileFontSize * 0.7
-             : widget.tileFontSize;
+            ? widget.tileFontSize * 0.7
+            : widget.tileFontSize;
 
     final style = PuzzleTextStyle.headline2.copyWith(
       fontSize: adjustedFontSize,
@@ -103,12 +103,12 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
         child: Column(
           children: [
             Expanded(
-              child: widget.question.isWhitespace
-                  ? const SizedBox()
-                  : Center(
-                      child: FadeTransition(
-                        opacity: _fade,
-                        child: RichText(
+              child: Center(
+                child: FadeTransition(
+                  opacity: _fade,
+                  child: widget.question.isWhitespace
+                      ? const Text('')
+                      : RichText(
                           text: TextSpan(
                             // text: getEncodingHelper().encoded(
                             //   widget.question.pair.left,
@@ -133,8 +133,8 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                             ],
                           ),
                         ),
-                      ),
-                    ),
+                ),
+              ),
             ),
             const Expanded(child: SizedBox())
           ],
