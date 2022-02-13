@@ -2,14 +2,15 @@
 
 part of 'settings_bloc.dart';
 
-enum AnswerEncoding { decimal, hex, binary, roman }
+// TODO(s): rename this, it's not longer encoding only
+enum AnswerEncoding { multi, addition, hex, binary, roman }
 
 class SettingsState extends Equatable {
   // Default settings
   const SettingsState({
     this.boardSize = 4,
     this.elevenToTwenty = false,
-    this.answerEncoding = AnswerEncoding.decimal,
+    this.answerEncoding = AnswerEncoding.multi,
   });
 
   final int boardSize;

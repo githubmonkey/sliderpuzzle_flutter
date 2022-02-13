@@ -6,7 +6,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
@@ -232,17 +231,8 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                           child: Center(
                             child: Text(
                               getEncodingHelper().encoded(
-                                widget.tile.pair.answer,
+                                widget.tile.pair,
                                 encoding: encoding,
-                              ),
-                              // TODO(s): does this even make sense here?
-                              semanticsLabel:
-                                  context.l10n.puzzleTileMathLabelText(
-                                '?',
-                                '?',
-                                widget.tile.pair.answer.toString(),
-                                widget.tile.currentPosition.x.toString(),
-                                widget.tile.currentPosition.y.toString(),
                               ),
                             ),
                           ),

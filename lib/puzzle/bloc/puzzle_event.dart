@@ -12,19 +12,16 @@ abstract class PuzzleEvent extends Equatable {
 class PuzzleInitialized extends PuzzleEvent {
   const PuzzleInitialized({
     required this.size,
+    required this.encoding,
     this.elevenToTwenty = false,
-    //required this.shufflePuzzle,
-    //required this.pinTrailingWhitespace,
   });
 
   final int size;
+  final AnswerEncoding encoding;
   final bool elevenToTwenty;
 
   @override
-  List<Object> get props => [
-        size,
-        elevenToTwenty,
-      ];
+  List<Object> get props => [size, encoding, elevenToTwenty];
 }
 
 /// Tile tapped for sliding
@@ -48,12 +45,14 @@ class TileKicked extends PuzzleEvent {
 }
 
 class PuzzleReset extends PuzzleEvent {
-  const PuzzleReset({required this.size});
+  const PuzzleReset({required this.size, required this.encoding});
 
   final int size;
 
+  final AnswerEncoding encoding;
+
   @override
-  List<Object> get props => [size];
+  List<Object> get props => [size, encoding];
 }
 
 class PuzzleShuffleAnswers extends PuzzleEvent {

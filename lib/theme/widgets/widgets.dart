@@ -6,3 +6,4 @@ export 'puzzle_button.dart';
 export 'puzzle_intro.dart';
 export 'puzzle_name.dart';
 export 'puzzle_title.dart';
+export 'question_text.dart';

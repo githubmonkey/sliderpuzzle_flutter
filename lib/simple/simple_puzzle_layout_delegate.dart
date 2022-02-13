@@ -405,14 +405,16 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final settings = context.read<SettingsBloc>().state;
+    final boardSize = settings.boardSize;
+    final encoding = settings.answerEncoding;
 
     return PuzzleButton(
       textColor: PuzzleColors.primary0,
       backgroundColor: PuzzleColors.primary6,
-      onPressed: () =>
-          context.read<PuzzleBloc>().add(PuzzleReset(size: boardSize)),
+      onPressed: () => context
+          .read<PuzzleBloc>()
+          .add(PuzzleReset(size: boardSize, encoding: encoding)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

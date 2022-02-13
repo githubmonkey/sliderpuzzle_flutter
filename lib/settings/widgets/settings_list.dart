@@ -70,24 +70,6 @@ class SettingsList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    context.l10n.settingsLabelElevenToTwenty,
-                    style: PuzzleTextStyle.settingsLabel.copyWith(
-                      color: theme.defaultColor,
-                    ),
-                  ),
-                  Switch(
-                    value: elevenToTwenty,
-                    activeColor: theme.defaultColor,
-                    onChanged: (bool value) => context
-                        .read<SettingsBloc>()
-                        .add(ElevenToTwentyChanged(elevenToTwenty: value)),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
                     context.l10n.settingsLabelAnswerEncoding,
                     style: PuzzleTextStyle.settingsLabel.copyWith(
                       color: theme.defaultColor,
@@ -106,33 +88,57 @@ class SettingsList extends StatelessWidget {
                       onChanged: (AnswerEncoding? result) {
                         if (null != result) {
                           context.read<SettingsBloc>().add(
-                              AnswerEncodingChanged(answerEncoding: result),);
+                            AnswerEncodingChanged(answerEncoding: result),);
                         }
                       },
                       items: [
                         DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.decimal,
+                          value: AnswerEncoding.multi,
                           child: Text(
-                            context.l10n.settingsAnswerEncodingValueDecimal,
+                            context.l10n.settingsAnswerEncodingValueMulti,
+                          ),
+                        ),
+                        DropdownMenuItem<AnswerEncoding>(
+                          value: AnswerEncoding.addition,
+                          child: Text(
+                            context.l10n.settingsAnswerEncodingValueAddition,
                           ),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.roman,
                           child: Text(
-                              context.l10n.settingsAnswerEncodingValueRoman,),
+                            context.l10n.settingsAnswerEncodingValueRoman,),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.hex,
                           child:
-                              Text(context.l10n.settingsAnswerEncodingValueHex),
+                          Text(context.l10n.settingsAnswerEncodingValueHex),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.binary,
                           child: Text(
-                              context.l10n.settingsAnswerEncodingValueBinary,),
+                            context.l10n.settingsAnswerEncodingValueBinary,),
                         ),
                       ],
                     ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.l10n.settingsLabelElevenToTwenty,
+                    style: PuzzleTextStyle.settingsLabel.copyWith(
+                      color: theme.defaultColor,
+                    ),
+                  ),
+                  Switch(
+                    value: elevenToTwenty,
+                    activeColor: theme.defaultColor,
+                    onChanged: (bool value) => context
+                        .read<SettingsBloc>()
+                        .add(ElevenToTwentyChanged(elevenToTwenty: value)),
                   ),
                 ],
               ),

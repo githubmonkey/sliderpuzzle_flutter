@@ -4,23 +4,27 @@
     "@settingsLabelBoardSize": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelElevenToTwenty": "Grosses Einmaleins",
+    "settingsLabelElevenToTwenty": "Grosse Zahlen",
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelAnswerEncoding": "Zahlensystem",
+    "settingsLabelAnswerEncoding": "Aufgabe",
     "@settingsLabelAnswerEncoding": {
         "description": "Shown on the settings control"
     },
-    "settingsAnswerEncodingValueDecimal": "Dezimal",
-    "@settingsAnswerEncodingValueDecimal": {
+    "settingsAnswerEncodingValueMulti": "1mal1",
+    "@settingsAnswerEncodingValueMulti": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueRoman": "Römisch",
+    "settingsAnswerEncodingValueAddition": "1plus1",
+    "@settingsAnswerEncodingValueAddition": {
+        "description": "Shown on the menu"
+    },
+    "settingsAnswerEncodingValueRoman": "Römische Zahlen",
     "@settingsAnswerEncodingValueRoman": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueBinary": "Binär",
+    "settingsAnswerEncodingValueBinary": "Binärsystem",
     "@settingsAnswerEncodingValueBinary": {
         "description": "Shown on the menu"
     },

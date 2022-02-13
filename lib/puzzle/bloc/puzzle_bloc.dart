@@ -5,7 +5,7 @@ import 'dart:math' hide log;
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/models/pair.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 part 'puzzle_event.dart';
 
@@ -30,9 +30,9 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   ) {
     final puzzle = _generatePuzzle(
       event.size,
+      event.encoding,
       elevenToTwenty: event.elevenToTwenty,
       shuffle: false,
-      //pinTrailingWhitespace: event.pinTrailingWhitespace,
     );
     emit(
       PuzzleState(
@@ -125,7 +125,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    final puzzle = _generatePuzzle(event.size);
+    final puzzle = _generatePuzzle(event.size, event.encoding);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -147,23 +147,23 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  List<Pair> _generateQuestionPairs(int size, bool elevenToTwenty) {
+  List<Pair> _generateQuestionPairs(
+    int size,
+    AnswerEncoding encoding,
+    bool elevenToTwenty,
+  ) {
     final set = <Pair>{};
 
     while (set.length < (size * size)) {
-      set.add(
-        Pair(
-          left: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
-          right: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
-        ),
-      );
+      set.add(Pair.generatePair(random, encoding, elevenToTwenty));
     }
     return set.toList();
   }
 
   /// Build a randomized, solvable puzzle of the given size.
   Puzzle _generatePuzzle(
-    int size, {
+    int size,
+    AnswerEncoding encoding, {
     bool shuffle = true,
     bool pinTrailingWhitespace = false,
     bool elevenToTwenty = false,
@@ -171,7 +171,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final questions = <Question>[];
-    final pairs = _generateQuestionPairs(size, elevenToTwenty);
+    final pairs = _generateQuestionPairs(size, encoding, elevenToTwenty);
 
     // Create all possible board positions.
     var i = 1;

@@ -112,10 +112,10 @@ class PuzzleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.read<SettingsBloc>().state;
+    final boardSize = settings.boardSize;
+    final encoding = settings.answerEncoding;
+    final elevenToTwenty = settings.elevenToTwenty;
 
     return BlocProvider(
       create: (context) => SettingsBloc(),
@@ -164,6 +164,7 @@ class PuzzleView extends StatelessWidget {
                     ..add(
                       PuzzleInitialized(
                         size: boardSize,
+                        encoding: encoding,
                         elevenToTwenty: elevenToTwenty,
                       ),
                     ),
@@ -198,6 +199,7 @@ class _Puzzle extends StatelessWidget {
         context.read<PuzzleBloc>().add(
               PuzzleInitialized(
                 size: state.boardSize,
+                encoding: state.answerEncoding,
                 elevenToTwenty: state.elevenToTwenty,
               ),
             );
@@ -549,10 +551,10 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.read<SettingsBloc>().state;
+    final boardSize = settings.boardSize;
+    final encoding = settings.answerEncoding;
+    final elevenToTwenty = settings.elevenToTwenty;
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
@@ -627,6 +629,7 @@ class PuzzleMenuItem extends StatelessWidget {
                 context.read<PuzzleBloc>().add(
                       PuzzleInitialized(
                         size: boardSize,
+                        encoding: encoding,
                         elevenToTwenty: elevenToTwenty,
                       ),
                     );

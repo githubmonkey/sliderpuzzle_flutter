@@ -8,15 +8,19 @@
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelAnswerEncoding": "Encoding",
+    "settingsLabelAnswerEncoding": "Challenge",
     "@settingsLabelAnswerEncoding": {
         "description": "Shown on the settings control"
     },
-    "settingsAnswerEncodingValueDecimal": "Decimal",
-    "@settingsAnswerEncodingValueDecimal": {
+    "settingsAnswerEncodingValueMulti": "Times Tables",
+    "@settingsAnswerEncodingValueMulti": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueRoman": "Roman",
+    "settingsAnswerEncodingValueAddition": "Addition",
+    "@settingsAnswerEncodingValueAddition": {
+        "description": "Shown on the menu"
+    },
+    "settingsAnswerEncodingValueRoman": "Roman Numbers",
     "@settingsAnswerEncodingValueRoman": {
         "description": "Shown on the menu"
     },
@@ -24,7 +28,7 @@
     "@settingsAnswerEncodingValueBinary": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueHex": "Hex",
+    "settingsAnswerEncodingValueHex": "Hexadecimal",
     "@settingsAnswerEncodingValueHex": {
         "description": "Shown on the menu"
     },

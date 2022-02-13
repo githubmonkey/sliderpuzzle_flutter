@@ -55,7 +55,9 @@ class _DashatarPuzzleActionButtonState
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
-    final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final settings = context.read<SettingsBloc>().state;
+    final size = settings.boardSize;
+    final encoding = settings.answerEncoding;
 
     final text = isStarted
         ? context.l10n.dashatarRestart
@@ -89,7 +91,7 @@ class _DashatarPuzzleActionButtonState
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            PuzzleInitialized(size: size),
+                            PuzzleInitialized(size: size, encoding: encoding),
                           );
                     }
 

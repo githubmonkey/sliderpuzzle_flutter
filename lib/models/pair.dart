@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 /// A par of multipliers. For comparison, use the solution only
 
@@ -7,6 +10,7 @@ class Pair extends Equatable {
   const Pair({
     required this.left,
     required this.right,
+    required this.encoding,
   });
 
   /// Left multiplier
@@ -15,14 +19,34 @@ class Pair extends Equatable {
   /// Right multiplier
   final int right;
 
-  /// Calculate answer
-  int get answer => left * right;
+  /// The challenge type
+  final AnswerEncoding encoding;
 
-  /// Renerate string for display
-  String get questionStr => '$left x $right';
+  /// Calculate answer
+  int get answer =>
+      encoding == AnswerEncoding.addition ? left + right : left * right;
 
   @override
   List<Object?> get props => [
-    answer,
-  ];
+        answer,
+      ];
+
+  /// static factory
+  static Pair generatePair(
+      Random random, AnswerEncoding encoding, bool elevenToTwenty) {
+    if (encoding == AnswerEncoding.multi ||
+        encoding == AnswerEncoding.addition) {
+      return Pair(
+        left: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
+        right: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
+        encoding: encoding,
+      );
+    } else {
+      return Pair(
+        left: random.nextInt(100) + 1,
+        right: 1,
+        encoding: encoding,
+      );
+    }
+  }
 }

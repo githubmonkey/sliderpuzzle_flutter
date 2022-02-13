@@ -1,3 +1,4 @@
+import 'package:very_good_slide_puzzle/models/pair.dart';
 import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 /// Returns a new instance of [EncodingHelper].
@@ -40,16 +41,18 @@ class EncodingHelper {
   ];
 
   /// Converts an int to the corresponding string
-  String encoded(int i, {required AnswerEncoding encoding}) {
+  String encoded(Pair pair, {required AnswerEncoding encoding}) {
     switch (encoding) {
+      case AnswerEncoding.multi:
+        return pair.answer.toString();
+      case AnswerEncoding.addition:
+        return pair.answer.toString();
       case AnswerEncoding.roman:
-        return _toRoman(i);
-      case AnswerEncoding.decimal:
-        return i.toString();
+        return _toRoman(pair.answer);
       case AnswerEncoding.binary:
-        return i.toRadixString(2);
+        return pair.answer.toRadixString(2);
       case AnswerEncoding.hex:
-        return i.toRadixString(16);
+        return pair.answer.toRadixString(16);
       // ignore: no_default_cases
       default:
         throw Exception('$encoding not implemented');

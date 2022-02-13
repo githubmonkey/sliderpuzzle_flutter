@@ -1,3 +1,4 @@
+export 'pair.dart';
 export 'position.dart';
 export 'puzzle.dart';
 export 'question.dart';
