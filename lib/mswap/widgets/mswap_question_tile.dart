@@ -65,7 +65,7 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
     final hide = status == mswapPuzzleStatus.loading &&
         launchStage == LaunchStages.resetting;
     final reveal = status == mswapPuzzleStatus.started ||
-            status == mswapPuzzleStatus.notStarted ||
+        status == mswapPuzzleStatus.notStarted ||
         (status == mswapPuzzleStatus.loading &&
             launchStage == LaunchStages.showQuestions);
 
@@ -80,8 +80,8 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
 
     final adjustedFontSize =
         encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
-             ? widget.tileFontSize * 0.7
-             : widget.tileFontSize;
+            ? widget.tileFontSize * 0.7
+            : widget.tileFontSize;
 
     final style = PuzzleTextStyle.headline2.copyWith(
       fontSize: adjustedFontSize,
@@ -103,17 +103,13 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
         child: Column(
           children: [
             Expanded(
-              child: widget.question.isWhitespace
-                  ? const SizedBox()
-                  : Center(
-                      child: FadeTransition(
-                        opacity: _fade,
-                        child: RichText(
+              child: Center(
+                child: FadeTransition(
+                  opacity: _fade,
+                  child: widget.question.isWhitespace
+                      ? const SizedBox()
+                      : RichText(
                           text: TextSpan(
-                            // text: getEncodingHelper().encoded(
-                            //   widget.question.pair.left,
-                            //   encoding: encoding,
-                            // ),
                             text: widget.question.pair.left.toString(),
                             style: style,
                             children: <InlineSpan>[
@@ -123,18 +119,14 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
                                     Text(' x ', style: PuzzleTextStyle.label),
                               ),
                               TextSpan(
-                                // text: getEncodingHelper().encoded(
-                                //   widget.question.pair.right,
-                                //   encoding: encoding,
-                                // ),
                                 text: widget.question.pair.right.toString(),
                                 style: style,
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ),
+                ),
+              ),
             ),
             const Expanded(child: SizedBox())
           ],

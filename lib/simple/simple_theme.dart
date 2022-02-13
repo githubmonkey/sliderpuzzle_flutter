@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
@@ -14,16 +13,6 @@ class SimpleTheme extends PuzzleTheme {
 
   @override
   String get name => 'Simple';
-
-  @override
-  String localizedTitle(BuildContext context) => context.l10n.puzzleTitleSimple;
-
-  @override
-  String get summary => 'A VGV demo. Practice your '
-      'sliding without distractions.';
-
-  @override
-  String get instructions => 'Slide the tiles in order';
 
   @override
   bool get hasTimer => false;

@@ -38,7 +38,6 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget endSectionBuilder(PuzzleState state) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.max,
       children: [
         const ResponsiveGap(
           small: 20,
@@ -148,25 +147,25 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget questionBuilder(Question question, PuzzleState state) {
-      return ResponsiveLayoutBuilder(
-        small: (_, child) => MslideQuestionTile(
-          tileFontSize: QuestionFontSize.small,
-          question: question,
-        ),
-        medium: (_, child) => MslideQuestionTile(
-          tileFontSize: QuestionFontSize.medium,
-          question: question,
-        ),
-        large: (_, child) => MslideQuestionTile(
-          tileFontSize: QuestionFontSize.large,
-          question: question,
-        ),
-        xlarge: (_, child) => MslideQuestionTile(
-          tileFontSize: QuestionFontSize.xlarge,
-          question: question,
-        ),
-      );
-    }
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => MslideQuestionTile(
+        tileFontSize: QuestionFontSize.small,
+        question: question,
+      ),
+      medium: (_, child) => MslideQuestionTile(
+        tileFontSize: QuestionFontSize.medium,
+        question: question,
+      ),
+      large: (_, child) => MslideQuestionTile(
+        tileFontSize: QuestionFontSize.large,
+        question: question,
+      ),
+      xlarge: (_, child) => MslideQuestionTile(
+        tileFontSize: QuestionFontSize.xlarge,
+        question: question,
+      ),
+    );
+  }
 
   @override
   Widget whitespaceTileBuilder() {

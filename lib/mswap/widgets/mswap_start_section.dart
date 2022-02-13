@@ -26,22 +26,38 @@ class MswapStartSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        ResponsiveLayoutBuilder(
+          small: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.mswapIntro,
+              extra: context.l10n.mswapExtra,
+            ),
+          ),
+          medium: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.mswapIntro,
+              extra: context.l10n.mswapExtra,
+            ),
+          ),
+          large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
+        ),
         const ResponsiveGap(
-          small: 20,
-          medium: 83,
-          large: 151,
-          xlarge: 211,
+          small: 24,
+          medium: 40,
+          large: 96,
+          xlarge: 96,
         ),
-        PuzzleName(
-          key: puzzleNameKey,
-        ),
+        PuzzleName(key: puzzleNameKey),
         const ResponsiveGap(
           large: 16,
           xlarge: 16,
         ),
         PuzzleTitle(
           key: puzzleTitleKey,
-          title: context.l10n.puzzleChallengeTitle,
+          title: context.l10n.mswapTitle,
         ),
         const ResponsiveGap(
           small: 12,
@@ -73,6 +89,22 @@ class MswapStartSection extends StatelessWidget {
           medium: (_, __) => const MswapTimer(),
           large: (_, __) => const SizedBox(),
           xlarge: (_, __) => const SizedBox(),
+        ),
+        const ResponsiveGap(
+          large: 42,
+          xlarge: 52,
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => const SizedBox(),
+          medium: (_, __) => const SizedBox(),
+          large: (context, __) => PuzzleIntro(
+            intro: context.l10n.mswapIntro,
+            extra: context.l10n.mswapExtra,
+          ),
+          xlarge: (_, __) => PuzzleIntro(
+            intro: context.l10n.mswapIntro,
+            extra: context.l10n.mswapExtra,
+          ),
         ),
         const ResponsiveGap(small: 12),
       ],

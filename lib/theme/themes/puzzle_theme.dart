@@ -16,15 +16,6 @@ abstract class PuzzleTheme extends Equatable {
   /// The tag line of this theme.
   /// String get title;
 
-  /// Localized title lookup
-  String localizedTitle(BuildContext context);
-
-  /// The summary line of this theme.
-  String get summary;
-
-  /// The instructions line of this theme.
-  String get instructions;
-
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
 

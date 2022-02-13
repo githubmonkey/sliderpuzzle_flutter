@@ -40,25 +40,53 @@
     "@puzzleRestartTooltip": {
         "description": "Shown as a tooltip for the puzzle restart button"
     },
-    "puzzleChallengeTitle": "Times Table Puzzle",
-    "@puzzleChallengeTitle": {
-        "description": "Shown as the title of the puzzle"
-    },
-    "puzzleTitleMslide": "Slide & Solve",
-    "@puzzleTitleMslide": {
+    "mslideTitle": "Slide & Solve",
+    "@mslideTitle": {
         "description": "Title of the slider Puzzle"
     },
-    "puzzleTitleMswap": "Swap & Learn",
-    "@puzzleTitleMswap": {
+    "mslideIntro": "Only a math wizz can solve this!",
+    "@mslideIntro": {
+        "description": "Intro of the slider Puzzle"
+    },
+    "mslideExtra": "TIP: Practice your math with Swap mode. Practice the puzzle with Simple. Then return here to conquer the math slider.",
+    "@mslideExtra": {
+        "description": "Extra of the slider Puzzle"
+    },
+    "mswapTitle": "Swap & Learn",
+    "@mswapTitle": {
         "description": "Title of the swaper Puzzle"
     },
-    "puzzleTitleSimple": "Basic Slider",
-    "@puzzleTitleSimple": {
+    "mswapIntro": "Focus on your math",
+    "@mswapIntro": {
+        "description": "Intro of the swaper Puzzle"
+    },
+    "mswapExtra": "Do the math, then swap the tiles to solve. Swapping is easier than sliding so start here to practice your math.",
+    "@mswapExtra": {
+        "description": "Extra of the swaper Puzzle"
+    },
+    "simpleTitle": "Basic Slider",
+    "@simpleTitle": {
         "description": "Title of the simple Puzzle"
     },
-    "puzzleTitleDashatar": "Dash Fun",
-    "@puzzleTitleDashatar": {
+    "simpleIntro": "Demo theme, courtesy of VGV",
+    "@simpleIntro": {
+        "description": "Intro of the simple Puzzle"
+    },
+    "simpleExtra": "Slide to solve",
+    "@simpleExtra": {
+        "description": "Extra of the simple Puzzle"
+    },
+    "dashatarTitle": "Dash Fun",
+    "@dashatarTitle": {
         "description": "Title of the dash Puzzle"
+    },
+    "dashatarIntro": "Demo theme, courtesy of VGV",
+    "@dashatarIntro": {
+        "description": "Intro of the dash Puzzle"
+    },
+    "dashatarExtra": "Slide to solve",
+    "@dashatarExtra": {
+        "description": "Extra of the dash Puzzle"
     },
     "puzzleNumberOfMoves": "Moves",
     "@puzzleNumberOfMoves": {

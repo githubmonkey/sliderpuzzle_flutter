@@ -33,11 +33,8 @@ class PuzzleName extends StatelessWidget {
           color: nameColor,
         ),
         duration: PuzzleThemeAnimationDuration.textStyle,
-        child: const Text(
-          // TODO(s): rename this to const
-          'Flutter Puzzle Hack',
-          key: Key('flutter_puzzle_hack'),
-        ),
+        child:
+            const Text('Flutter Puzzle Hack', key: Key('flutter_puzzle_hack')),
       ),
     );
   }

@@ -26,11 +26,29 @@ class MslideStartSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        ResponsiveLayoutBuilder(
+          small: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.mslideIntro,
+              extra: context.l10n.mslideExtra,
+            ),
+          ),
+          medium: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.mslideIntro,
+              extra: context.l10n.mslideExtra,
+            ),
+          ),
+          large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
+        ),
         const ResponsiveGap(
-          small: 20,
-          medium: 83,
-          large: 151,
-          xlarge: 211,
+          small: 24,
+          medium: 40,
+          large: 96,
+          xlarge: 96,
         ),
         PuzzleName(
           key: puzzleNameKey,
@@ -41,7 +59,7 @@ class MslideStartSection extends StatelessWidget {
         ),
         PuzzleTitle(
           key: puzzleTitleKey,
-          title: context.l10n.puzzleChallengeTitle,
+          title: context.l10n.mslideTitle,
         ),
         const ResponsiveGap(
           small: 12,
@@ -73,6 +91,22 @@ class MslideStartSection extends StatelessWidget {
           medium: (_, __) => const MslideTimer(),
           large: (_, __) => const SizedBox(),
           xlarge: (_, __) => const SizedBox(),
+        ),
+        const ResponsiveGap(
+          large: 42,
+          xlarge: 52,
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => const SizedBox(),
+          medium: (_, __) => const SizedBox(),
+          large: (context, __) => PuzzleIntro(
+            intro: context.l10n.mslideIntro,
+            extra: context.l10n.mslideExtra,
+          ),
+          xlarge: (_, __) => PuzzleIntro(
+            intro: context.l10n.mslideIntro,
+            extra: context.l10n.mslideExtra,
+          ),
         ),
         const ResponsiveGap(small: 12),
       ],

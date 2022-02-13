@@ -27,11 +27,29 @@ class DashatarStartSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        ResponsiveLayoutBuilder(
+          small: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.dashatarIntro,
+              extra: context.l10n.dashatarExtra,
+            ),
+          ),
+          medium: (_, __) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: PuzzleIntro(
+              intro: context.l10n.dashatarIntro,
+              extra: context.l10n.dashatarExtra,
+            ),
+          ),
+          large: (_, __) => const SizedBox(),
+          xlarge: (_, __) => const SizedBox(),
+        ),
         const ResponsiveGap(
-          small: 20,
-          medium: 83,
-          large: 151,
-          xlarge: 151,
+          small: 24,
+          medium: 40,
+          large: 96,
+          xlarge: 96,
         ),
         PuzzleName(
           key: puzzleNameKey,
@@ -42,7 +60,7 @@ class DashatarStartSection extends StatelessWidget {
         ),
         PuzzleTitle(
           key: puzzleTitleKey,
-          title: context.l10n.puzzleChallengeTitle,
+          title: context.l10n.dashatarTitle,
         ),
         const ResponsiveGap(
           small: 12,
@@ -74,6 +92,22 @@ class DashatarStartSection extends StatelessWidget {
           medium: (_, __) => const DashatarTimer(),
           large: (_, __) => const SizedBox(),
           xlarge: (_, __) => const SizedBox(),
+        ),
+        const ResponsiveGap(
+          large: 42,
+          xlarge: 52,
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => const SizedBox(),
+          medium: (_, __) => const SizedBox(),
+          large: (context, __) => PuzzleIntro(
+            intro: context.l10n.dashatarIntro,
+            extra: context.l10n.dashatarExtra,
+          ),
+          xlarge: (_, __) => PuzzleIntro(
+            intro: context.l10n.dashatarIntro,
+            extra: context.l10n.dashatarExtra,
+          ),
         ),
         const ResponsiveGap(small: 12),
       ],

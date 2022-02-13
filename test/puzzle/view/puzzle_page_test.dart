@@ -189,8 +189,6 @@ void main() {
       when(() => layoutDelegate.backgroundBuilder(any()))
           .thenReturn(SizedBox());
 
-      when(() => layoutDelegate.settingsBuilder(any())).thenReturn(SizedBox());
-
       when(() => layoutDelegate.boardBuilder(any(), any(), any()))
           .thenReturn(SizedBox());
 

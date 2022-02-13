@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -14,15 +13,6 @@ abstract class MswapTheme extends PuzzleTheme {
 
   @override
   String get name => 'Swap';
-
-  @override
-  String localizedTitle(BuildContext context) => context.l10n.puzzleTitleMswap;
-
-  @override
-  String get summary => 'Focus on your math';
-
-  @override
-  String get instructions => 'Swap to solve';
 
   @override
   String get audioControlOnAsset =>

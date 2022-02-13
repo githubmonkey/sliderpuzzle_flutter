@@ -40,25 +40,53 @@
     "@puzzleRestartTooltip": {
         "description": "Shown as a tooltip for the puzzle restart button"
     },
-    "puzzleChallengeTitle": "Einmaleins Puzzle",
-    "@puzzleChallengeTitle": {
-        "description": "Shown as the title of the puzzle"
-    },
-    "puzzleTitleMslide": "Rechenkönig",
+    "mslideTitle": "Rechne & schieb",
     "@puzzleTitleMslide": {
         "description": "Title of the slider Puzzle"
     },
-    "puzzleTitleMswap": "Schneller Hopser",
-    "@puzzleTitleMswap": {
+    "mslideIntro": "Das schaffen nur Mathestars!",
+    "@mslideIntro": {
+        "description": "Intro of the slider Puzzle"
+    },
+    "mslideExtra": "Um erst mal das Rechnen zu üben, fang mit dem Swap-Modus an. Um das Schieben zu lernen, versuch Simple oder Dash.",
+    "@mslideExtra": {
+        "description": "Extra of the slider Puzzle"
+    },
+    "mswapTitle": "Rechne & tausch",
+    "@mswapTitle": {
         "description": "Title of the swaper Puzzle"
     },
-    "puzzleTitleSimple": "Einfacher Schieber",
-    "@puzzleTitleSimple": {
+    "mswapIntro": "Hier kannst du das Rechnen üben!",
+    "@mswapIntro": {
+        "description": "Intro of the swaper Puzzle"
+    },
+    "mswapExtra": "Tausch Kacheln bis alle Aufgaben gelöst sind.",
+    "@mswapExtra": {
+        "description": "Extra of the swaper Puzzle"
+    },
+    "simpleTitle": "Standardpuzzle",
+    "@simpleTitle": {
         "description": "Title of the simple Puzzle"
     },
-    "puzzleTitleDashatar": "Dash Spass",
-    "@puzzleTitleDashatar": {
+    "simpleIntro": "Demomodus von VGV",
+    "@simpleIntro": {
+        "description": "Intro of the simple Puzzle"
+    },
+    "simpleExtra": "Hier kannst du schieben",
+    "@simpleExtra": {
+        "description": "Extra of the simple Puzzle"
+    },
+    "dashatarTitle": "Dash Spaß",
+    "@dashatarTitle": {
         "description": "Title of the dash Puzzle"
+    },
+    "dashatarIntro": "Demomodus von VGV",
+    "@dashatarIntro": {
+        "description": "Intro of the dash Puzzle"
+    },
+    "dashatarExtra": "Hier kannst du schieben",
+    "@dashatarExtra": {
+        "description": "Extra of the dash Puzzle"
     },
     "puzzleNumberOfMoves": "Züge",
     "@puzzleNumberOfMoves": {

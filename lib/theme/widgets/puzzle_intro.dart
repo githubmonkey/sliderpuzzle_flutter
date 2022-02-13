@@ -4,27 +4,31 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-/// {@template puzzle_title}
-/// Displays the title of the puzzle in the given color.
+/// {@template puzzle_intro}
+/// Displays the intro and extra texts in the given color.
 /// {@endtemplate}
-class PuzzleTitle extends StatelessWidget {
+class PuzzleIntro extends StatelessWidget {
   /// {@macro puzzle_title}
-  const PuzzleTitle({
+  const PuzzleIntro({
     Key? key,
-    required this.title,
+    required this.intro,
+    required this.extra,
     this.color,
   }) : super(key: key);
 
   /// The title to be displayed.
-  final String title;
+  final String intro;
 
-  /// The color of [title], defaults to [PuzzleTheme.titleColor].
+  /// Extra info
+  final String extra;
+
+  /// The color of [intro], defaults to [PuzzleTheme.defaultColor].
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final titleColor = color ?? theme.titleColor;
+    final textColor = color ?? theme.defaultColor;
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(child: child),
@@ -32,20 +36,27 @@ class PuzzleTitle extends StatelessWidget {
       large: (context, child) => child!,
       xlarge: (context, child) => child!,
       child: (currentSize) {
-        final textStyle = (currentSize == ResponsiveLayoutSize.large ||
-                    currentSize == ResponsiveLayoutSize.xlarge
-                ? PuzzleTextStyle.headline2
-                : PuzzleTextStyle.headline3)
-            .copyWith(color: titleColor);
 
         final textAlign = currentSize == ResponsiveLayoutSize.small
             ? TextAlign.center
             : TextAlign.left;
 
         return AnimatedDefaultTextStyle(
-          style: textStyle,
+          style: PuzzleTextStyle.body.copyWith(color: textColor),
           duration: PuzzleThemeAnimationDuration.textStyle,
-          child: Text(title, textAlign: textAlign),
+          child: Column(
+            children: [
+              Text(intro, textAlign: textAlign),
+              if (extra.isNotEmpty)
+                Text(
+                  extra,
+                  textAlign: textAlign,
+                  style: PuzzleTextStyle.label.copyWith(color: textColor),
+                )
+              else
+                const SizedBox(),
+            ],
+          ),
         );
       },
     );
