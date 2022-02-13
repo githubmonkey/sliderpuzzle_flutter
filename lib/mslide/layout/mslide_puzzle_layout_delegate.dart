@@ -42,8 +42,8 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         const ResponsiveGap(
           small: 20,
           medium: 83,
-          large: 151,
-          xlarge: 211,
+          large: 96,
+          xlarge: 96,
         ),
         ResponsiveLayoutBuilder(
           small: (_, child) => const MslidePuzzleActionButton(),
@@ -56,13 +56,13 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 54,
         ),
         const SettingsList(),
-        const ResponsiveGap(
-          small: 20,
-          medium: 83,
-          large: 151,
-          xlarge: 211,
-        ),
-        const MslideThemePicker(),
+        // const ResponsiveGap(
+        //   small: 20,
+        //   medium: 83,
+        //   large: 151,
+        //   xlarge: 211,
+        // ),
+        //const MslideThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,

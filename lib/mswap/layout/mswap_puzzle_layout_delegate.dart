@@ -41,8 +41,8 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         const ResponsiveGap(
           small: 23,
           medium: 32,
-          large: 151,
-          xlarge: 211,
+          large: 96,
+          xlarge: 96,
         ),
         ResponsiveLayoutBuilder(
           small: (_, child) => const MswapPuzzleActionButton(),
@@ -55,13 +55,13 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 54,
         ),
         const SettingsList(),
-        const ResponsiveGap(
-          small: 20,
-          medium: 83,
-          large: 151,
-          xlarge: 211,
-        ),
-        const MswapThemePicker(),
+        // const ResponsiveGap(
+        //   small: 20,
+        //   medium: 83,
+        //   large: 151,
+        //   xlarge: 211,
+        // ),
+        // const MswapThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,
