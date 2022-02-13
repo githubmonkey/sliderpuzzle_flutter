@@ -55,9 +55,8 @@ class _DashatarPuzzleActionButtonState
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
-    final settings = context.read<SettingsBloc>().state;
-    final size = settings.boardSize;
-    final encoding = settings.answerEncoding;
+    final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
 
     final text = isStarted
         ? context.l10n.dashatarRestart

@@ -112,10 +112,9 @@ class PuzzleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final settings = context.read<SettingsBloc>().state;
-    final boardSize = settings.boardSize;
-    final encoding = settings.answerEncoding;
-    final elevenToTwenty = settings.elevenToTwenty;
+    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     return BlocProvider(
       create: (context) => SettingsBloc(),
@@ -551,10 +550,9 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
-    final settings = context.read<SettingsBloc>().state;
-    final boardSize = settings.boardSize;
-    final encoding = settings.answerEncoding;
-    final elevenToTwenty = settings.elevenToTwenty;
+    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(

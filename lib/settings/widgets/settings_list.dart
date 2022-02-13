@@ -81,6 +81,7 @@ class SettingsList extends StatelessWidget {
                     ),
                     child: DropdownButton<AnswerEncoding>(
                       value: answerEncoding,
+                      alignment: AlignmentDirectional.centerEnd,
                       style: PuzzleTextStyle.settingsLabel.copyWith(
                         color: theme.defaultColor,
                         //backgroundColor: theme.buttonColor,
@@ -94,28 +95,33 @@ class SettingsList extends StatelessWidget {
                       items: [
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.multi,
+                          alignment: AlignmentDirectional.centerEnd,
                           child: Text(
                             context.l10n.settingsAnswerEncodingValueMulti,
                           ),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.addition,
+                          alignment: AlignmentDirectional.centerEnd,
                           child: Text(
                             context.l10n.settingsAnswerEncodingValueAddition,
                           ),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.roman,
+                          alignment: AlignmentDirectional.centerEnd,
                           child: Text(
                             context.l10n.settingsAnswerEncodingValueRoman,),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.hex,
+                          alignment: AlignmentDirectional.centerEnd,
                           child:
                           Text(context.l10n.settingsAnswerEncodingValueHex),
                         ),
                         DropdownMenuItem<AnswerEncoding>(
                           value: AnswerEncoding.binary,
+                          alignment: AlignmentDirectional.centerEnd,
                           child: Text(
                             context.l10n.settingsAnswerEncodingValueBinary,),
                         ),
