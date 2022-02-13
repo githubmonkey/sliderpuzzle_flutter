@@ -221,5 +221,5 @@ class Puzzle extends Equatable {
   }
 
   @override
-  List<Object> get props => [tiles];
+  List<Object> get props => [tiles, questions];
 }
