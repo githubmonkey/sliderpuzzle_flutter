@@ -143,6 +143,9 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
             ? widget.tileFontSize / 2
             : widget.tileFontSize;
 
+    final bool correctPosition = hasStarted &&
+        widget.tile.currentPosition == widget.tile.correctPosition;
+
     return AudioControlListener(
       audioPlayer: _audioPlayer,
       child: FadeTransition(
@@ -175,70 +178,71 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
               dimension: BoardSize.getTileSize(BoardSize.xlarge, size),
               child: child,
             ),
-            child: (_) => Padding(
-              padding: const EdgeInsets.all(4),
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (canPress) {
-                    _hoverController.forward();
-                  }
-                },
-                onExit: (_) {
-                  if (canPress) {
-                    _hoverController.reverse();
-                  }
-                },
-                child: ScaleTransition(
-                  key: Key('mswap_puzzle_tile_scale_${widget.tile.value}'),
-                  scale: _hoverScale,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: PuzzleColors.white,
-                      textStyle: PuzzleTextStyle.headline2.copyWith(
-                        fontSize: adjustedFontSize,
-                      ),
-                      shape: const RoundedRectangleBorder(
+            child: (_) => MouseRegion(
+              onEnter: (_) {
+                if (canPress) {
+                  _hoverController.forward();
+                }
+              },
+              onExit: (_) {
+                if (canPress) {
+                  _hoverController.reverse();
+                }
+              },
+              child: ScaleTransition(
+                key: Key('mswap_puzzle_tile_scale_${widget.tile.value}'),
+                scale: _hoverScale,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    primary: PuzzleColors.white,
+                    textStyle: PuzzleTextStyle.headline2.copyWith(
+                      fontSize: adjustedFontSize,
+                    ),
+                    shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(12),
                         ),
-                      ),
-                    ).copyWith(
-                      foregroundColor:
-                          MaterialStateProperty.all(PuzzleColors.black),
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
-                        (states) {
-                          if (states.contains(MaterialState.hovered)) {
-                            return theme.hoverColor;
-                          } else {
-                            return theme.defaultColor.withOpacity(0.5);
-                          }
-                        },
-                      ),
+                        side: BorderSide(
+                          color: correctPosition
+                              ? Colors.amberAccent
+                              : PuzzleColors.white,
+                          width: 4,
+                        )),
+                  ).copyWith(
+                    foregroundColor:
+                        MaterialStateProperty.all(PuzzleColors.black),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                      (states) {
+                        if (states.contains(MaterialState.hovered)) {
+                          return theme.hoverColor;
+                        } else {
+                          return theme.defaultColor.withOpacity(0.5);
+                        }
+                      },
                     ),
-                    onPressed: canPress
-                        ? () {
-                            context
-                                .read<PuzzleBloc>()
-                                .add(TileKicked(widget.tile));
-                            unawaited(_audioPlayer?.replay());
-                          }
-                        : null,
-                    child: Column(
-                      children: [
-                        const Expanded(child: SizedBox()),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              getEncodingHelper().encoded(
-                                widget.tile.pair,
-                                encoding: encoding,
-                              ),
+                  ),
+                  onPressed: canPress
+                      ? () {
+                          context
+                              .read<PuzzleBloc>()
+                              .add(TileKicked(widget.tile));
+                          unawaited(_audioPlayer?.replay());
+                        }
+                      : null,
+                  child: Column(
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            getEncodingHelper().encoded(
+                              widget.tile.pair,
+                              encoding: encoding,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
