@@ -420,7 +420,7 @@ class PuzzleBoard extends StatelessWidget {
           puzzle.questions
               .map(
                 (question) => _QuestionTile(
-                  key: Key('question_tile_${question.toString()}'),
+                  key: Key('question_tile_${question.index.toString()}'),
                   question: question,
                 ),
               )
