@@ -236,10 +236,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                       Expanded(
                         child: Center(
                           child: Text(
-                            getEncodingHelper().encoded(
-                              widget.tile.pair,
-                              encoding: encoding,
-                            ),
+                            getEncodingHelper().encoded(widget.tile.pair),
                           ),
                         ),
                       ),

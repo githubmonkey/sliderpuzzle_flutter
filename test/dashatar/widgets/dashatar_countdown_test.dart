@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -74,7 +75,10 @@ void main() {
         audioControlBloc: audioControlBloc,
       );
 
-      verify(() => puzzleBloc.add(PuzzleReset(size: 3))).called(3);
+      verify(
+        () =>
+            puzzleBloc.add(PuzzleReset(size: 3, encoding: AnswerEncoding.noop)),
+      ).called(3);
     });
 
     testWidgets(

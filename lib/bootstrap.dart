@@ -43,6 +43,7 @@ class AppBlocObserver extends BlocObserver {
 /// [runApp] with the widget returned by [builder] in an error zone.
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
+    debugPrint('${details.exceptionAsString()}, stackTrace: ${details.stack}');
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 

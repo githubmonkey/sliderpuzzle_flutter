@@ -946,7 +946,7 @@ void main() {
 
           verify(
             () => puzzleBloc.add(
-              PuzzleInitialized(size: 4),
+              PuzzleInitialized(size: 4, encoding: AnswerEncoding.noop),
             ),
           ).called(1);
         });
@@ -979,7 +979,7 @@ void main() {
 
           verify(
             () => puzzleBloc.add(
-              PuzzleInitialized(size: 4),
+              PuzzleInitialized(size: 4, encoding: AnswerEncoding.noop),
             ),
           ).called(1);
         });

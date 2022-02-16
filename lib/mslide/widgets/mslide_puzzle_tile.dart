@@ -230,10 +230,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                         Expanded(
                           child: Center(
                             child: Text(
-                              getEncodingHelper().encoded(
-                                widget.tile.pair,
-                                encoding: encoding,
-                              ),
+                              getEncodingHelper().encoded(widget.tile.pair),
                             ),
                           ),
                         ),

@@ -7,6 +7,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -93,7 +94,8 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => dashatarPuzzleBloc.add(DashatarCountdownRestart(secondsToBegin: 5)),
+        () =>
+            dashatarPuzzleBloc.add(DashatarCountdownRestart(secondsToBegin: 5)),
       ).called(1);
     });
 
@@ -116,7 +118,9 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => dashatarPuzzleBloc.add(DashatarCountdownRestart(secondsToBegin: 3)),
+        () => dashatarPuzzleBloc.add(
+          DashatarCountdownRestart(secondsToBegin: 3),
+        ),
       ).called(1);
     });
 
@@ -141,9 +145,8 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => puzzleBloc.add(
-          PuzzleInitialized(size: 3),
-        ),
+        () => puzzleBloc
+            .add(PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop)),
       ).called(1);
     });
 

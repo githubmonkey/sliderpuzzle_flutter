@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_slide_puzzle/helpers/encoding_helper.dart';
+import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 void main() {
@@ -137,20 +138,44 @@ void main() {
       const encoding = AnswerEncoding.roman;
 
       for (var i = 0; i <= 100; i++) {
-        expect(helper.encoded(i, encoding: encoding), equals(romanNumSeq[i]));
+        expect(
+          helper.encoded(Pair(left: i, right: 1, encoding: encoding)),
+          equals(romanNumSeq[i]),
+        );
       }
     });
 
     test('int to binary', () {
       const encoding = AnswerEncoding.binary;
 
-      expect(helper.encoded(0, encoding: encoding), equals('0'));
-      expect(helper.encoded(1, encoding: encoding), equals('1'));
-      expect(helper.encoded(2, encoding: encoding), equals('10'));
-      expect(helper.encoded(63, encoding: encoding), equals('111111'));
-      expect(helper.encoded(64, encoding: encoding), equals('1000000'));
-      expect(helper.encoded(99, encoding: encoding), equals('1100011'));
-      expect(helper.encoded(100, encoding: encoding), equals('1100100'));
+      expect(
+        helper.encoded(const Pair(left: 0, right: 1, encoding: encoding)),
+        equals('0'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 0, right: 1, encoding: encoding)),
+        equals('1'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 2, right: 1, encoding: encoding)),
+        equals('10'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 63, right: 1, encoding: encoding)),
+        equals('111111'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 64, right: 1, encoding: encoding)),
+        equals('1000000'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 99, right: 1, encoding: encoding)),
+        equals('1100011'),
+      );
+      expect(
+        helper.encoded(const Pair(left: 100, right: 1, encoding: encoding)),
+        equals('1100100'),
+      );
     });
   });
 }

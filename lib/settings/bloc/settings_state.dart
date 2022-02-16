@@ -3,7 +3,7 @@
 part of 'settings_bloc.dart';
 
 // TODO(s): rename this, it's not longer encoding only
-enum AnswerEncoding { multi, addition, hex, binary, roman }
+enum AnswerEncoding { multi, addition, hex, binary, roman, noop }
 
 class SettingsState extends Equatable {
   // Default settings

@@ -563,7 +563,10 @@ void main() {
 
         await tester.tap(find.byType(SimplePuzzleShuffleButton));
 
-        verify(() => puzzleBloc.add(PuzzleReset(size: 2))).called(1);
+        verify(
+          () => puzzleBloc
+              .add(PuzzleReset(size: 2, encoding: AnswerEncoding.noop)),
+        ).called(1);
       });
     });
 

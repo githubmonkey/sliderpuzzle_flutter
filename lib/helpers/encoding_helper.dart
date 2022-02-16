@@ -41,8 +41,9 @@ class EncodingHelper {
   ];
 
   /// Converts an int to the corresponding string
-  String encoded(Pair pair, {required AnswerEncoding encoding}) {
-    switch (encoding) {
+  /// //TODO(s): clean up and move to pair?
+  String encoded(Pair pair) {
+    switch (pair.encoding) {
       case AnswerEncoding.multi:
         return pair.answer.toString();
       case AnswerEncoding.addition:
@@ -55,7 +56,7 @@ class EncodingHelper {
         return pair.answer.toRadixString(16);
       // ignore: no_default_cases
       default:
-        throw Exception('$encoding not implemented');
+        throw Exception('${pair.encoding} not implemented');
     }
   }
 

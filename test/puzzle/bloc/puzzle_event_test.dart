@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, require_trailing_commas
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 void main() {
   final position = Position(x: 1, y: 1);
@@ -20,17 +21,13 @@ void main() {
     group('PuzzleInitialized', () {
       test('supports value comparisons', () {
         expect(
-          PuzzleInitialized(size: 2),
-          equals(
-            PuzzleInitialized(size: 2),
-          ),
+          PuzzleInitialized(size: 2, encoding: AnswerEncoding.noop),
+          equals(PuzzleInitialized(size: 2, encoding: AnswerEncoding.noop)),
         );
 
         expect(
-          PuzzleInitialized(size: 2),
-          isNot(
-            PuzzleInitialized(size: 2),
-          ),
+          PuzzleInitialized(size: 2, encoding: AnswerEncoding.noop),
+          isNot(PuzzleInitialized(size: 2, encoding: AnswerEncoding.noop)),
         );
       });
     });
@@ -44,7 +41,8 @@ void main() {
 
     group('PuzzleReset', () {
       test('supports value comparisons', () {
-        expect(PuzzleReset(size: 2), equals(PuzzleReset(size: 2)));
+        expect(PuzzleReset(size: 2, encoding: AnswerEncoding.noop),
+            equals(PuzzleReset(size: 2, encoding: AnswerEncoding.noop)));
       });
     });
   });
