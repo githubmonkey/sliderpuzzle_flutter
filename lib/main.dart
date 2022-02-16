@@ -47,8 +47,10 @@ Future<void> main() async {
     log('annonymous signin failed ${e.toString()}');
   }
 
-  bootstrap(() => App(
-        authRepository: authRepository,
-        leadersRepository: leadersRepository,
-      ));
+  await bootstrap(
+    () => App(
+      authRepository: authRepository,
+      leadersRepository: leadersRepository,
+    ),
+  );
 }
