@@ -9,6 +9,7 @@
 
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,14 +17,20 @@ import 'package:http/http.dart' as http;
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
-      : _platformHelperFactory = platformHelperFactory ?? getPlatformHelper,
+  const App({
+    Key? key,
+    ValueGetter<PlatformHelper>? platformHelperFactory,
+    required this.authRepository,
+  })  : _platformHelperFactory = platformHelperFactory ?? getPlatformHelper,
         super(key: key);
 
   final ValueGetter<PlatformHelper> _platformHelperFactory;
+
+  final AuthRepository authRepository;
 
   @override
   State<App> createState() => _AppState();
@@ -177,33 +184,46 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LanguageControlBloc>(
-      create: (context) => LanguageControlBloc(),
-      child: BlocBuilder<LanguageControlBloc, LanguageControlState>(
-        builder: (context, state) {
-          return MaterialApp(
-            theme: ThemeData(
-              appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-              colorScheme: ColorScheme.fromSwatch(
-                accentColor: const Color(0xFF13B9FF),
+    // TODO(s): don't need this
+    return RepositoryProvider.value(
+      value: widget.authRepository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<LanguageControlBloc>(
+            create: (context) => LanguageControlBloc(),
+          ),
+          // TODO(s): does the auth repo do a listen on the user already?
+          BlocProvider<LoginBloc>(
+            create: (context) =>
+                LoginBloc(authRepository: widget.authRepository),
+          ),
+        ],
+        child: BlocBuilder<LanguageControlBloc, LanguageControlState>(
+          builder: (context, state) {
+            return MaterialApp(
+              theme: ThemeData(
+                appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+                colorScheme: ColorScheme.fromSwatch(
+                  accentColor: const Color(0xFF13B9FF),
+                ),
               ),
-            ),
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-            ],
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: state.locale,
-            localeResolutionCallback:
-                (Locale? locale, Iterable<Locale> supportedLocales) {
-              //if locale is not supported, set english by default
-              return supportedLocales.contains(locale)
-                  ? locale
-                  : const Locale('en', 'US');
-            },
-            home: const PuzzlePage(),
-          );
-        },
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: state.locale,
+              localeResolutionCallback:
+                  (Locale? locale, Iterable<Locale> supportedLocales) {
+                //if locale is not supported, set english by default
+                return supportedLocales.contains(locale)
+                    ? locale
+                    : const Locale('en', 'US');
+              },
+              home: const PuzzlePage(),
+            );
+          },
+        ),
       ),
     );
   }

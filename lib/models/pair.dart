@@ -33,7 +33,10 @@ class Pair extends Equatable {
 
   /// static factory
   static Pair generatePair(
-      Random random, AnswerEncoding encoding, bool elevenToTwenty) {
+    Random random,
+    AnswerEncoding encoding,
+    bool elevenToTwenty,
+  ) {
     if (encoding == AnswerEncoding.multi ||
         encoding == AnswerEncoding.addition) {
       return Pair(

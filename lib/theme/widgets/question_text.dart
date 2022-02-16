@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
+/// The top part of a tile
 class QuestionText extends StatelessWidget {
+  /// Constructor
   const QuestionText({Key? key, required this.pair, required this.tileFontSize})
       : super(key: key);
 
@@ -18,12 +20,12 @@ class QuestionText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final encoding =
-    context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
 
     final adjustedFontSize =
-    encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
-        ? tileFontSize * 0.7
-        : tileFontSize;
+        encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
+            ? tileFontSize * 0.7
+            : tileFontSize;
 
     final style = PuzzleTextStyle.headline2.copyWith(
       fontSize: adjustedFontSize,

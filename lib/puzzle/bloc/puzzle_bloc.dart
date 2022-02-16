@@ -261,8 +261,11 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
 // Assign the tiles new current positions until the puzzle is solvable and
 // zero tiles are in their correct position.
-  Puzzle _shufflePuzzle(Puzzle puzzle,
-      {bool pinTrailingWhitespace = false, bool pinLeadingWhitespace = false}) {
+  Puzzle _shufflePuzzle(
+    Puzzle puzzle, {
+    bool pinTrailingWhitespace = false,
+    bool pinLeadingWhitespace = false,
+  }) {
     while (true) {
       final shuffled = Puzzle(
         tiles: _shuffleTileList(

@@ -143,7 +143,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
             ? widget.tileFontSize / 2
             : widget.tileFontSize;
 
-    final bool correctPosition = hasStarted &&
+    final correctPosition = hasStarted &&
         widget.tile.currentPosition == widget.tile.correctPosition;
 
     return AudioControlListener(
@@ -199,15 +199,16 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                       fontSize: adjustedFontSize,
                     ),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                        side: BorderSide(
-                          color: correctPosition
-                              ? Colors.amberAccent
-                              : PuzzleColors.white,
-                          width: 4,
-                        )),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(12),
+                      ),
+                      side: BorderSide(
+                        color: correctPosition
+                            ? Colors.amberAccent
+                            : PuzzleColors.white,
+                        width: 4,
+                      ),
+                    ),
                   ).copyWith(
                     foregroundColor:
                         MaterialStateProperty.all(PuzzleColors.black),

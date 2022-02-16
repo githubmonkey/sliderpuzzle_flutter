@@ -1,5 +1,5 @@
 name: very_good_slide_puzzle
-description: A Very Good Project created by Very Good CLI.
+description: My puzzle hack contribution, based on the VGV original.
 version: 1.0.0+1
 publish_to: none
 
@@ -8,14 +8,22 @@ environment:
   flutter: 2.8.0
 
 dependencies:
+  auth_repository:
+    path: packages/auth_repository
   bloc: ^8.0.1
+  cache:
+    path: packages/cache
   equatable: ^2.0.3
   fake_async: ^1.2.0
+  #firebase_auth: ^3.0.2
+  #firebase_core: ^1.5.0
+  flow_builder: ^0.0.4
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
   flutter_localizations:
     sdk: flutter
+
   gap: ^2.0.0
   google_fonts: ^2.1.0
   intl: ^0.17.0

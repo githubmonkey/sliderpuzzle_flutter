@@ -6,6 +6,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
@@ -112,9 +113,12 @@ class PuzzleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     return BlocProvider(
       create: (context) => SettingsBloc(),
@@ -187,6 +191,7 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final user = context.select((LoginBloc bloc) => bloc.state.user);
 
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (context, state) {
@@ -224,6 +229,7 @@ class _Puzzle extends StatelessWidget {
               ),
               if (theme is! SimpleTheme)
                 theme.layoutDelegate.backgroundBuilder(state),
+              Text(user.toString())
             ],
           );
         },
@@ -550,9 +556,12 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
-    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(

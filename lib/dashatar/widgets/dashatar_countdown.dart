@@ -70,7 +70,7 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
           if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
             final settings = context.read<SettingsBloc>().state;
             final boardSize = settings.boardSize;
-            // TODO: this is a noop
+            // TODO(s): this is a noop
             final encoding = settings.answerEncoding;
 
             context.read<PuzzleBloc>().add(

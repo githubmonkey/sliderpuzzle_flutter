@@ -48,9 +48,12 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MswapThemeBloc bloc) => bloc.state.theme);
-    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     final status = context.select((MswapPuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mswapPuzzleStatus.loading;

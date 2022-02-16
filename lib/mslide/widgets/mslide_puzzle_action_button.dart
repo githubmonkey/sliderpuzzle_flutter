@@ -48,9 +48,12 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
-    final boardSize = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding = context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty = context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final boardSize =
+        context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    final encoding =
+        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final elevenToTwenty =
+        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
 
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mslidePuzzleStatus.loading;

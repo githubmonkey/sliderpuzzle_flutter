@@ -12,11 +12,11 @@
     "@settingsLabelAnswerEncoding": {
         "description": "Shown on the settings control"
     },
-    "settingsAnswerEncodingValueMulti": "1mal1",
+    "settingsAnswerEncodingValueMulti": "1 mal 1",
     "@settingsAnswerEncodingValueMulti": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueAddition": "1plus1",
+    "settingsAnswerEncodingValueAddition": "1 plus 1",
     "@settingsAnswerEncodingValueAddition": {
         "description": "Shown on the menu"
     },
