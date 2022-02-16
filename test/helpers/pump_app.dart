@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,48 +35,52 @@ extension PumpApp on WidgetTester {
     PuzzleBloc? puzzleBloc,
     TimerBloc? timerBloc,
     AudioControlBloc? audioControlBloc,
+    AuthRepository? authRepository,
   }) {
     return pumpWidget(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider.value(
-            value: themeBloc ?? MockThemeBloc(),
-          ),
-          BlocProvider.value(
-            value: settingsBloc ?? MockSettingsBloc(),
-          ),
-          BlocProvider.value(
-            value: languageControlBloc ?? MockLanguageControlBloc(),
-          ),
-          BlocProvider.value(
-            value: dashatarThemeBloc ?? MockDashatarThemeBloc(),
-          ),
-          BlocProvider.value(
-            value: dashatarPuzzleBloc ?? MockDashatarPuzzleBloc(),
-          ),
-          BlocProvider.value(
-            value: mslideThemeBloc ?? MockMslideThemeBloc(),
-          ),
-          BlocProvider.value(
-            value: mslidePuzzleBloc ?? MockMslidePuzzleBloc(),
-          ),
-          BlocProvider.value(
-            value: puzzleBloc ?? MockPuzzleBloc(),
-          ),
-          BlocProvider.value(
-            value: timerBloc ?? MockTimerBloc(),
-          ),
-          BlocProvider.value(
-            value: audioControlBloc ?? MockAudioControlBloc(),
-          ),
-        ],
-        child: MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
+      RepositoryProvider.value(
+        value: authRepository ?? AuthRepository(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: themeBloc ?? MockThemeBloc(),
+            ),
+            BlocProvider.value(
+              value: settingsBloc ?? MockSettingsBloc(),
+            ),
+            BlocProvider.value(
+              value: languageControlBloc ?? MockLanguageControlBloc(),
+            ),
+            BlocProvider.value(
+              value: dashatarThemeBloc ?? MockDashatarThemeBloc(),
+            ),
+            BlocProvider.value(
+              value: dashatarPuzzleBloc ?? MockDashatarPuzzleBloc(),
+            ),
+            BlocProvider.value(
+              value: mslideThemeBloc ?? MockMslideThemeBloc(),
+            ),
+            BlocProvider.value(
+              value: mslidePuzzleBloc ?? MockMslidePuzzleBloc(),
+            ),
+            BlocProvider.value(
+              value: puzzleBloc ?? MockPuzzleBloc(),
+            ),
+            BlocProvider.value(
+              value: timerBloc ?? MockTimerBloc(),
+            ),
+            BlocProvider.value(
+              value: audioControlBloc ?? MockAudioControlBloc(),
+            ),
           ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: widget,
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: widget,
+          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@
 
 import 'dart:async';
 
+import 'package:auth_repository/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/app/app.dart';
@@ -15,6 +16,14 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import '../../helpers/helpers.dart';
 
 void main() {
+  late AuthRepository authRepository;
+
+  setUp(() {
+    authRepository = MockAuthRepository();
+    when(() => authRepository.user).thenAnswer((_) => const Stream.empty());
+    when(() => authRepository.currentUser).thenAnswer((_) => User.empty);
+  });
+
   group('App', () {
     testWidgets(
         'renders PuzzlePage '
@@ -25,6 +34,7 @@ void main() {
       await tester.pumpWidget(
         App(
           platformHelperFactory: () => platformHelper,
+          authRepository: authRepository,
         ),
       );
 
@@ -44,6 +54,7 @@ void main() {
         await tester.pumpWidget(
           App(
             platformHelperFactory: () => platformHelper,
+            authRepository: authRepository,
           ),
         );
 

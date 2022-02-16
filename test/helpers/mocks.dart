@@ -1,3 +1,4 @@
+import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mocktail/mocktail.dart';
@@ -89,3 +90,5 @@ class MockPlatformHelper extends Mock implements PlatformHelper {}
 class MockAudioControlBloc
     extends MockBloc<AudioControlEvent, AudioControlState>
     implements AudioControlBloc {}
+
+class MockAuthRepository extends Mock implements AuthRepository {}
