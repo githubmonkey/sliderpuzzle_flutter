@@ -24,6 +24,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   flutter_localizations:
     sdk: flutter
+  flutter_services_binding: ^0.1.0
   gap: ^2.0.0
   google_fonts: ^2.1.0
   intl: ^0.17.0
@@ -45,9 +46,6 @@ dev_dependencies:
   very_good_analysis: ^2.4.0
 
 ## these are mentioned by the VGV todos tutorial
-#  dependencies:
-#    flutter_services_binding: ^0.1.0
-
 #  dev_dependencies:
 #    mockingjay: ^0.2.0
 
