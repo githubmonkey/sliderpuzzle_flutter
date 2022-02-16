@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:leaders_repository/leaders_repository.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
 
 class MockLeadersApi extends Mock implements LeadersApi {}
 
@@ -16,7 +16,6 @@ void main() {
       Leader(
         id: '1',
         userid: 'user 1',
-        nickname: '',
         settings: 'settings',
         time: 0,
         moves: 0,

@@ -16,7 +16,6 @@ void main() {
       Leader(
         id: '1',
         userid: 'user 1',
-        nickname: '',
         settings: 'settings',
         time: 0,
         moves: 0,
