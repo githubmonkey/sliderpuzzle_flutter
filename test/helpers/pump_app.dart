@@ -14,7 +14,9 @@ import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/bloc/language_control_bloc.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -25,6 +27,7 @@ import 'helpers.dart';
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
+    LoginBloc? loginBloc,
     ThemeBloc? themeBloc,
     SettingsBloc? settingsBloc,
     LanguageControlBloc? languageControlBloc,
@@ -32,16 +35,23 @@ extension PumpApp on WidgetTester {
     DashatarPuzzleBloc? dashatarPuzzleBloc,
     MslideThemeBloc? mslideThemeBloc,
     MslidePuzzleBloc? mslidePuzzleBloc,
+    MswapThemeBloc? mswapThemeBloc,
+    MswapPuzzleBloc? mswapPuzzleBloc,
     PuzzleBloc? puzzleBloc,
     TimerBloc? timerBloc,
     AudioControlBloc? audioControlBloc,
+    //firebase_auth.UserCredential? userCredential,
+    //firebase_auth.FirebaseAuth? firebaseAuth,
     AuthRepository? authRepository,
   }) {
     return pumpWidget(
       RepositoryProvider.value(
-        value: authRepository ?? AuthRepository(),
+        value: authRepository ?? MockAuthRepository(),
         child: MultiBlocProvider(
           providers: [
+            BlocProvider.value(
+              value: loginBloc ?? MockLoginBloc(),
+            ),
             BlocProvider.value(
               value: themeBloc ?? MockThemeBloc(),
             ),
@@ -62,6 +72,12 @@ extension PumpApp on WidgetTester {
             ),
             BlocProvider.value(
               value: mslidePuzzleBloc ?? MockMslidePuzzleBloc(),
+            ),
+            BlocProvider.value(
+              value: mswapThemeBloc ?? MockMswapThemeBloc(),
+            ),
+            BlocProvider.value(
+              value: mswapPuzzleBloc ?? MockMswapPuzzleBloc(),
             ),
             BlocProvider.value(
               value: puzzleBloc ?? MockPuzzleBloc(),

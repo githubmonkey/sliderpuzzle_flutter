@@ -9,8 +9,10 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
+import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
@@ -21,6 +23,9 @@ class MockPuzzleTheme extends Mock implements PuzzleTheme {}
 class MockDashatarTheme extends Mock implements DashatarTheme {}
 
 class MockMslideTheme extends Mock implements MslideTheme {}
+
+class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
+    implements LoginBloc {}
 
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>
     implements ThemeBloc {}
@@ -43,6 +48,14 @@ class MockMslidePuzzleBloc
     implements MslidePuzzleBloc {}
 
 class MockMslidePuzzleState extends Mock implements MslidePuzzleState {}
+
+class MockMswapThemeBloc extends MockBloc<MswapThemeEvent, MswapThemeState>
+    implements MswapThemeBloc {}
+
+class MockMswapPuzzleBloc extends MockBloc<MswapPuzzleEvent, MswapPuzzleState>
+    implements MswapPuzzleBloc {}
+
+class MockMswapPuzzleState extends Mock implements MswapPuzzleState {}
 
 class MockPuzzleBloc extends MockBloc<PuzzleEvent, PuzzleState>
     implements PuzzleBloc {}
@@ -90,5 +103,10 @@ class MockPlatformHelper extends Mock implements PlatformHelper {}
 class MockAudioControlBloc
     extends MockBloc<AudioControlEvent, AudioControlState>
     implements AudioControlBloc {}
+
+//class MockUserCredential extends Mock
+//    implements firebase_auth.UserCredential {}
+
+//class MockFirebaseAuth extends Mock implements firebase_auth.FirebaseAuth {}
 
 class MockAuthRepository extends Mock implements AuthRepository {}

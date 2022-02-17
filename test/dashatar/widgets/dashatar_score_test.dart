@@ -90,7 +90,6 @@ void main() {
       when(() => dashatarThemeBloc.state).thenReturn(
         DashatarThemeState(
           themes: [GreenDashatarTheme(), theme],
-          theme: theme,
         ),
       );
 
