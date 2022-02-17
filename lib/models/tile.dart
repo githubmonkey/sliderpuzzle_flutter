@@ -51,11 +51,11 @@ class Tile extends Equatable {
         isWhitespace,
       ];
 
-
-  @override
-  String toString() {
-    return 'tile i($value) p($pair) '
-    'cur(${currentPosition.x},${currentPosition.y}) '
-    'fin(${correctPosition.x},${correctPosition.y})${isWhitespace ? '*' : ''} ';
-  }
+  // Use this to get more verbose output
+  // @override
+  // String toString() {
+  //   return 'tile i($value) p($pair) '
+  //   'cur(${currentPosition.x},${currentPosition.y}) '
+  //   'fin(${correctPosition.x},${correctPosition.y})${isWhitespace ? '*' : ''} ';
+  // }
 }
