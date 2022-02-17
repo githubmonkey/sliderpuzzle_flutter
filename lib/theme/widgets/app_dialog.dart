@@ -30,8 +30,10 @@ class AppDialog extends StatelessWidget {
       large: (_, child) => child!,
       xlarge: (_, child) => child!,
       child: (currentSize) {
-        final dialogWidth =
-            currentSize == ResponsiveLayoutSize.large ? 740.0 : 700.0;
+        final dialogWidth = currentSize == ResponsiveLayoutSize.large ||
+                currentSize == ResponsiveLayoutSize.xlarge
+            ? 740.0
+            : 700.0;
 
         return Dialog(
           clipBehavior: Clip.hardEdge,

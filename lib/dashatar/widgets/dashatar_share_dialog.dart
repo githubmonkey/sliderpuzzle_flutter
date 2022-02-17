@@ -75,7 +75,8 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
           large: (_, child) => child!,
           xlarge: (_, child) => child!,
           child: (currentSize) {
-            final padding = currentSize == ResponsiveLayoutSize.large
+            final padding = currentSize == ResponsiveLayoutSize.large ||
+                    currentSize == ResponsiveLayoutSize.xlarge
                 ? const EdgeInsets.fromLTRB(68, 82, 68, 73)
                 : (currentSize == ResponsiveLayoutSize.medium
                     ? const EdgeInsets.fromLTRB(48, 54, 48, 53)
@@ -119,6 +120,7 @@ class _DashatarShareDialogState extends State<DashatarShareDialog>
                                     small: 40,
                                     medium: 40,
                                     large: 80,
+                                    xlarge: 80,
                                   ),
                                   DashatarShareYourScore(
                                     animation: animation,

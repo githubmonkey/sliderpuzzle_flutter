@@ -38,20 +38,24 @@ class MslideShareYourScore extends StatelessWidget {
             : PuzzleTextStyle.bodySmall;
 
         final titleAndMessageCrossAxisAlignment =
-            currentSize == ResponsiveLayoutSize.large
+            currentSize == ResponsiveLayoutSize.large ||
+                    currentSize == ResponsiveLayoutSize.xlarge
                 ? CrossAxisAlignment.start
                 : CrossAxisAlignment.center;
 
-        final textAlign = currentSize == ResponsiveLayoutSize.large
+        final textAlign = currentSize == ResponsiveLayoutSize.large ||
+                currentSize == ResponsiveLayoutSize.xlarge
             ? TextAlign.left
             : TextAlign.center;
 
-        final messageWidth = currentSize == ResponsiveLayoutSize.large
+        final messageWidth = currentSize == ResponsiveLayoutSize.large ||
+                currentSize == ResponsiveLayoutSize.xlarge
             ? double.infinity
             : (currentSize == ResponsiveLayoutSize.medium ? 434.0 : 307.0);
 
         final buttonsMainAxisAlignment =
-            currentSize == ResponsiveLayoutSize.large
+            currentSize == ResponsiveLayoutSize.large ||
+                    currentSize == ResponsiveLayoutSize.xlarge
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.center;
 
@@ -94,6 +98,7 @@ class MslideShareYourScore extends StatelessWidget {
               small: 40,
               medium: 40,
               large: 24,
+              xlarge: 24,
             ),
             SlideTransition(
               position: animation.socialButtonsOffset,
