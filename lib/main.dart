@@ -6,6 +6,7 @@
 // https://opensource.org/licenses/MIT.
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -25,6 +26,16 @@ Future<void> main() async {
     firebaseAuth: firebase_auth.FirebaseAuth.instance,
   );
 
+  try {
+    Firebase.initializeApp().then(
+      (_) => authRepository.signInAnonymously(),
+    );
+  } catch (e) {
+    // TODO(s): remove this again
+    print('annonymous signin failed ${e.toString()}');
+    log('annonymous signin failed ${e.toString()}');
+  }
+
   // FlutterServicesBinding.ensureInitialized();
 
   // final leadersApi = LocalLeadersApi(
@@ -32,18 +43,6 @@ Future<void> main() async {
   // );
   //
   // final leadersRepository = LeadersRepository(leadersApi: leadersApi);
-
-  // try {
-  //   unawaited(
-  //     Firebase.initializeApp().then(
-  //       (_) => authRepository.signInAnonymously(),
-  //     ),
-  //   );
-  // } catch (e) {
-  //   // TODO(s): remove this again
-  //   print('annonymous signin failed ${e.toString()}');
-  //   log('annonymous signin failed ${e.toString()}');
-  // }
 
   await bootstrap(
     () => App(
