@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:leaders_repository/leaders_repository.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
@@ -25,7 +26,7 @@ class App extends StatefulWidget {
     Key? key,
     ValueGetter<PlatformHelper>? platformHelperFactory,
     required this.authRepository,
-    // required this.leadersRepository,
+    required this.leadersRepository,
   })  : _platformHelperFactory = platformHelperFactory ?? getPlatformHelper,
         super(key: key);
 
@@ -33,8 +34,7 @@ class App extends StatefulWidget {
 
   final AuthRepository authRepository;
 
-  //
-  // final LeadersRepository leadersRepository;
+  final LeadersRepository leadersRepository;
 
   @override
   State<App> createState() => _AppState();
@@ -192,7 +192,7 @@ class _AppState extends State<App> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: widget.authRepository),
-        //RepositoryProvider.value(value: widget.leadersRepository),
+        RepositoryProvider.value(value: widget.leadersRepository),
       ],
       child: MultiBlocProvider(
         providers: [

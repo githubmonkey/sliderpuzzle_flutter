@@ -12,6 +12,8 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:leaders_repository/leaders_repository.dart';
+import 'package:local_leaders_api/local_leaders_api.dart';
 import 'package:very_good_slide_puzzle/app/app.dart';
 import 'package:very_good_slide_puzzle/bootstrap.dart';
 import 'package:very_good_slide_puzzle/firebase_options.dart';
@@ -31,23 +33,19 @@ Future<void> main() async {
       (_) => authRepository.signInAnonymously(),
     );
   } catch (e) {
-    // TODO(s): remove this again
-    print('annonymous signin failed ${e.toString()}');
     log('annonymous signin failed ${e.toString()}');
   }
 
-  // FlutterServicesBinding.ensureInitialized();
+  final leadersApi = LocalLeadersApi(
+    plugin: await SharedPreferences.getInstance(),
+  );
 
-  // final leadersApi = LocalLeadersApi(
-  //   plugin: await SharedPreferences.getInstance(),
-  // );
-  //
-  // final leadersRepository = LeadersRepository(leadersApi: leadersApi);
+  final leadersRepository = LeadersRepository(leadersApi: leadersApi);
 
   await bootstrap(
     () => App(
       authRepository: authRepository,
-      //leadersRepository: leadersRepository,
+      leadersRepository: leadersRepository,
     ),
   );
 }
