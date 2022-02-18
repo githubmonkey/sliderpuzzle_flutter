@@ -1,7 +1,15 @@
 {
     "@@locale": "en",
+    "settingsLabelCaption": "Game Settings",
+    "@settingsLabelCaption": {
+        "description": "Shown on the settings control"
+    },
     "settingsLabelBoardSize": "Board Size",
     "@settingsLabelBoardSize": {
+        "description": "Shown on the settings control"
+    },
+    "settingsLabelGame": "Mode",
+    "@settingsLabelGame": {
         "description": "Shown on the settings control"
     },
     "settingsLabelElevenToTwenty": "11 - 20",
@@ -30,6 +38,14 @@
     },
     "settingsAnswerEncodingValueHex": "Hexadecimal",
     "@settingsAnswerEncodingValueHex": {
+        "description": "Shown on the menu"
+    },
+    "settingsElevenToTwentyTrue": "Yes",
+    "@settingsElevenToTwentyTrue": {
+        "description": "Shown on the menu"
+    },
+    "settingsElevenToTwentyFalse": "No",
+    "@settingsElevenToTwentyFalse": {
         "description": "Shown on the menu"
     },
     "languageChangeTooltip": "Two languages only for simplicity ",

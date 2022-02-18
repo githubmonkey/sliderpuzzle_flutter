@@ -22,134 +22,138 @@ class SettingsForm extends StatelessWidget {
         context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
 
     return ResponsiveLayoutBuilder(
-        small: (_, child) => SizedBox(
-              width: BoardSize.small,
-              child: child,
+      small: (_, child) => SizedBox(
+        width: BoardSize.small,
+        child: child,
+      ),
+      medium: (_, child) => SizedBox(
+        width: BoardSize.medium,
+        child: child,
+      ),
+      large: (_, child) => Container(
+        constraints: const BoxConstraints(minWidth: 150, maxWidth: 420),
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      xlarge: (_, child) => Container(
+        constraints: const BoxConstraints(minWidth: 150, maxWidth: 420),
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      child: (currentSize) {
+        return ListView(
+          shrinkWrap: true,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.settingsLabelBoardSize,
+                  style: PuzzleTextStyle.settingsLabel.copyWith(
+                    color: theme.defaultColor,
+                  ),
+                ),
+                Slider(
+                  value: boardSize.toDouble(),
+                  min: 2,
+                  max: 5,
+                  divisions: 3,
+                  activeColor: theme.defaultColor,
+                  label: boardSize.toString(),
+                  onChanged: (double value) => context
+                      .read<SettingsBloc>()
+                      .add(BoardSizeChanged(boardSize: value.toInt())),
+                ),
+              ],
             ),
-        medium: (_, child) => SizedBox(
-              width: BoardSize.medium,
-              child: child,
-            ),
-        large: (_, child) => Container(
-              constraints: const BoxConstraints(minWidth: 150, maxWidth: 420),
-              padding: const EdgeInsets.only(left: 50, right: 32),
-              child: child,
-            ),
-        xlarge: (_, child) => Container(
-              constraints: const BoxConstraints(minWidth: 150, maxWidth: 420),
-              padding: const EdgeInsets.only(left: 50, right: 32),
-              child: child,
-            ),
-        child: (currentSize) {
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.l10n.settingsLabelBoardSize,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.settingsLabelAnswerEncoding,
+                  style: PuzzleTextStyle.settingsLabel.copyWith(
+                    color: theme.defaultColor,
+                  ),
+                ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    canvasColor: theme.buttonColor,
+                  ),
+                  child: DropdownButton<AnswerEncoding>(
+                    value: answerEncoding,
+                    alignment: AlignmentDirectional.centerEnd,
                     style: PuzzleTextStyle.settingsLabel.copyWith(
                       color: theme.defaultColor,
+                      //backgroundColor: theme.buttonColor,
                     ),
-                  ),
-                  Slider(
-                    value: boardSize.toDouble(),
-                    min: 2,
-                    max: 5,
-                    divisions: 3,
-                    activeColor: theme.defaultColor,
-                    label: boardSize.toString(),
-                    onChanged: (double value) => context
-                        .read<SettingsBloc>()
-                        .add(BoardSizeChanged(boardSize: value.toInt())),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.l10n.settingsLabelAnswerEncoding,
-                    style: PuzzleTextStyle.settingsLabel.copyWith(
-                      color: theme.defaultColor,
-                    ),
-                  ),
-                  Theme(
-                    data: Theme.of(context).copyWith(
-                      canvasColor: theme.buttonColor,
-                    ),
-                    child: DropdownButton<AnswerEncoding>(
-                      value: answerEncoding,
-                      alignment: AlignmentDirectional.centerEnd,
-                      style: PuzzleTextStyle.settingsLabel.copyWith(
-                        color: theme.defaultColor,
-                        //backgroundColor: theme.buttonColor,
+                    onChanged: (AnswerEncoding? result) {
+                      if (null != result) {
+                        context.read<SettingsBloc>().add(
+                              AnswerEncodingChanged(answerEncoding: result),
+                            );
+                      }
+                    },
+                    items: [
+                      DropdownMenuItem<AnswerEncoding>(
+                        value: AnswerEncoding.multi,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(
+                          context.l10n.settingsAnswerEncodingValueMulti,
+                        ),
                       ),
-                      onChanged: (AnswerEncoding? result) {
-                        if (null != result) {
-                          context.read<SettingsBloc>().add(
-                            AnswerEncodingChanged(answerEncoding: result),);
-                        }
-                      },
-                      items: [
-                        DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.multi,
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text(
-                            context.l10n.settingsAnswerEncodingValueMulti,
-                          ),
+                      DropdownMenuItem<AnswerEncoding>(
+                        value: AnswerEncoding.addition,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(
+                          context.l10n.settingsAnswerEncodingValueAddition,
                         ),
-                        DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.addition,
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text(
-                            context.l10n.settingsAnswerEncodingValueAddition,
-                          ),
+                      ),
+                      DropdownMenuItem<AnswerEncoding>(
+                        value: AnswerEncoding.roman,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(
+                          context.l10n.settingsAnswerEncodingValueRoman,
                         ),
-                        DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.roman,
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text(
-                            context.l10n.settingsAnswerEncodingValueRoman,),
+                      ),
+                      DropdownMenuItem<AnswerEncoding>(
+                        value: AnswerEncoding.hex,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child:
+                            Text(context.l10n.settingsAnswerEncodingValueHex),
+                      ),
+                      DropdownMenuItem<AnswerEncoding>(
+                        value: AnswerEncoding.binary,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(
+                          context.l10n.settingsAnswerEncodingValueBinary,
                         ),
-                        DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.hex,
-                          alignment: AlignmentDirectional.centerEnd,
-                          child:
-                          Text(context.l10n.settingsAnswerEncodingValueHex),
-                        ),
-                        DropdownMenuItem<AnswerEncoding>(
-                          value: AnswerEncoding.binary,
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text(
-                            context.l10n.settingsAnswerEncodingValueBinary,),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.l10n.settingsLabelElevenToTwenty,
-                    style: PuzzleTextStyle.settingsLabel.copyWith(
-                      color: theme.defaultColor,
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.settingsLabelElevenToTwenty,
+                  style: PuzzleTextStyle.settingsLabel.copyWith(
+                    color: theme.defaultColor,
                   ),
-                  Switch(
-                    value: elevenToTwenty,
-                    activeColor: theme.defaultColor,
-                    onChanged: (bool value) => context
-                        .read<SettingsBloc>()
-                        .add(ElevenToTwentyChanged(elevenToTwenty: value)),
-                  ),
-                ],
-              ),
-            ],
-          );
-        },);
+                ),
+                Switch(
+                  value: elevenToTwenty,
+                  activeColor: theme.defaultColor,
+                  onChanged: (bool value) => context
+                      .read<SettingsBloc>()
+                      .add(ElevenToTwentyChanged(elevenToTwenty: value)),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

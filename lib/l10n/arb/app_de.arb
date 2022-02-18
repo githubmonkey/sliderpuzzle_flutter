@@ -1,10 +1,18 @@
 {
     "@@locale": "de",
+    "settingsLabelCaption": "Einstellungen",
+    "@settingsLabelCaption": {
+        "description": "Shown on the settings control"
+    },
     "settingsLabelBoardSize": "Dimension",
     "@settingsLabelBoardSize": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelElevenToTwenty": "Grosse Zahlen",
+    "settingsLabelGame": "Modus",
+    "@settingsLabelGame": {
+        "description": "Shown on the settings control"
+    },
+    "settingsLabelElevenToTwenty": "Große Zahlen",
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
@@ -30,6 +38,14 @@
     },
     "settingsAnswerEncodingValueHex": "Hexadezimal",
     "@settingsAnswerEncodingValueHex": {
+        "description": "Shown on the menu"
+    },
+    "settingsElevenToTwentyTrue": "Ja",
+    "@settingsElevenToTwentyTrue": {
+        "description": "Shown on the menu"
+    },
+    "settingsElevenToTwentyFalse": "Nein",
+    "@settingsElevenToTwentyFalse": {
         "description": "Shown on the menu"
     },
     "languageChangeTooltip": "Nur zwei Sprachen zur Einfachheit.",
@@ -104,7 +120,7 @@
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"
     },
-    "puzzleCompleted": "Gut gemacht. Herzlichen Glückwunsch!",
+    "puzzleCompleted": "Super. Gut gemacht!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
     },
@@ -116,7 +132,7 @@
     "@dashatarStartPuzzle": {
         "description": "Shown when the puzzle is loading"
     },
-    "dashatarRestart": "Noch mal",
+    "dashatarRestart": "Noch einmal",
     "@dashatarRestart": {
         "description": "Shown after the puzzle is started and may be restarted"
     },
@@ -124,11 +140,11 @@
     "@dashatarCountdownGo": {
         "description": "Shown when the countdown has just finished and the puzzle is about to start"
     },
-    "dashatarSuccessCompleted": "Geschafft!",
+    "dashatarSuccessCompleted": "Puzzle gelöst!",
     "@dashatarSuccessCompleted": {
         "description": "Shown as a title in the Dashatar success state"
     },
-    "dashatarSuccessWellDone": "Gut gemacht. Herzlichen Glückwunsch!",
+    "dashatarSuccessWellDone": "Super! Gut gemacht!",
     "@dashatarSuccessWellDone": {
         "description": "Shown as a subtitle in the Dashatar success state"
     },

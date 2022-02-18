@@ -102,7 +102,7 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (context) => LeaderboardBloc(
             leadersRepository: context.read<LeadersRepository>(),
-            // TODO: better subscribe/unsubscribe later only?
+            // TODO(s): better subscribe/unsubscribe later only?
           )..add(const LeaderboardSubscriptionRequested()),
         ),
       ],

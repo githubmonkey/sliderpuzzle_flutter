@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/widgets/settings_block.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/theme/widgets/widgets.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -16,10 +16,6 @@ import 'package:very_good_slide_puzzle/typography/typography.dart';
 class MslideScore extends StatelessWidget {
   /// {@macro mslide_score}
   const MslideScore({Key? key}) : super(key: key);
-
-  static const _smallImageOffset = Offset(124, 36);
-  static const _mediumImageOffset = Offset(215, -47);
-  static const _largeImageOffset = Offset(215, -47);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +31,6 @@ class MslideScore extends StatelessWidget {
       child: (currentSize) {
         final height =
             currentSize == ResponsiveLayoutSize.small ? 374.0 : 355.0;
-
-        final imageOffset = currentSize == ResponsiveLayoutSize.large ||
-                currentSize == ResponsiveLayoutSize.xlarge
-            ? _largeImageOffset
-            : (currentSize == ResponsiveLayoutSize.medium
-                ? _mediumImageOffset
-                : _smallImageOffset);
 
         final completedTextWidth =
             currentSize == ResponsiveLayoutSize.small ? 160.0 : double.infinity;
@@ -74,96 +63,99 @@ class MslideScore extends StatelessWidget {
             color: theme.backgroundColor,
             child: Stack(
               children: [
-                Positioned(
-                  left: imageOffset.dx,
-                  top: imageOffset.dy,
-                  child: const Leaderboard(
-                    key: Key('mslide_score_leaderboard'),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      const AppFlutterLogo(
-                        height: 18,
-                        isColored: false,
-                      ),
-                      const ResponsiveGap(
-                        small: 24,
-                        medium: 32,
-                        large: 32,
-                        xlarge: 32,
-                      ),
-                      SizedBox(
-                        key: const Key('mslide_score_completed'),
-                        width: completedTextWidth,
-                        child: AnimatedDefaultTextStyle(
-                          style: PuzzleTextStyle.headline5.copyWith(
-                            color: theme.defaultColor,
-                          ),
-                          duration: PuzzleThemeAnimationDuration.textStyle,
-                          child: Text(l10n.dashatarSuccessCompleted),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const AppFlutterLogo(
+                              height: 18,
+                              isColored: false,
+                            ),
+                            const ResponsiveGap(
+                              small: 24,
+                              medium: 32,
+                              large: 32,
+                              xlarge: 32,
+                            ),
+                            SizedBox(
+                              key: const Key('mslide_score_completed'),
+                              width: completedTextWidth,
+                              child: AnimatedDefaultTextStyle(
+                                style: PuzzleTextStyle.headline5.copyWith(
+                                  color: theme.defaultColor,
+                                ),
+                                duration:
+                                    PuzzleThemeAnimationDuration.textStyle,
+                                child: Text(l10n.dashatarSuccessCompleted),
+                              ),
+                            ),
+                            const ResponsiveGap(
+                              small: 8,
+                              medium: 16,
+                              large: 16,
+                              xlarge: 16,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mslide_score_well_done'),
+                              style: wellDoneTextStyle.copyWith(
+                                color: PuzzleColors.white,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(l10n.dashatarSuccessWellDone),
+                            ),
+                            const ResponsiveGap(
+                              small: 24,
+                              medium: 32,
+                              large: 32,
+                              xlarge: 32,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mslide_score_score'),
+                              style: PuzzleTextStyle.headline5.copyWith(
+                                color: theme.defaultColor,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(l10n.dashatarSuccessScore),
+                            ),
+                            const ResponsiveGap(
+                              small: 8,
+                              medium: 9,
+                              large: 9,
+                              xlarge: 9,
+                            ),
+                            MslideTimer(
+                              textStyle: timerTextStyle,
+                              iconSize: timerIconSize,
+                              iconPadding: timerIconPadding,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                            ),
+                            const ResponsiveGap(
+                              small: 2,
+                              medium: 8,
+                              large: 8,
+                              xlarge: 8,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mslide_score_number_of_moves'),
+                              style: numberOfMovesTextStyle.copyWith(
+                                color: PuzzleColors.white,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(
+                                l10n.dashatarSuccessNumberOfMoves(
+                                  state.numberOfMoves.toString(),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const ResponsiveGap(
-                        small: 8,
-                        medium: 16,
-                        large: 16,
-                        xlarge: 16,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mslide_score_well_done'),
-                        style: wellDoneTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessWellDone),
-                      ),
-                      const ResponsiveGap(
-                        small: 24,
-                        medium: 32,
-                        large: 32,
-                        xlarge: 32,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mslide_score_score'),
-                        style: PuzzleTextStyle.headline5.copyWith(
-                          color: theme.defaultColor,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessScore),
-                      ),
-                      const ResponsiveGap(
-                        small: 8,
-                        medium: 9,
-                        large: 9,
-                        xlarge: 9,
-                      ),
-                      MslideTimer(
-                        textStyle: timerTextStyle,
-                        iconSize: timerIconSize,
-                        iconPadding: timerIconPadding,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                      ),
-                      const ResponsiveGap(
-                        small: 2,
-                        medium: 8,
-                        large: 8,
-                        xlarge: 8,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mslide_score_number_of_moves'),
-                        style: numberOfMovesTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(
-                          l10n.dashatarSuccessNumberOfMoves(
-                            state.numberOfMoves.toString(),
-                          ),
-                        ),
+                      const Expanded(
+                        child: SettingsBlock(key: Key('mslide_score_settings')),
                       ),
                     ],
                   ),

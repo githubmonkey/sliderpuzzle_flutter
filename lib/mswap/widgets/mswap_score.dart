@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/theme/widgets/widgets.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -64,87 +65,98 @@ class MswapScore extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      const AppFlutterLogo(
-                        height: 18,
-                        isColored: false,
-                      ),
-                      const ResponsiveGap(
-                        small: 24,
-                        medium: 32,
-                        large: 32,
-                        xlarge: 32,
-                      ),
-                      SizedBox(
-                        key: const Key('mswap_score_completed'),
-                        width: completedTextWidth,
-                        child: AnimatedDefaultTextStyle(
-                          style: PuzzleTextStyle.headline5.copyWith(
-                            color: theme.defaultColor,
-                          ),
-                          duration: PuzzleThemeAnimationDuration.textStyle,
-                          child: Text(l10n.dashatarSuccessCompleted),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const AppFlutterLogo(
+                              height: 18,
+                              isColored: false,
+                            ),
+                            const ResponsiveGap(
+                              small: 24,
+                              medium: 32,
+                              large: 32,
+                              xlarge: 32,
+                            ),
+                            SizedBox(
+                              key: const Key('mswap_score_completed'),
+                              width: completedTextWidth,
+                              child: AnimatedDefaultTextStyle(
+                                style: PuzzleTextStyle.headline5.copyWith(
+                                  color: theme.defaultColor,
+                                ),
+                                duration:
+                                    PuzzleThemeAnimationDuration.textStyle,
+                                child: Text(l10n.dashatarSuccessCompleted),
+                              ),
+                            ),
+                            const ResponsiveGap(
+                              small: 8,
+                              medium: 16,
+                              large: 16,
+                              xlarge: 16,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mswap_score_well_done'),
+                              style: wellDoneTextStyle.copyWith(
+                                color: PuzzleColors.white,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(l10n.dashatarSuccessWellDone),
+                            ),
+                            const ResponsiveGap(
+                              small: 24,
+                              medium: 32,
+                              large: 32,
+                              xlarge: 32,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mswap_score_score'),
+                              style: PuzzleTextStyle.headline5.copyWith(
+                                color: theme.defaultColor,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(l10n.dashatarSuccessScore),
+                            ),
+                            const ResponsiveGap(
+                              small: 8,
+                              medium: 9,
+                              large: 9,
+                              xlarge: 9,
+                            ),
+                            MswapTimer(
+                              textStyle: timerTextStyle,
+                              iconSize: timerIconSize,
+                              iconPadding: timerIconPadding,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                            ),
+                            const ResponsiveGap(
+                              small: 2,
+                              medium: 8,
+                              large: 8,
+                              xlarge: 8,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              key: const Key('mswap_score_number_of_moves'),
+                              style: numberOfMovesTextStyle.copyWith(
+                                color: PuzzleColors.white,
+                              ),
+                              duration: PuzzleThemeAnimationDuration.textStyle,
+                              child: Text(
+                                l10n.dashatarSuccessNumberOfMoves(
+                                  state.numberOfMoves.toString(),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const ResponsiveGap(
-                        small: 8,
-                        medium: 16,
-                        large: 16,
-                        xlarge: 16,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mswap_score_well_done'),
-                        style: wellDoneTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessWellDone),
-                      ),
-                      const ResponsiveGap(
-                        small: 24,
-                        medium: 32,
-                        large: 32,
-                        xlarge: 32,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mswap_score_score'),
-                        style: PuzzleTextStyle.headline5.copyWith(
-                          color: theme.defaultColor,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(l10n.dashatarSuccessScore),
-                      ),
-                      const ResponsiveGap(
-                        small: 8,
-                        medium: 9,
-                        large: 9,
-                        xlarge: 9,
-                      ),
-                      MswapTimer(
-                        textStyle: timerTextStyle,
-                        iconSize: timerIconSize,
-                        iconPadding: timerIconPadding,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                      ),
-                      const ResponsiveGap(
-                        small: 2,
-                        medium: 8,
-                        large: 8,
-                        xlarge: 8,
-                      ),
-                      AnimatedDefaultTextStyle(
-                        key: const Key('mswap_score_number_of_moves'),
-                        style: numberOfMovesTextStyle.copyWith(
-                          color: PuzzleColors.white,
-                        ),
-                        duration: PuzzleThemeAnimationDuration.textStyle,
-                        child: Text(
-                          l10n.dashatarSuccessNumberOfMoves(
-                            state.numberOfMoves.toString(),
-                          ),
-                        ),
+                      const Expanded(
+                        child: SettingsBlock(
+                            key: Key('mswap_score_settings'),),
                       ),
                     ],
                   ),

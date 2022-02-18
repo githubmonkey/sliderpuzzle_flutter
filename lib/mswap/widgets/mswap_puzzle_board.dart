@@ -8,6 +8,8 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
@@ -63,6 +65,12 @@ class _MswapPuzzleBoardState extends State<MswapPuzzleBoard> {
                   ),
                   BlocProvider.value(
                     value: context.read<AudioControlBloc>(),
+                  ),
+                  BlocProvider.value(
+                    value: context.read<ThemeBloc>(),
+                  ),
+                  BlocProvider.value(
+                    value: context.read<SettingsBloc>(),
                   ),
                 ],
                 child: const MswapShareDialog(),
