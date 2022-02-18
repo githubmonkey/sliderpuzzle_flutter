@@ -7,9 +7,9 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// Complete settings block
-class SettingsList extends StatelessWidget {
+class SettingsForm extends StatelessWidget {
   /// Constructor
-  const SettingsList({Key? key}) : super(key: key);
+  const SettingsForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

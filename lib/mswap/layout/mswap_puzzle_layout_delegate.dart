@@ -54,7 +54,7 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: 32,
           medium: 54,
         ),
-        const SettingsList(),
+        const SettingsForm(),
         // const ResponsiveGap(
         //   small: 20,
         //   medium: 83,
