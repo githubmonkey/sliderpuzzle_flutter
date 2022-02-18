@@ -9,6 +9,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mswap/bloc/bloc.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
@@ -67,6 +68,9 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
                   ),
                   BlocProvider.value(
                     value: context.read<AudioControlBloc>(),
+                  ),
+                  BlocProvider.value(
+                    value: context.read<SettingsBloc>(),
                   ),
                 ],
                 child: const MslideShareDialog(),

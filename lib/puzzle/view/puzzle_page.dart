@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:leaders_repository/leaders_repository.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/leaderboard/bloc/leaderboard_bloc.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
@@ -96,7 +98,13 @@ class PuzzlePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => SettingsBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => LeaderboardBloc(
+            leadersRepository: context.read<LeadersRepository>(),
+            // TODO: better subscribe/unsubscribe later only?
+          )..add(const LeaderboardSubscriptionRequested()),
+        ),
       ],
       child: const PuzzleView(),
     );
@@ -411,6 +419,20 @@ class PuzzleBoard extends StatelessWidget {
         listener: (context, state) {
           if (theme.hasTimer && state.puzzleStatus == PuzzleStatus.complete) {
             context.read<TimerBloc>().add(const TimerStopped());
+
+            // get timer
+            final user = context.read<LoginBloc>().state.user;
+            final settings = context.read<SettingsBloc>().state;
+            final time = context.read<TimerBloc>().state.secondsElapsed;
+            final moves = context.read<PuzzleBloc>().state.numberOfMoves;
+            final leader = Leader(
+              userid: user.id,
+              settings: settings.toString(),
+              time: time,
+              moves: moves,
+            );
+
+            context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));
           }
         },
         child: theme.layoutDelegate.boardBuilder(

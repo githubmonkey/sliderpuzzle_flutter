@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_repository/leaders_repository.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -25,8 +26,7 @@ import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'helpers.dart';
 
 extension PumpApp on WidgetTester {
-  Future<void> pumpApp(
-    Widget widget, {
+  Future<void> pumpApp(Widget widget, {
     LoginBloc? loginBloc,
     ThemeBloc? themeBloc,
     SettingsBloc? settingsBloc,
@@ -43,10 +43,18 @@ extension PumpApp on WidgetTester {
     //firebase_auth.UserCredential? userCredential,
     //firebase_auth.FirebaseAuth? firebaseAuth,
     AuthRepository? authRepository,
+    LeadersRepository? leadersRepository,
   }) {
     return pumpWidget(
-      RepositoryProvider.value(
-        value: authRepository ?? MockAuthRepository(),
+      MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider.value(
+            value: authRepository ?? MockAuthRepository(),
+          ),
+          RepositoryProvider.value(
+            value: leadersRepository ?? MockLeadersRepository(),
+          ),
+        ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(
