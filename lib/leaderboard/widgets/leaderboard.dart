@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
@@ -14,16 +15,13 @@ class Leaderboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    // final boardSize =
-    //     context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    // final elevenToTwenty =
-    //     context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
-    // final answerEncoding =
-    //     context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-
     final status = context.select((LeaderboardBloc bloc) => bloc.state.status);
     final leaders =
         context.select((LeaderboardBloc bloc) => bloc.state.leaders);
+
+    List<Leader> sortable = List<Leader>.from(leaders);
+
+    sortable.sort((a, b) => a.timestamp.compareTo(b.timestamp));
 
     return AnimatedDefaultTextStyle(
       key: const Key('mslide_score_number_of_moves'),
@@ -84,7 +82,7 @@ class Leaderboard extends StatelessWidget {
                 horizontalTitleGap: 100,
                 child: ListView(
                   children: [
-                    for (final leader in leaders)
+                    for (final leader in sortable)
                       LeaderboardListTile(leader: leader),
                   ],
                 ),

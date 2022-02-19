@@ -8,6 +8,8 @@
 import 'dart:async';
 
 import 'package:auth_repository/auth_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaders_repository/leaders_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -18,15 +20,15 @@ import '../../helpers/helpers.dart';
 
 void main() {
   late AuthRepository authRepository;
-  late LeadersRepository leadersRepository;
+  late FirestoreRepository firestoreRepository;
 
   setUp(() {
     authRepository = MockAuthRepository();
-    leadersRepository = MockLeadersRepository();
+    firestoreRepository = MockFirestoreRepository();
     when(() => authRepository.user).thenAnswer((_) => const Stream.empty());
     when(() => authRepository.currentUser).thenAnswer((_) => User.empty);
-    when(() => leadersRepository.getLeaders())
-        .thenAnswer((_) => const Stream<List<Leader>>.empty());
+    when(() => firestoreRepository.getLeaders())
+        .thenAnswer((_) => const Stream<QuerySnapshot<Leader>>.empty());
     final leader = Leader(
       userid: 'user 1',
       settings: 'settings',
@@ -34,7 +36,7 @@ void main() {
       moves: 5,
       timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
     );
-    when(() => leadersRepository.saveLeader(leader)).thenAnswer((_) async {});
+    when(() => firestoreRepository.saveLeader(leader)).thenAnswer((_) async {});
   });
 
   group('App', () {
@@ -48,7 +50,7 @@ void main() {
         App(
           platformHelperFactory: () => platformHelper,
           authRepository: authRepository,
-          leadersRepository: leadersRepository,
+          firestoreRepository: firestoreRepository,
         ),
       );
 
@@ -69,7 +71,7 @@ void main() {
           App(
             platformHelperFactory: () => platformHelper,
             authRepository: authRepository,
-            leadersRepository: leadersRepository,
+            firestoreRepository: firestoreRepository,
           ),
         );
 

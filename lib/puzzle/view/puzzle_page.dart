@@ -1,3 +1,4 @@
+import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -101,9 +102,8 @@ class PuzzlePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LeaderboardBloc(
-            leadersRepository: context.read<LeadersRepository>(),
-            // TODO(s): better subscribe/unsubscribe later only?
-          )..add(const LeaderboardSubscriptionRequested()),
+            firestoreRepository: context.read<FirestoreRepository>(),
+          ),
         ),
       ],
       child: const PuzzleView(),
@@ -434,6 +434,22 @@ class PuzzleBoard extends StatelessWidget {
             );
 
             context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));
+            context.read<LeaderboardBloc>().add(
+                  LeaderboardLeaderSaved(
+                    leader.copyWith(
+                      time: time + 10,
+                      timestamp: DateTime.now().subtract(Duration(minutes: 10)),
+                    ),
+                  ),
+                );
+            context.read<LeaderboardBloc>().add(
+                  LeaderboardLeaderSaved(
+                    leader.copyWith(
+                      time: time + 20,
+                      timestamp: DateTime.now().add(Duration(minutes: 10)),
+                    ),
+                  ),
+                );
           }
         },
         child: theme.layoutDelegate.boardBuilder(

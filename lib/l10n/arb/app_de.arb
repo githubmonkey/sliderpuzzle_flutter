@@ -162,6 +162,20 @@
             }
         }
     },
+    "puzzleResultSummary": "Zeit: {time}, Züge: {numberOfMoves}",
+    "@puzzleResultSummary": {
+        "description": "Shown as summary in the leader board",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "1:00:21"
+            },
+            "numberOfMoves": {
+                "type": "String",
+                "example": "5"
+            }
+        }
+    },
     "puzzleTileLabelText": "Wert: {value}, Position: {x}, {y}",
     "@puzzleTileLabelText": {
         "description": "Semantic label for the puzzle tile",

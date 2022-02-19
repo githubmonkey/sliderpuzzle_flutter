@@ -20,12 +20,12 @@ class LeaderboardListTile extends StatelessWidget {
 
     return ListTile(
       title: Text(
-        '${_formatDuration()}, ${_formatMoves(context)}',
+        context.l10n.puzzleResultSummary(_formatDuration(), leader.moves.toString()),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        format.format(leader.timestamp),
+        '${format.format(leader.timestamp)}, ${leader.settings}',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -38,9 +38,5 @@ class LeaderboardListTile extends StatelessWidget {
     final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
-  }
-
-  String _formatMoves(BuildContext context) {
-    return context.l10n.dashatarSuccessNumberOfMoves(leader.moves.toString());
   }
 }

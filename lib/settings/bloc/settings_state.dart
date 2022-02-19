@@ -31,4 +31,8 @@ class SettingsState extends Equatable {
 
   @override
   List<Object?> get props => [boardSize, elevenToTwenty, answerEncoding];
+
+  String toString() {
+    return '${boardSize}x${boardSize}, ${answerEncoding}${elevenToTwenty ? ", large numbers" : ""}';
+  }
 }

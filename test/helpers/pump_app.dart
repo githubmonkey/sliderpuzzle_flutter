@@ -6,11 +6,11 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:auth_repository/auth_repository.dart';
+import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:leaders_repository/leaders_repository.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -43,7 +43,7 @@ extension PumpApp on WidgetTester {
     //firebase_auth.UserCredential? userCredential,
     //firebase_auth.FirebaseAuth? firebaseAuth,
     AuthRepository? authRepository,
-    LeadersRepository? leadersRepository,
+    FirestoreRepository? firestoreRepository,
   }) {
     return pumpWidget(
       MultiRepositoryProvider(
@@ -52,7 +52,7 @@ extension PumpApp on WidgetTester {
             value: authRepository ?? MockAuthRepository(),
           ),
           RepositoryProvider.value(
-            value: leadersRepository ?? MockLeadersRepository(),
+            value: firestoreRepository ?? MockFirestoreRepository(),
           ),
         ],
         child: MultiBlocProvider(

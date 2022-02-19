@@ -9,9 +9,9 @@ abstract class LeaderboardEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LeaderboardSubscriptionRequested extends LeaderboardEvent {
-  const LeaderboardSubscriptionRequested();
-}
+// class LeaderboardSubscriptionRequested extends LeaderboardEvent {
+//   const LeaderboardSubscriptionRequested();
+// }
 
 class LeaderboardLeaderSaved extends LeaderboardEvent {
   const LeaderboardLeaderSaved(this.leader);
