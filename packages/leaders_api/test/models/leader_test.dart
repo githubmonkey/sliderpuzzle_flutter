@@ -4,6 +4,9 @@ import 'package:test/test.dart';
 
 void main() {
   group('Leader', () {
+    // DateTime.fromMillisecondsSinceEpoch(12345);
+    // 1970-01-01 02:00:12.345  // print(d);
+    // 970-01-01T02:00:12.345  // print(d.toIso8601String());
     Leader createSubject({
       String? id = '1',
       String userid = 'user 1',
@@ -11,6 +14,7 @@ void main() {
       String settings = 'settings',
       int time = 100,
       int moves = 25,
+      DateTime? timestamp,
     }) {
       return Leader(
         id: id,
@@ -19,6 +23,7 @@ void main() {
         nickname: nickname,
         time: time,
         moves: moves,
+        timestamp: timestamp ?? DateTime.fromMillisecondsSinceEpoch(12345),
       );
     }
 
@@ -62,6 +67,7 @@ void main() {
           'settings', // settings
           100, // time
           25, // moves
+          DateTime.fromMillisecondsSinceEpoch(12345),
         ]),
       );
     });
@@ -122,6 +128,8 @@ void main() {
             'settings': 'settings',
             'time': 100,
             'moves': 25,
+            'timestamp':
+                DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
           }),
           equals(createSubject()),
         );
@@ -139,6 +147,8 @@ void main() {
             'settings': 'settings',
             'time': 100,
             'moves': 25,
+            'timestamp':
+                DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
           }),
         );
       });

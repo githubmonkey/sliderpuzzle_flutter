@@ -13,6 +13,7 @@ Leader _$LeaderFromJson(Map<String, dynamic> json) => Leader(
       settings: json['settings'] as String,
       time: json['time'] as int,
       moves: json['moves'] as int,
+      timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$LeaderToJson(Leader instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$LeaderToJson(Leader instance) => <String, dynamic>{
       'settings': instance.settings,
       'time': instance.time,
       'moves': instance.moves,
+      'timestamp': instance.timestamp.toIso8601String(),
     };

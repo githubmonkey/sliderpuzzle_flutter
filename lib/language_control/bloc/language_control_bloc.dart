@@ -22,7 +22,7 @@ class LanguageControlBloc
     if (state.locale == const Locale('en')) {
       emit(const LanguageControlState(locale: Locale('de')));
     } else {
-      emit(const LanguageControlState(locale: Locale('en')));
+      emit(const LanguageControlState());
     }
   }
 }

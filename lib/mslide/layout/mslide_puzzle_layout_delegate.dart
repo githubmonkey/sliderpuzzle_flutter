@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mslide/widgets/mslide_challenge_board.dart';
@@ -56,18 +57,16 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 54,
         ),
         const SettingsForm(),
-        // const ResponsiveGap(
-        //   small: 20,
-        //   medium: 83,
-        //   large: 151,
-        //   xlarge: 211,
-        // ),
-        //const MslideThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,
+          large: 54,
+          xlarge: 54,
         ),
+        const Leaderboard(),
         const ResponsiveGap(
+          small: 32,
+          medium: 54,
           large: 130,
         ),
         const MslideCountdown(),

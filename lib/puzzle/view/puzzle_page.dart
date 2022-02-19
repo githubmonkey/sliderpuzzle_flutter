@@ -430,6 +430,7 @@ class PuzzleBoard extends StatelessWidget {
               settings: settings.toString(),
               time: time,
               moves: moves,
+              timestamp: DateTime.now(),
             );
 
             context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));

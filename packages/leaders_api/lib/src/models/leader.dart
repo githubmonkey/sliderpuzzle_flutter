@@ -30,6 +30,7 @@ class Leader extends Equatable {
     required this.settings,
     required this.time,
     required this.moves,
+    required this.timestamp,
   })  : assert(
           id == null || id.isNotEmpty,
           'id can not be null and should be empty',
@@ -55,6 +56,9 @@ class Leader extends Equatable {
   /// The number of moves. (Required)
   final int moves;
 
+  /// The timestamp. (Required)
+  final DateTime timestamp;
+
   /// Returns a copy of this Leader with the given values updated.
   ///
   /// {@macro leader}
@@ -65,6 +69,7 @@ class Leader extends Equatable {
     String? settings,
     int? time,
     int? moves,
+    DateTime? timestamp,
   }) {
     return Leader(
       id: id ?? this.id,
@@ -73,6 +78,7 @@ class Leader extends Equatable {
       settings: settings ?? this.settings,
       time: time ?? this.time,
       moves: moves ?? this.moves,
+      timestamp: timestamp ?? this.timestamp,
     );
   }
 
@@ -83,5 +89,13 @@ class Leader extends Equatable {
   JsonMap toJson() => _$LeaderToJson(this);
 
   @override
-  List<Object> get props => [id, userid, nickname, settings, time, moves];
+  List<Object> get props => [
+        id,
+        userid,
+        nickname,
+        settings,
+        time,
+        moves,
+        timestamp,
+      ];
 }

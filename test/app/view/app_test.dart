@@ -27,8 +27,13 @@ void main() {
     when(() => authRepository.currentUser).thenAnswer((_) => User.empty);
     when(() => leadersRepository.getLeaders())
         .thenAnswer((_) => const Stream<List<Leader>>.empty());
-    final leader =
-        Leader(userid: 'user 1', settings: 'settings', time: 25, moves: 5);
+    final leader = Leader(
+      userid: 'user 1',
+      settings: 'settings',
+      time: 25,
+      moves: 5,
+      timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
+    );
     when(() => leadersRepository.saveLeader(leader)).thenAnswer((_) async {});
   });
 

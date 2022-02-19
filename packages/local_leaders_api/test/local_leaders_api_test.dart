@@ -19,6 +19,7 @@ void main() {
         settings: 'settings',
         time: 0,
         moves: 0,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
         id: '2',
@@ -26,6 +27,7 @@ void main() {
         settings: 'settings',
         time: 0,
         moves: 0,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
         id: '3',
@@ -34,6 +36,7 @@ void main() {
         settings: 'settings',
         time: 100,
         moves: 25,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
     ];
 
@@ -99,6 +102,7 @@ void main() {
           settings: 'settings',
           time: 100,
           moves: 5,
+          timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
 
         final newLeaders = [...leaders, newLeader];
@@ -123,6 +127,7 @@ void main() {
           settings: 'new settings',
           time: 1,
           moves: 2,
+          timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
         final newLeaders = [updatedLeader, ...leaders.sublist(1)];
 

@@ -19,6 +19,7 @@ void main() {
         settings: 'settings',
         time: 0,
         moves: 0,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
         id: '2',
@@ -26,6 +27,7 @@ void main() {
         settings: 'settings',
         time: 0,
         moves: 0,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
         id: '3',
@@ -34,6 +36,7 @@ void main() {
         settings: 'settings',
         time: 100,
         moves: 25,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
         id: '4',
@@ -41,6 +44,7 @@ void main() {
         settings: 'settings',
         time: 100,
         moves: 5,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
     ];
 
@@ -93,6 +97,7 @@ void main() {
           settings: 'settings',
           time: 110,
           moves: 15,
+          timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
 
         final subject = createSubject();
