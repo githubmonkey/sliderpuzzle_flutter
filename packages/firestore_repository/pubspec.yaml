@@ -1,0 +1,22 @@
+name: firestore_repository
+description: A Flutter implementation of the LeadersApi that uses local storage.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  cloud_firestore: ^3.1.8
+  flutter:
+    sdk: flutter
+  leaders_api:
+    path: ../leaders_api
+  meta: ^1.3.0
+  rxdart: ^0.27.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.2.0
+  very_good_analysis: ^2.4.0
