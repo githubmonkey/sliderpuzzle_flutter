@@ -18,9 +18,11 @@ part 'leader.g.dart';
 /// [Leader]s are immutable and can be copied using [copyWith], in addition to
 /// being serialized and deserialized using [toJson] and [fromJson]
 /// respectively.
+///
+/// run 'flutter pub run build_runner build' to regenerte
 /// {@endtemplate}
 @immutable
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Leader extends Equatable {
   /// {@macro leader}
   Leader({
@@ -48,7 +50,7 @@ class Leader extends Equatable {
 
   /// The settings string that describes the board config. (Required)
   /// //TODO(s): handle flattening of settings
-  final String settings;
+  final Settings settings;
 
   /// The time in seconds. (Required)
   final int time;
@@ -66,7 +68,7 @@ class Leader extends Equatable {
     String? id,
     String? userid,
     String? nickname,
-    String? settings,
+    Settings? settings,
     int? time,
     int? moves,
     DateTime? timestamp,

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_redundant_argument_values
 import 'package:leaders_api/leaders_api.dart';
+import 'package:leaders_api/src/models/models.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -7,11 +8,18 @@ void main() {
     // DateTime.fromMillisecondsSinceEpoch(12345);
     // 1970-01-01 02:00:12.345  // print(d);
     // 970-01-01T02:00:12.345  // print(d.toIso8601String());
+    const settings = Settings(
+      theme: 'swap',
+      boardSize: 4,
+      game: Game.noop,
+      elevenToTwenty: true,
+    );
+
     Leader createSubject({
       String? id = '1',
       String userid = 'user 1',
       String nickname = 'nickname',
-      String settings = 'settings',
+      Settings settings = settings,
       int time = 100,
       int moves = 25,
       DateTime? timestamp,
@@ -64,7 +72,7 @@ void main() {
           '1', // id
           'user 1', // userid
           'nickname', // nickname
-          'settings', // settings
+          settings, // settings
           100, // time
           25, // moves
           DateTime.fromMillisecondsSinceEpoch(12345),
@@ -95,12 +103,18 @@ void main() {
       });
 
       test('replaces every non-null parameter', () {
+        const newsettings = Settings(
+          theme: 'new theme',
+          boardSize: 3,
+          game: Game.roman,
+          elevenToTwenty: false,
+        );
         expect(
           createSubject().copyWith(
             id: '2',
             userid: 'new user',
             nickname: 'new nickname',
-            settings: 'new settings',
+            settings: newsettings,
             time: 200,
             moves: 50,
           ),
@@ -109,7 +123,7 @@ void main() {
               id: '2',
               userid: 'new user',
               nickname: 'new nickname',
-              settings: 'new settings',
+              settings: newsettings,
               time: 200,
               moves: 50,
             ),
@@ -125,7 +139,12 @@ void main() {
             'id': '1',
             'userid': 'user 1',
             'nickname': 'nickname',
-            'settings': 'settings',
+            'settings': {
+              'theme': 'swap',
+              'boardSize': 4,
+              'game': 'noop',
+              'elevenToTwenty': true,
+            },
             'time': 100,
             'moves': 25,
             'timestamp':
@@ -144,7 +163,12 @@ void main() {
             'id': '1',
             'userid': 'user 1',
             'nickname': 'nickname',
-            'settings': 'settings',
+            'settings': {
+              'theme': 'swap',
+              'boardSize': 4,
+              'game': 'noop',
+              'elevenToTwenty': true,
+            },
             'time': 100,
             'moves': 25,
             'timestamp':
