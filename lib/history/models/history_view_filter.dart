@@ -2,13 +2,13 @@
 
 import 'package:leaders_api/leaders_api.dart';
 
-enum LeadersViewFilter { all }
+enum HistoryViewFilter { all }
 
 // TODO(s): this is not flexible enough
-extension LeadersViewFilterX on LeadersViewFilter {
+extension LeadersViewFilterX on HistoryViewFilter {
   bool apply(Leader leader) {
     switch (this) {
-      case LeadersViewFilter.all:
+      case HistoryViewFilter.all:
         return true;
     // case LeadersViewFilter.activeOnly:
     //   return !leader.isCompleted;

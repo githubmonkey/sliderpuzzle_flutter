@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:leaders_api/leaders_api.dart';
-import 'package:local_leaders_api/local_leaders_api.dart';
+import 'package:local_history_api/local_history_api.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
@@ -12,11 +12,18 @@ void main() {
   group('LocalLeadersApi', () {
     late SharedPreferences plugin;
 
+    const settings = Settings(
+      boardSize: 4,
+      game: Game.noop,
+      elevenToTwenty: true,
+    );
+
     final leaders = [
       Leader(
         id: '1',
         userid: 'user 1',
-        settings: 'settings',
+        theme: 'theme',
+        settings: settings,
         time: 0,
         moves: 0,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
@@ -24,7 +31,8 @@ void main() {
       Leader(
         id: '2',
         userid: 'user 2',
-        settings: 'settings',
+        theme: 'theme',
+        settings: settings,
         time: 0,
         moves: 0,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
@@ -33,7 +41,8 @@ void main() {
         id: '3',
         userid: 'user 3',
         nickname: 'nickname',
-        settings: 'settings',
+        theme: 'theme',
+        settings: settings,
         time: 100,
         moves: 25,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
@@ -46,8 +55,8 @@ void main() {
       when(() => plugin.setString(any(), any())).thenAnswer((_) async => true);
     });
 
-    LocalLeadersApi createSubject() {
-      return LocalLeadersApi(
+    LocalHistoryApi createSubject() {
+      return LocalHistoryApi(
         plugin: plugin,
       );
     }
@@ -60,46 +69,47 @@ void main() {
         );
       });
 
-      group('initializes the leaders stream', () {
-        test('with existing leaders if present', () {
+      group('initializes the history stream', () {
+        test('with existing history if present', () {
           final subject = createSubject();
 
-          expect(subject.getLeaders(), emits(leaders));
+          expect(subject.getHistory(), emits(leaders));
           verify(
             () => plugin.getString(
-              LocalLeadersApi.kLeadersCollectionKey,
+              LocalHistoryApi.kHistoryCollectionKey,
             ),
           ).called(1);
         });
 
-        test('with empty list if no leaders present', () {
+        test('with empty list if no history present', () {
           when(() => plugin.getString(any())).thenReturn(null);
 
           final subject = createSubject();
 
-          expect(subject.getLeaders(), emits(const <Leader>[]));
+          expect(subject.getHistory(), emits(const <Leader>[]));
           verify(
             () => plugin.getString(
-              LocalLeadersApi.kLeadersCollectionKey,
+              LocalHistoryApi.kHistoryCollectionKey,
             ),
           ).called(1);
         });
       });
     });
 
-    test('getLeaders returns stream of current list leaders', () {
+    test('getHistory returns stream of current list history', () {
       expect(
-        createSubject().getLeaders(),
+        createSubject().getHistory(),
         emits(leaders),
       );
     });
 
     group('saveLeader', () {
-      test('saves new leaders', () {
+      test('saves new history', () {
         final newLeader = Leader(
           id: '4',
           userid: 'user 3',
-          settings: 'settings',
+          theme: 'theme',
+          settings: settings,
           time: 100,
           moves: 5,
           timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
@@ -109,22 +119,23 @@ void main() {
 
         final subject = createSubject();
 
-        expect(subject.saveLeader(newLeader), completes);
-        expect(subject.getLeaders(), emits(newLeaders));
+        expect(subject.saveHistory(newLeader), completes);
+        expect(subject.getHistory(), emits(newLeaders));
 
         verify(
           () => plugin.setString(
-            LocalLeadersApi.kLeadersCollectionKey,
+            LocalHistoryApi.kHistoryCollectionKey,
             json.encode(newLeaders),
           ),
         ).called(1);
       });
 
-      test('updates existing leaders', () {
+      test('updates existing history', () {
         final updatedLeader = Leader(
           id: '1',
           userid: 'new user',
-          settings: 'new settings',
+          theme: 'theme',
+          settings: settings,
           time: 1,
           moves: 2,
           timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
@@ -133,12 +144,12 @@ void main() {
 
         final subject = createSubject();
 
-        expect(subject.saveLeader(updatedLeader), completes);
-        expect(subject.getLeaders(), emits(newLeaders));
+        expect(subject.saveHistory(updatedLeader), completes);
+        expect(subject.getHistory(), emits(newLeaders));
 
         verify(
           () => plugin.setString(
-            LocalLeadersApi.kLeadersCollectionKey,
+            LocalHistoryApi.kHistoryCollectionKey,
             json.encode(newLeaders),
           ),
         ).called(1);

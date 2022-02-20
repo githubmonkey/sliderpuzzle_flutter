@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:very_good_slide_puzzle/helpers/encoding_helper.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -139,7 +138,7 @@ void main() {
 
       for (var i = 0; i <= 100; i++) {
         expect(
-          helper.encoded(Pair(left: i, right: 1, encoding: encoding)),
+          helper.encoded(Pair(left: i, right: 1, game: encoding)),
           equals(romanNumSeq[i]),
         );
       }
@@ -149,31 +148,31 @@ void main() {
       const encoding = AnswerEncoding.binary;
 
       expect(
-        helper.encoded(const Pair(left: 0, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 0, right: 1, game: encoding)),
         equals('0'),
       );
       expect(
-        helper.encoded(const Pair(left: 0, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 0, right: 1, game: encoding)),
         equals('1'),
       );
       expect(
-        helper.encoded(const Pair(left: 2, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 2, right: 1, game: encoding)),
         equals('10'),
       );
       expect(
-        helper.encoded(const Pair(left: 63, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 63, right: 1, game: encoding)),
         equals('111111'),
       );
       expect(
-        helper.encoded(const Pair(left: 64, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 64, right: 1, game: encoding)),
         equals('1000000'),
       );
       expect(
-        helper.encoded(const Pair(left: 99, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 99, right: 1, game: encoding)),
         equals('1100011'),
       );
       expect(
-        helper.encoded(const Pair(left: 100, right: 1, encoding: encoding)),
+        helper.encoded(const Pair(left: 100, right: 1, game: encoding)),
         equals('1100100'),
       );
     });

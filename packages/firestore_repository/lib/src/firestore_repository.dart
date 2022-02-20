@@ -16,16 +16,6 @@ class FirestoreRepository {
   /// This is only exposed for testing and shouldn't be used by consumers of
   /// this library.
   @visibleForTesting
-  static const kUsersCollectionKey = 'users';
-
-  /// This is only exposed for testing and shouldn't be used by consumers of
-  /// this library.
-  @visibleForTesting
-  static const kHistoryCollectionKey = 'history';
-
-  /// This is only exposed for testing and shouldn't be used by consumers of
-  /// this library.
-  @visibleForTesting
   static const kLeadersCollectionKey = 'leaders';
 
   final _leadersRef = FirebaseFirestore.instance
@@ -35,42 +25,36 @@ class FirestoreRepository {
         toFirestore: (leader, _) => leader.toJson(),
       );
 
-  CollectionReference<Leader> _getHistoryRef(String uid) =>
-      FirebaseFirestore.instance
-          .collection(kUsersCollectionKey)
-          .doc(uid)
-          .collection(kHistoryCollectionKey)
-          .withConverter<Leader>(
-            fromFirestore: (snapshot, _) => Leader.fromJson(snapshot.data()!),
-            toFirestore: (leader, _) => leader.toJson(),
-          );
+  //
+  // CollectionReference<Leader> _getHistoryRef(String uid) =>
+  //     FirebaseFirestore.instance
+  //         .collection(kUsersCollectionKey)
+  //         .doc(uid)
+  //         .collection(kHistoryCollectionKey)
+  //         .withConverter<Leader>(
+  //           fromFirestore: (snapshot, _) => Leader.fromJson(snapshot.data()!),
+  //           toFirestore: (leader, _) => leader.toJson(),
+  //         );
 
-  /// //TODO(s): add filters
-  Stream<QuerySnapshot<Leader>> getLeaders() =>
-      _leadersRef.orderBy('timestamp', descending: true).snapshots();
-
-  /// //TODO(s): add filters
-  Stream<QuerySnapshot<Leader>> getHistory(
+  Stream<QuerySnapshot<Leader>> getLeaders(
     String uid, {
     String? theme,
     Settings? settings,
   }) {
-    Query<Leader> ref = _getHistoryRef(uid);
+    Query<Leader> ref = _leadersRef;
 
     if (theme != null) ref = ref.where('theme', isEqualTo: theme);
     if (settings != null) {
       ref = ref.where('settings', isEqualTo: settings.toJson());
     }
 
-    return ref.orderBy('timestamp', descending: true).snapshots();
+    return _leadersRef
+        .orderBy('time', descending: false)
+        .orderBy('moves', descending: false)
+        .snapshots();
   }
 
   Future<void> saveLeader(Leader leader) {
     return _leadersRef.add(leader);
-  }
-
-  Future<void> saveHistory(Leader leader) {
-    final uid = leader.userid;
-    return _getHistoryRef(uid).add(leader);
   }
 }

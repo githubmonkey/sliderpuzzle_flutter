@@ -1,5 +1,5 @@
-name: leaders_repository
-description: A repository that handles leaderboard related requests.
+name: history_repository
+description: A repository that handles history related requests.
 version: 1.0.0+1
 publish_to: none
 

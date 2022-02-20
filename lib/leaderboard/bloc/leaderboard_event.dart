@@ -21,12 +21,3 @@ class LeaderboardLeaderSaved extends LeaderboardEvent {
   @override
   List<Object> get props => [leader];
 }
-
-class LeaderboardFilterChanged extends LeaderboardEvent {
-  const LeaderboardFilterChanged(this.filter);
-
-  final LeadersViewFilter filter;
-
-  @override
-  List<Object> get props => [filter];
-}

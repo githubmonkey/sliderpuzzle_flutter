@@ -2,9 +2,11 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
@@ -104,6 +106,11 @@ class PuzzlePage extends StatelessWidget {
           create: (context) => LeaderboardBloc(
             firestoreRepository: context.read<FirestoreRepository>(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => HistoryBloc(
+            historyRepository: context.read<HistoryRepository>(),
+          )..add(const HistorySubscriptionRequested()),
         ),
       ],
       child: const PuzzleView(),
@@ -420,7 +427,13 @@ class PuzzleBoard extends StatelessWidget {
               timestamp: DateTime.now(),
             );
 
+            // this enters a trail into local shared prefs
+            context.read<HistoryBloc>().add(HistoryLeaderSaved(leader));
+            // TODO: only after return from popup?
+            // TODO: animate?
+            // this enters a summary into the global leaderboard
             context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));
+
           }
         },
         child: theme.layoutDelegate.boardBuilder(

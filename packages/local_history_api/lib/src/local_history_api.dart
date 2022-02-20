@@ -5,12 +5,12 @@ import 'package:meta/meta.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// {@template local_leaders_api}
+/// {@template local_history_api}
 /// A Flutter implementation of the LeadersApi that uses local storage.
 /// {@endtemplate}
-class LocalLeadersApi extends LeadersApi {
-  /// {@macro local_leaders_api}
-  LocalLeadersApi({
+class LocalHistoryApi extends LeadersApi {
+  /// {@macro local_history_api}
+  LocalHistoryApi({
     required SharedPreferences plugin,
   }) : _plugin = plugin {
     _init();
@@ -18,7 +18,7 @@ class LocalLeadersApi extends LeadersApi {
 
   final SharedPreferences _plugin;
 
-  final _leaderStreamController = BehaviorSubject<List<Leader>>.seeded(
+  final _historyStreamController = BehaviorSubject<List<Leader>>.seeded(
     const [],
   );
 
@@ -27,7 +27,7 @@ class LocalLeadersApi extends LeadersApi {
   /// This is only exposed for testing and shouldn't be used by consumers of
   /// this library.
   @visibleForTesting
-  static const kLeadersCollectionKey = '__leaders_collection_key__';
+  static const kHistoryCollectionKey = '__history_collection_key__';
 
   String? _getValue(String key) => _plugin.getString(key);
 
@@ -35,25 +35,25 @@ class LocalLeadersApi extends LeadersApi {
       _plugin.setString(key, value);
 
   void _init() {
-    final leadersJson = _getValue(kLeadersCollectionKey);
+    final leadersJson = _getValue(kHistoryCollectionKey);
     if (leadersJson != null) {
       final leaders = List<Map>.from(json.decode(leadersJson) as List)
           .map((jsonMap) => Leader.fromJson(Map<String, dynamic>.from(jsonMap)))
           .toList();
-      _leaderStreamController.add(leaders);
+      _historyStreamController.add(leaders);
     } else {
-      _leaderStreamController.add(const []);
+      _historyStreamController.add(const []);
     }
   }
 
   // TODO(s): filter by time
   @override
-  Stream<List<Leader>> getLeaders({int? time}) =>
-      _leaderStreamController.asBroadcastStream();
+  Stream<List<Leader>> getHistory({int? time}) =>
+      _historyStreamController.asBroadcastStream();
 
   @override
-  Future<void> saveLeader(Leader leader) {
-    final leaders = [..._leaderStreamController.value];
+  Future<void> saveHistory(Leader leader) {
+    final leaders = [..._historyStreamController.value];
     final leaderIndex = leaders.indexWhere((t) => t.id == leader.id);
     if (leaderIndex >= 0) {
       leaders[leaderIndex] = leader;
@@ -61,7 +61,7 @@ class LocalLeadersApi extends LeadersApi {
       leaders.add(leader);
     }
 
-    _leaderStreamController.add(leaders);
-    return _setValue(kLeadersCollectionKey, json.encode(leaders));
+    _historyStreamController.add(leaders);
+    return _setValue(kHistoryCollectionKey, json.encode(leaders));
   }
 }

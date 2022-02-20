@@ -1,5 +1,11 @@
 import 'package:leaders_api/leaders_api.dart';
 
+/// NOTE: for now the two repos are using the api differently
+/// _firestore_repository_ is only using the model but bypasses the api
+/// functions in favor of direct fs calls
+/// _history_repository_ is using the api functions to access shared prefs via
+/// local_history_api
+
 /// {@template leaders_api}
 /// The interface and models for an API providing leaderboard entries.
 /// {@endtemplate}
@@ -12,12 +18,12 @@ abstract class LeadersApi {
   /// //TODO(s): handle time and moves
   /// //TODO(s): retrieve by user
   /// If a time x is given, return everything up to x
-  Stream<List<Leader>> getLeaders({int? time});
+  Stream<List<Leader>> getHistory({int? time});
 
   /// Saves a [Leader].
   ///
   /// If a [leader] with the same id already exists, it will be replaced.
-  Future<void> saveLeader(Leader leader);
+  Future<void> saveHistory(Leader leader);
 }
 
 /// Error thrown when a [Leader] with a given id is not found.

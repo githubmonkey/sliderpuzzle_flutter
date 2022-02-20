@@ -43,7 +43,7 @@ extension PumpApp on WidgetTester {
     //firebase_auth.UserCredential? userCredential,
     //firebase_auth.FirebaseAuth? firebaseAuth,
     AuthRepository? authRepository,
-    FirestoreRepository? firestoreRepository,
+    HistoryRepository? firestoreRepository,
   }) {
     return pumpWidget(
       MultiRepositoryProvider(

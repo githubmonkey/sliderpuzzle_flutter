@@ -12,8 +12,8 @@ import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-class FSLeaderboard extends StatelessWidget {
-  const FSLeaderboard({Key? key}) : super(key: key);
+class LeaderboardList extends StatelessWidget {
+  const LeaderboardList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class FSLeaderboard extends StatelessWidget {
 
     final repo = context.read<FirestoreRepository>();
     final leaders =
-        repo.getHistory(userid, theme: theme.name, settings: settings);
+        repo.getLeaders(userid, theme: theme.name, settings: settings);
 
     return AnimatedDefaultTextStyle(
       key: const Key('mslide_score_number_of_moves'),
@@ -43,7 +43,7 @@ class FSLeaderboard extends StatelessWidget {
         stream: leaders,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            //debugPrint(snapshot.error.toString());
+            debugPrint(snapshot.error.toString());
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Center(
@@ -85,8 +85,10 @@ class FSLeaderboard extends StatelessWidget {
           return ListView.builder(
             itemCount: data.size,
             itemBuilder: (context, index) {
+              final item = data.docs[index].data();
               return LeaderboardListTile(
-                leader: data.docs[index].data(),
+                key: Key('leader_${item.id}'),
+                leader: item,
                 isPB: index == best,
               );
             },

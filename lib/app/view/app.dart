@@ -14,6 +14,7 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -26,7 +27,7 @@ class App extends StatefulWidget {
     Key? key,
     ValueGetter<PlatformHelper>? platformHelperFactory,
     required this.authRepository,
-    //required this.leadersRepository,
+    required this.historyRepository,
     required this.firestoreRepository,
   })  : _platformHelperFactory = platformHelperFactory ?? getPlatformHelper,
         super(key: key);
@@ -35,7 +36,7 @@ class App extends StatefulWidget {
 
   final AuthRepository authRepository;
 
-  //final LeadersRepository leadersRepository;
+  final HistoryRepository historyRepository;
 
   final FirestoreRepository firestoreRepository;
 
@@ -195,6 +196,7 @@ class _AppState extends State<App> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: widget.authRepository),
+        RepositoryProvider.value(value: widget.historyRepository),
         RepositoryProvider.value(value: widget.firestoreRepository),
       ],
       child: MultiBlocProvider(

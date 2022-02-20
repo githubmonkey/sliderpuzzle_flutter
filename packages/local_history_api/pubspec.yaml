@@ -1,4 +1,4 @@
-name: local_leaders_api
+name: local_history_api
 description: A Flutter implementation of the LeadersApi that uses local storage.
 version: 1.0.0+1
 publish_to: none

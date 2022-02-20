@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/leaderboard/widgets/fs_leaderboard.dart';
+import 'package:very_good_slide_puzzle/leaderboard/widgets/leaderboard_list.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
@@ -69,8 +70,8 @@ class StatsBlock extends StatelessWidget {
                 ),
                 body: const TabBarView(
                   children: [
-                    const FSLeaderboard(),
-                    const FSLeaderboard(),
+                    const HistoryList(),
+                    const LeaderboardList(),
                   ],
                 ),
               ),

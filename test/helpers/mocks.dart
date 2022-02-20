@@ -112,4 +112,4 @@ class MockAudioControlBloc
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
-class MockFirestoreRepository extends Mock implements FirestoreRepository {}
+class MockFirestoreRepository extends Mock implements HistoryRepository {}
