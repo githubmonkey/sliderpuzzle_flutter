@@ -410,6 +410,7 @@ class PuzzleBoard extends StatelessWidget {
             final settings = context.read<SettingsBloc>().state.settings;
             final time = context.read<TimerBloc>().state.secondsElapsed;
             final moves = context.read<PuzzleBloc>().state.numberOfMoves;
+
             final leader = Leader(
               userid: user.id,
               theme: theme.name,
@@ -420,24 +421,6 @@ class PuzzleBoard extends StatelessWidget {
             );
 
             context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));
-            context.read<LeaderboardBloc>().add(
-                  LeaderboardLeaderSaved(
-                    leader.copyWith(
-                      time: time + 10,
-                      timestamp:
-                          DateTime.now().subtract(const Duration(minutes: 10)),
-                    ),
-                  ),
-                );
-            context.read<LeaderboardBloc>().add(
-                  LeaderboardLeaderSaved(
-                    leader.copyWith(
-                      time: time + 20,
-                      timestamp:
-                          DateTime.now().add(const Duration(minutes: 10)),
-                    ),
-                  ),
-                );
           }
         },
         child: theme.layoutDelegate.boardBuilder(
