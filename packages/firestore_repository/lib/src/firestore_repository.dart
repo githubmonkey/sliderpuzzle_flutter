@@ -58,8 +58,9 @@ class FirestoreRepository {
     Query<Leader> ref = _getHistoryRef(uid);
 
     if (theme != null) ref = ref.where('theme', isEqualTo: theme);
-    if (settings != null)
+    if (settings != null) {
       ref = ref.where('settings', isEqualTo: settings.toJson());
+    }
 
     return ref.orderBy('timestamp', descending: true).snapshots();
   }

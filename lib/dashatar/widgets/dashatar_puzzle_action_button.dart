@@ -56,8 +56,7 @@ class _DashatarPuzzleActionButtonState
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
-    // final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    // final game = context.select((SettingsBloc bloc) => bloc.state.game);
+    // Dashatar only supports this
     const size = 4;
 
     final text = isStarted
@@ -93,7 +92,8 @@ class _DashatarPuzzleActionButtonState
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
                             PuzzleInitialized(
-                                settings: settings.copyWith(boardSize: size),),
+                              settings: settings.copyWith(boardSize: size),
+                            ),
                           );
                     }
 

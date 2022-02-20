@@ -15,3 +15,4 @@ class SettingsChanged extends SettingsEvent {
   List<Object?> get props => [settings];
 }
 
+

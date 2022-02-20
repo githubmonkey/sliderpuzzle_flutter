@@ -1,5 +1,13 @@
 {
     "@@locale": "de",
+    "tabLabelHistory": "Meine Spiele",
+    "@tabLabelHistory": {
+        "description": "Shown on the stats tab"
+    },
+    "tabLabelLeaderboard": "Bestenliste",
+    "@tabLabelLeaderboard": {
+        "description": "Shown on the stats tab"
+    },
     "settingsLabelCaption": "Einstellungen",
     "@settingsLabelCaption": {
         "description": "Shown on the settings control"

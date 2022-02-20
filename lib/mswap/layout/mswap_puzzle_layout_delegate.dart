@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/leaderboard/widgets/stats_block.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/mswap/widgets/mswap_challenge_board.dart';
@@ -55,18 +56,16 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 54,
         ),
         const SettingsForm(),
-        // const ResponsiveGap(
-        //   small: 20,
-        //   medium: 83,
-        //   large: 151,
-        //   xlarge: 211,
-        // ),
-        // const MswapThemePicker(),
         const ResponsiveGap(
           small: 32,
           medium: 54,
+          large: 54,
+          xlarge: 54,
         ),
+        const StatsBlock(),
         const ResponsiveGap(
+          small: 32,
+          medium: 54,
           large: 130,
         ),
         const MswapCountdown(),
