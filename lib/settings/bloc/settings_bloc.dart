@@ -11,9 +11,6 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc() : super(const SettingsState()) {
     on<SettingsChanged>(_onSettingsChanged);
-    // on<BoardSizeChanged>(_onBoardSizeChanged);
-    // on<ElevenToTwentyChanged>(_onElevenToTwenty);
-    // on<AnswerEncodingChanged>(_onAnswerEncodingChanged);
   }
 
   void _onSettingsChanged(
@@ -23,26 +20,4 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     emit(state.copyWith(settings: event.settings));
   }
-
-  // void _onBoardSizeChanged(
-  //   BoardSizeChanged event,
-  //   Emitter<SettingsState> emit,
-  // ) {
-  //
-  //   emit(state.copyWith(boardSize: event.boardSize));
-  // }
-  //
-  // void _onElevenToTwenty(
-  //   ElevenToTwentyChanged event,
-  //   Emitter<SettingsState> emit,
-  // ) {
-  //   emit(state.copyWith(elevenToTwenty: event.elevenToTwenty));
-  // }
-  //
-  // void _onAnswerEncodingChanged(
-  //   AnswerEncodingChanged event,
-  //   Emitter<SettingsState> emit,
-  // ) {
-  //   emit(state.copyWith(answerEncoding: event.answerEncoding));
-  // }
 }
