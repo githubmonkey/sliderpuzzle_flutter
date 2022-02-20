@@ -4,8 +4,8 @@ import 'dart:math' hide log;
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 part 'puzzle_event.dart';
 
@@ -29,9 +29,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Emitter<PuzzleState> emit,
   ) {
     final puzzle = _generatePuzzle(
-      event.size,
-      event.encoding,
-      elevenToTwenty: event.elevenToTwenty,
+      event.settings,
       shuffle: false,
     );
     emit(
@@ -125,7 +123,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    final puzzle = _generatePuzzle(event.size, event.encoding);
+    final puzzle = _generatePuzzle(event.settings);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -138,11 +136,13 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleShuffleAnswers event,
     Emitter<PuzzleState> emit,
   ) {
-    final puzzle = _shufflePuzzle(
-      state.puzzle,
-      pinTrailingWhitespace: event.pinTrailingWhitespace,
-      pinLeadingWhitespace: event.pinLeadingWhitespace,
-    );
+    // final puzzle = _shufflePuzzle(
+    //   state.puzzle,
+    //   pinTrailingWhitespace: event.pinTrailingWhitespace,
+    //   pinLeadingWhitespace: event.pinLeadingWhitespace,
+    // );
+    // TODO(s): remove
+    final puzzle = state.puzzle;
     emit(
       PuzzleState(
         puzzle: puzzle,
@@ -151,37 +151,33 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  List<Pair> _generateQuestionPairs(
-    int size,
-    AnswerEncoding encoding,
-    bool elevenToTwenty,
-  ) {
+  List<Pair> _generateQuestionPairs(Settings settings) {
     final set = <Pair>{};
 
-    while (set.length < (size * size)) {
-      set.add(Pair.generatePair(random, encoding, elevenToTwenty));
+    while (set.length < (settings.boardSize * settings.boardSize)) {
+      set.add(
+        Pair.generatePair(random, settings.game, settings.elevenToTwenty),
+      );
     }
     return set.toList();
   }
 
   /// Build a randomized, solvable puzzle of the given size.
   Puzzle _generatePuzzle(
-    int size,
-    AnswerEncoding encoding, {
+    Settings settings, {
     bool shuffle = true,
     bool pinTrailingWhitespace = false,
     bool pinLeadingWhitespace = false,
-    bool elevenToTwenty = false,
   }) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final questions = <Question>[];
-    final pairs = _generateQuestionPairs(size, encoding, elevenToTwenty);
+    final pairs = _generateQuestionPairs(settings);
 
     // Create all possible board positions.
     var i = 1;
-    for (var y = 1; y <= size; y++) {
-      for (var x = 1; x <= size; x++) {
+    for (var y = 1; y <= settings.boardSize; y++) {
+      for (var x = 1; x <= settings.boardSize; x++) {
         final position = Position(x: x, y: y);
         correctPositions.add(position);
         currentPositions.add(position);
@@ -192,14 +188,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
             index: i++,
             position: position,
             pair: pair,
-            isWhitespace: x == size && y == size,
+            isWhitespace: x == settings.boardSize && y == settings.boardSize,
           ),
         );
       }
     }
 
     final tiles = _getTileListFromPositions(
-      size,
+      settings.boardSize,
       correctPositions,
       currentPositions,
       questions,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
@@ -15,12 +16,7 @@ class SettingsBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
-    final answerEncoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Container(
@@ -73,7 +69,7 @@ class SettingsBlock extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(context.l10n.settingsLabelGame),
+                  Text(context.l10n.settingsLabelTheme),
                   Text(theme.name),
                 ],
               ),
@@ -87,7 +83,7 @@ class SettingsBlock extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.settingsLabelBoardSize),
-                  Text(boardSize.toString()),
+                  Text(settings.boardSize.toString()),
                 ],
               ),
               const ResponsiveGap(
@@ -99,8 +95,8 @@ class SettingsBlock extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(context.l10n.settingsLabelAnswerEncoding),
-                  Text(_localizedAnswerEncoding(context, answerEncoding)),
+                  Text(context.l10n.settingsLabelGame),
+                  Text(_localizedGame(context, settings.game)),
                 ],
               ),
               const ResponsiveGap(
@@ -113,7 +109,8 @@ class SettingsBlock extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.settingsLabelElevenToTwenty),
-                  Text(_localizedElevenToTwenty(context, elevenToTwenty)),
+                  Text(_localizedElevenToTwenty(
+                      context, settings.elevenToTwenty,),),
                 ],
               ),
             ],
@@ -123,22 +120,22 @@ class SettingsBlock extends StatelessWidget {
     );
   }
 
-  String _localizedAnswerEncoding(
+  String _localizedGame(
     BuildContext context,
-    AnswerEncoding answerEncoding,
+    Game game,
   ) {
-    switch (answerEncoding) {
-      case AnswerEncoding.multi:
-        return context.l10n.settingsAnswerEncodingValueMulti;
-      case AnswerEncoding.addition:
-        return context.l10n.settingsAnswerEncodingValueAddition;
-      case AnswerEncoding.hex:
-        return context.l10n.settingsAnswerEncodingValueHex;
-      case AnswerEncoding.binary:
-        return context.l10n.settingsAnswerEncodingValueBinary;
-      case AnswerEncoding.roman:
-        return context.l10n.settingsAnswerEncodingValueRoman;
-      case AnswerEncoding.noop:
+    switch (game) {
+      case Game.multi:
+        return context.l10n.settingsGameValueMulti;
+      case Game.addition:
+        return context.l10n.settingsGameValueAddition;
+      case Game.hex:
+        return context.l10n.settingsGameValueHex;
+      case Game.binary:
+        return context.l10n.settingsGameValueBinary;
+      case Game.roman:
+        return context.l10n.settingsGameValueRoman;
+      case Game.noop:
         // This shouldn't be called in a game
         return 'not set';
     }

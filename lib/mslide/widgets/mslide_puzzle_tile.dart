@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
@@ -115,8 +116,8 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         status == mslidePuzzleStatus.started ||
         (status == mslidePuzzleStatus.loading &&
             launchStage == LaunchStages.showAnswers);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final game =
+        context.select((SettingsBloc bloc) => bloc.state.settings.game);
 
     final hasStarted = status == mslidePuzzleStatus.started;
     final loading = status == mslidePuzzleStatus.loading;
@@ -139,7 +140,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         : const Duration(milliseconds: 370);
 
     final adjustedFontSize =
-        encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
+        game == Game.roman || game == Game.binary
             ? widget.tileFontSize / 2
             : widget.tileFontSize;
 

@@ -49,15 +49,16 @@ class _DashatarPuzzleActionButtonState
   @override
   Widget build(BuildContext context) {
     final theme = context.select((DashatarThemeBloc bloc) => bloc.state.theme);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final status =
         context.select((DashatarPuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == DashatarPuzzleStatus.loading;
     final isStarted = status == DashatarPuzzleStatus.started;
 
-    final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    // final size = context.select((SettingsBloc bloc) => bloc.state.boardSize);
+    // final game = context.select((SettingsBloc bloc) => bloc.state.game);
+    const size = 4;
 
     final text = isStarted
         ? context.l10n.dashatarRestart
@@ -91,7 +92,8 @@ class _DashatarPuzzleActionButtonState
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
                       context.read<PuzzleBloc>().add(
-                            PuzzleInitialized(size: size, encoding: encoding),
+                            PuzzleInitialized(
+                                settings: settings.copyWith(boardSize: size),),
                           );
                     }
 

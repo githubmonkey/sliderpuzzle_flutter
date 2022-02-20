@@ -6,29 +6,38 @@ abstract class SettingsEvent extends Equatable {
   const SettingsEvent();
 }
 
-class BoardSizeChanged extends SettingsEvent {
-  const BoardSizeChanged({required this.boardSize});
+class SettingsChanged extends SettingsEvent {
+  const SettingsChanged({required this.settings});
 
-  final int boardSize;
-
-  @override
-  List<Object?> get props => [boardSize];
-}
-
-class ElevenToTwentyChanged extends SettingsEvent {
-  const ElevenToTwentyChanged({required this.elevenToTwenty});
-
-  final bool elevenToTwenty;
+  final Settings settings;
 
   @override
-  List<Object?> get props => [elevenToTwenty];
+  List<Object?> get props => [settings];
 }
 
-class AnswerEncodingChanged extends SettingsEvent {
-  const AnswerEncodingChanged({required this.answerEncoding});
-
-  final AnswerEncoding answerEncoding;
-
-  @override
-  List<Object?> get props => [answerEncoding];
-}
+// class BoardSizeChanged extends SettingsEvent {
+//   const BoardSizeChanged({required this.boardSize});
+//
+//   final int boardSize;
+//
+//   @override
+//   List<Object?> get props => [boardSize];
+// }
+//
+// class ElevenToTwentyChanged extends SettingsEvent {
+//   const ElevenToTwentyChanged({required this.elevenToTwenty});
+//
+//   final bool elevenToTwenty;
+//
+//   @override
+//   List<Object?> get props => [elevenToTwenty];
+// }
+//
+// class AnswerEncodingChanged extends SettingsEvent {
+//   const AnswerEncodingChanged({required this.answerEncoding});
+//
+//   final AnswerEncoding answerEncoding;
+//
+//   @override
+//   List<Object?> get props => [answerEncoding];
+// }

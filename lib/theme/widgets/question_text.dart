@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:provider/provider.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -19,11 +20,11 @@ class QuestionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final game =
+        context.select((SettingsBloc bloc) => bloc.state.settings.game);
 
     final adjustedFontSize =
-        encoding == AnswerEncoding.roman || encoding == AnswerEncoding.binary
+        game == Game.roman || game == Game.binary
             ? tileFontSize * 0.7
             : tileFontSize;
 
@@ -32,8 +33,8 @@ class QuestionText extends StatelessWidget {
       color: PuzzleColors.grey1,
     );
 
-    if (encoding == AnswerEncoding.multi ||
-        encoding == AnswerEncoding.addition) {
+    if (game == Game.multi ||
+        game == Game.addition) {
       return RichText(
         text: TextSpan(
           text: pair.left.toString(),
@@ -42,7 +43,7 @@ class QuestionText extends StatelessWidget {
             WidgetSpan(
               alignment: PlaceholderAlignment.middle,
               child: Text(
-                encoding == AnswerEncoding.multi ? ' x ' : ' + ',
+                game == Game.multi ? ' x ' : ' + ',
                 style: PuzzleTextStyle.label,
               ),
             ),

@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-import 'package:leaders_repository/leaders_repository.dart';
+import 'package:leaders_api/leaders_api.dart';
 
 enum LeadersViewFilter { all }
 

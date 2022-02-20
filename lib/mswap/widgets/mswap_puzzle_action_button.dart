@@ -48,12 +48,7 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MswapThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final status = context.select((MswapPuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mswapPuzzleStatus.loading;
@@ -91,13 +86,9 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
                     // Initialize the puzzle board to show the initial puzzle
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
-                      context.read<PuzzleBloc>().add(
-                            PuzzleInitialized(
-                              size: boardSize,
-                              encoding: encoding,
-                              elevenToTwenty: elevenToTwenty,
-                            ),
-                          );
+                      context
+                          .read<PuzzleBloc>()
+                          .add(PuzzleInitialized(settings: settings));
                     }
 
                     unawaited(_audioPlayer.replay());

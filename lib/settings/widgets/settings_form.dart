@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
@@ -14,12 +15,7 @@ class SettingsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
-    final answerEncoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => SizedBox(
@@ -54,15 +50,17 @@ class SettingsForm extends StatelessWidget {
                   ),
                 ),
                 Slider(
-                  value: boardSize.toDouble(),
+                  value: settings.boardSize.toDouble(),
                   min: 2,
                   max: 5,
                   divisions: 3,
                   activeColor: theme.defaultColor,
-                  label: boardSize.toString(),
-                  onChanged: (double value) => context
-                      .read<SettingsBloc>()
-                      .add(BoardSizeChanged(boardSize: value.toInt())),
+                  label: settings.boardSize.toString(),
+                  onChanged: (double value) => context.read<SettingsBloc>().add(
+                        SettingsChanged(
+                          settings: settings.copyWith(boardSize: value.toInt()),
+                        ),
+                      ),
                 ),
               ],
             ),
@@ -70,7 +68,7 @@ class SettingsForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.l10n.settingsLabelAnswerEncoding,
+                  context.l10n.settingsLabelGame,
                   style: PuzzleTextStyle.settingsLabel.copyWith(
                     color: theme.defaultColor,
                   ),
@@ -79,53 +77,52 @@ class SettingsForm extends StatelessWidget {
                   data: Theme.of(context).copyWith(
                     canvasColor: theme.buttonColor,
                   ),
-                  child: DropdownButton<AnswerEncoding>(
-                    value: answerEncoding,
+                  child: DropdownButton<Game>(
+                    value: settings.game,
                     alignment: AlignmentDirectional.centerEnd,
                     style: PuzzleTextStyle.settingsLabel.copyWith(
                       color: theme.defaultColor,
                       //backgroundColor: theme.buttonColor,
                     ),
-                    onChanged: (AnswerEncoding? result) {
+                    onChanged: (Game? result) {
                       if (null != result) {
                         context.read<SettingsBloc>().add(
-                              AnswerEncodingChanged(answerEncoding: result),
+                              SettingsChanged(
+                                settings: settings.copyWith(game: result),
+                              ),
                             );
                       }
                     },
                     items: [
-                      DropdownMenuItem<AnswerEncoding>(
-                        value: AnswerEncoding.multi,
+                      DropdownMenuItem<Game>(
+                        value: Game.multi,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(context.l10n.settingsGameValueMulti),
+                      ),
+                      DropdownMenuItem<Game>(
+                        value: Game.addition,
                         alignment: AlignmentDirectional.centerEnd,
                         child: Text(
-                          context.l10n.settingsAnswerEncodingValueMulti,
+                          context.l10n.settingsGameValueAddition,
                         ),
                       ),
-                      DropdownMenuItem<AnswerEncoding>(
-                        value: AnswerEncoding.addition,
+                      DropdownMenuItem<Game>(
+                        value: Game.roman,
                         alignment: AlignmentDirectional.centerEnd,
                         child: Text(
-                          context.l10n.settingsAnswerEncodingValueAddition,
+                          context.l10n.settingsGameValueRoman,
                         ),
                       ),
-                      DropdownMenuItem<AnswerEncoding>(
-                        value: AnswerEncoding.roman,
+                      DropdownMenuItem<Game>(
+                        value: Game.hex,
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: Text(context.l10n.settingsGameValueHex),
+                      ),
+                      DropdownMenuItem<Game>(
+                        value: Game.binary,
                         alignment: AlignmentDirectional.centerEnd,
                         child: Text(
-                          context.l10n.settingsAnswerEncodingValueRoman,
-                        ),
-                      ),
-                      DropdownMenuItem<AnswerEncoding>(
-                        value: AnswerEncoding.hex,
-                        alignment: AlignmentDirectional.centerEnd,
-                        child:
-                            Text(context.l10n.settingsAnswerEncodingValueHex),
-                      ),
-                      DropdownMenuItem<AnswerEncoding>(
-                        value: AnswerEncoding.binary,
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Text(
-                          context.l10n.settingsAnswerEncodingValueBinary,
+                          context.l10n.settingsGameValueBinary,
                         ),
                       ),
                     ],
@@ -143,11 +140,12 @@ class SettingsForm extends StatelessWidget {
                   ),
                 ),
                 Switch(
-                  value: elevenToTwenty,
+                  value: settings.elevenToTwenty,
                   activeColor: theme.defaultColor,
-                  onChanged: (bool value) => context
-                      .read<SettingsBloc>()
-                      .add(ElevenToTwentyChanged(elevenToTwenty: value)),
+                  onChanged: (bool value) => context.read<SettingsBloc>().add(
+                        SettingsChanged(
+                            settings: settings.copyWith(elevenToTwenty: value)),
+                      ),
                 ),
               ],
             ),

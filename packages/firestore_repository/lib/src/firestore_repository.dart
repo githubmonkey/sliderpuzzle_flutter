@@ -51,8 +51,6 @@ class FirestoreRepository {
 
   /// //TODO(s): add filters
   Stream<QuerySnapshot<Leader>> getHistory(String uid, String? settings) {
-    assert(uid != null);
-
     if (settings != null) {
       return _getHistoryRef(uid)
           .where('settings', isEqualTo: settings)

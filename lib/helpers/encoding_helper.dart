@@ -1,5 +1,5 @@
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/pair.dart';
-import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 
 /// Returns a new instance of [EncodingHelper].
 EncodingHelper getEncodingHelper() => EncodingHelper();
@@ -43,20 +43,20 @@ class EncodingHelper {
   /// Converts an int to the corresponding string
   /// //TODO(s): clean up and move to pair?
   String encoded(Pair pair) {
-    switch (pair.encoding) {
-      case AnswerEncoding.multi:
+    switch (pair.game) {
+      case Game.multi:
         return pair.answer.toString();
-      case AnswerEncoding.addition:
+      case Game.addition:
         return pair.answer.toString();
-      case AnswerEncoding.roman:
+      case Game.roman:
         return _toRoman(pair.answer);
-      case AnswerEncoding.binary:
+      case Game.binary:
         return pair.answer.toRadixString(2);
-      case AnswerEncoding.hex:
+      case Game.hex:
         return pair.answer.toRadixString(16);
       // ignore: no_default_cases
       default:
-        throw Exception('${pair.encoding} not implemented');
+        throw Exception('${pair.game} not implemented');
     }
   }
 

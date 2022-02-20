@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 /// {@template tile}
 /// Model for a puzzle tile.
@@ -11,7 +11,7 @@ class Tile extends Equatable {
     required this.value,
     required this.correctPosition,
     required this.currentPosition,
-    this.pair = const Pair(left: -1, right: -1, encoding: AnswerEncoding.hex),
+    this.pair = const Pair(left: -1, right: -1, game: Game.hex),
     this.isWhitespace = false,
   });
 

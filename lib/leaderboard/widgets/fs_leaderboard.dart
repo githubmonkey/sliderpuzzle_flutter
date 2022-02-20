@@ -21,13 +21,12 @@ class FSLeaderboard extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final settings = context.select((SettingsBloc bloc) => bloc.state);
 
-    final isAuthenticated =
-    context.select((LoginBloc bloc) => bloc.state.status == LoginStatus.authenticated);
-    final userid =
-    context.select((LoginBloc bloc) => bloc.state.user.id);
+    final isAuthenticated = context.select(
+        (LoginBloc bloc) => bloc.state.status == LoginStatus.authenticated,);
+    final userid = context.select((LoginBloc bloc) => bloc.state.user.id);
 
     if (!isAuthenticated || userid.isEmpty) {
-      return SizedBox();
+      return const SizedBox();
     }
 
     final repo = context.read<FirestoreRepository>();

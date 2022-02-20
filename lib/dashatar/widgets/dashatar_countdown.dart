@@ -48,6 +48,8 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
+
     return AudioControlListener(
       audioPlayer: _audioPlayer,
       child: BlocListener<DashatarPuzzleBloc, DashatarPuzzleState>(
@@ -68,15 +70,12 @@ class _DashatarCountdownState extends State<DashatarCountdown> {
 
           // Shuffle the puzzle on every countdown tick.
           if (state.secondsToBegin >= 1 && state.secondsToBegin <= 3) {
-            final settings = context.read<SettingsBloc>().state;
-            final boardSize = settings.boardSize;
-            // TODO(s): this is a noop
-            final encoding = settings.answerEncoding;
+            // TODO(s) fix dashatar to respect boardSize at least?
+            //final settings = context.read<SettingsBloc>().state.settings;
 
             context.read<PuzzleBloc>().add(
                   PuzzleReset(
-                    size: boardSize,
-                    encoding: encoding,
+                    settings: settings.copyWith(boardSize: 4),
                   ),
                 );
           }

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:leaders_repository/leaders_repository.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 
 class LeaderboardListTile extends StatelessWidget {
@@ -20,12 +20,13 @@ class LeaderboardListTile extends StatelessWidget {
 
     return ListTile(
       title: Text(
-        context.l10n.puzzleResultSummary(_formatDuration(), leader.moves.toString()),
+        context.l10n
+            .puzzleResultSummary(_formatDuration(), leader.moves.toString()),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        '${format.format(leader.timestamp)}, ${leader.settings}',
+        format.format(leader.timestamp),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

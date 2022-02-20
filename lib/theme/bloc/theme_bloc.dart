@@ -16,6 +16,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   }
 
   void _onThemeChanged(ThemeChanged event, Emitter<ThemeState> emit) {
+
     emit(state.copyWith(theme: state.themes[event.themeIndex]));
   }
 

@@ -48,12 +48,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((MslideThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final isLoading = status == mslidePuzzleStatus.loading;
@@ -90,13 +85,9 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                     // Initialize the puzzle board to show the initial puzzle
                     // (unshuffled) before the countdown completes.
                     if (hasStarted) {
-                      context.read<PuzzleBloc>().add(
-                            PuzzleInitialized(
-                              size: boardSize,
-                              encoding: encoding,
-                              elevenToTwenty: elevenToTwenty,
-                            ),
-                          );
+                      context
+                          .read<PuzzleBloc>()
+                          .add(PuzzleInitialized(settings: settings));
                     }
 
                     unawaited(_audioPlayer.replay());

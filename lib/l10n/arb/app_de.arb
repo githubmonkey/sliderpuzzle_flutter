@@ -8,36 +8,36 @@
     "@settingsLabelBoardSize": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelGame": "Modus",
-    "@settingsLabelGame": {
+    "settingsLabelTheme": "Modus",
+    "@settingsLabelTheme": {
         "description": "Shown on the settings control"
     },
     "settingsLabelElevenToTwenty": "Große Zahlen",
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
-    "settingsLabelAnswerEncoding": "Aufgabe",
-    "@settingsLabelAnswerEncoding": {
+    "settingsLabelGame": "Aufgabe",
+    "@settingsLabelGame": {
         "description": "Shown on the settings control"
     },
-    "settingsAnswerEncodingValueMulti": "1 mal 1",
-    "@settingsAnswerEncodingValueMulti": {
+    "settingsGameValueMulti": "1 mal 1",
+    "@settingsGameValueMulti": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueAddition": "1 plus 1",
-    "@settingsAnswerEncodingValueAddition": {
+    "settingsGameValueAddition": "1 plus 1",
+    "@settingsGameValueAddition": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueRoman": "Römische Zahlen",
-    "@settingsAnswerEncodingValueRoman": {
+    "settingsGameValueRoman": "Römische Zahlen",
+    "@settingsGameValueRoman": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueBinary": "Binärsystem",
-    "@settingsAnswerEncodingValueBinary": {
+    "settingsGameValueBinary": "Binärsystem",
+    "@settingsGameValueBinary": {
         "description": "Shown on the menu"
     },
-    "settingsAnswerEncodingValueHex": "Hexadezimal",
-    "@settingsAnswerEncodingValueHex": {
+    "settingsGameValueHex": "Hexadezimal",
+    "@settingsGameValueHex": {
         "description": "Shown on the menu"
     },
     "settingsElevenToTwentyTrue": "Ja",

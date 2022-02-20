@@ -2,7 +2,7 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:leaders_repository/leaders_repository.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -121,19 +121,24 @@ class PuzzleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
-    return BlocProvider(
-      create: (context) => SettingsBloc(),
-      child: Scaffold(
-        body: AnimatedContainer(
-          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-          decoration: BoxDecoration(color: theme.backgroundColor),
+    return Scaffold(
+      body: AnimatedContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        decoration: BoxDecoration(color: theme.backgroundColor),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => TimerBloc(
+                ticker: const Ticker(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  PuzzleBloc()..add(PuzzleInitialized(settings: settings)),
+            ),
+          ],
           child: MultiBlocListener(
             listeners: [
               BlocListener<MslideThemeBloc, MslideThemeState>(
@@ -162,28 +167,14 @@ class PuzzleView extends StatelessWidget {
                       .add(ThemeUpdated(theme: dashatarTheme));
                 },
               ),
-            ],
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => TimerBloc(
-                    ticker: const Ticker(),
-                  ),
-                ),
-                BlocProvider(
-                  create: (context) => PuzzleBloc()
-                    ..add(
-                      PuzzleInitialized(
-                        size: boardSize,
-                        encoding: encoding,
-                        elevenToTwenty: elevenToTwenty,
-                      ),
-                    ),
-                ),
-              ],
-              child: const _Puzzle(
-                key: Key('puzzle_view_puzzle'),
+              BlocListener<SettingsBloc, SettingsState>(
+                listener: (context, state) => context
+                    .read<PuzzleBloc>()
+                    .add(PuzzleInitialized(settings: state.settings)),
               ),
+            ],
+            child: const _Puzzle(
+              key: Key('puzzle_view_puzzle'),
             ),
           ),
         ),
@@ -208,13 +199,6 @@ class _Puzzle extends StatelessWidget {
         context.read<TimerBloc>().add(const TimerReset());
         context.read<MslidePuzzleBloc>().add(const MslideCountdownReset());
         context.read<MswapPuzzleBloc>().add(const MswapCountdownReset());
-        context.read<PuzzleBloc>().add(
-              PuzzleInitialized(
-                size: state.boardSize,
-                encoding: state.answerEncoding,
-                elevenToTwenty: state.elevenToTwenty,
-              ),
-            );
       },
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -422,12 +406,12 @@ class PuzzleBoard extends StatelessWidget {
 
             // get timer
             final user = context.read<LoginBloc>().state.user;
-            final settings = context.read<SettingsBloc>().state;
+            final settings = context.read<SettingsBloc>().state.settings;
             final time = context.read<TimerBloc>().state.secondsElapsed;
             final moves = context.read<PuzzleBloc>().state.numberOfMoves;
             final leader = Leader(
               userid: user.id,
-              settings: settings.toString(),
+              settings: settings,
               time: time,
               moves: moves,
               timestamp: DateTime.now(),
@@ -438,7 +422,8 @@ class PuzzleBoard extends StatelessWidget {
                   LeaderboardLeaderSaved(
                     leader.copyWith(
                       time: time + 10,
-                      timestamp: DateTime.now().subtract(Duration(minutes: 10)),
+                      timestamp:
+                          DateTime.now().subtract(const Duration(minutes: 10)),
                     ),
                   ),
                 );
@@ -446,7 +431,8 @@ class PuzzleBoard extends StatelessWidget {
                   LeaderboardLeaderSaved(
                     leader.copyWith(
                       time: time + 20,
-                      timestamp: DateTime.now().add(Duration(minutes: 10)),
+                      timestamp:
+                          DateTime.now().add(const Duration(minutes: 10)),
                     ),
                   ),
                 );
@@ -595,12 +581,7 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
-    final boardSize =
-        context.select((SettingsBloc bloc) => bloc.state.boardSize);
-    final encoding =
-        context.select((SettingsBloc bloc) => bloc.state.answerEncoding);
-    final elevenToTwenty =
-        context.select((SettingsBloc bloc) => bloc.state.elevenToTwenty);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
@@ -672,13 +653,9 @@ class PuzzleMenuItem extends StatelessWidget {
                     );
 
                 // Initialize the puzzle board for the newly selected theme.
-                context.read<PuzzleBloc>().add(
-                      PuzzleInitialized(
-                        size: boardSize,
-                        encoding: encoding,
-                        elevenToTwenty: elevenToTwenty,
-                      ),
-                    );
+                context
+                    .read<PuzzleBloc>()
+                    .add(PuzzleInitialized(settings: settings));
               },
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,

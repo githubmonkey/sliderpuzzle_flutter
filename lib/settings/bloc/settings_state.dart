@@ -3,36 +3,29 @@
 part of 'settings_bloc.dart';
 
 // TODO(s): rename this, it's not longer encoding only
-enum AnswerEncoding { multi, addition, hex, binary, roman, noop }
+//enum AnswerEncoding { multi, addition, hex, binary, roman, noop }
 
 class SettingsState extends Equatable {
   // Default settings
   const SettingsState({
-    this.boardSize = 4,
-    this.elevenToTwenty = false,
-    this.answerEncoding = AnswerEncoding.multi,
+    this.settings = const Settings(
+      theme: 'Slide',
+      boardSize: 4,
+      game: Game.multi,
+      elevenToTwenty: false,
+    ),
   });
 
-  final int boardSize;
-  final bool elevenToTwenty;
-  final AnswerEncoding answerEncoding;
+  final Settings settings;
 
   SettingsState copyWith({
-    int? boardSize,
-    bool? elevenToTwenty,
-    AnswerEncoding? answerEncoding,
+    Settings? settings,
   }) {
     return SettingsState(
-      boardSize: boardSize ?? this.boardSize,
-      elevenToTwenty: elevenToTwenty ?? this.elevenToTwenty,
-      answerEncoding: answerEncoding ?? this.answerEncoding,
+      settings: settings ?? this.settings,
     );
   }
 
   @override
-  List<Object?> get props => [boardSize, elevenToTwenty, answerEncoding];
-
-  String toString() {
-    return '${boardSize}x${boardSize}, ${answerEncoding}${elevenToTwenty ? ", large numbers" : ""}';
-  }
+  List<Object?> get props => [settings];
 }
