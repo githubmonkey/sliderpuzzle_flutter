@@ -70,11 +70,24 @@ class FSLeaderboard extends StatelessWidget {
             );
           }
 
+          // get index of best
+          // TODO(s): move this somewhere more appropriately
+          var best = 0;
+          for (var i = 0; i < data.docs.length; i++) {
+            var current = data.docs[i].data();
+            var prev = data.docs[best].data();
+            if (current.time < prev.time ||
+                (current.time == prev.time && current.moves < prev.moves)) {
+              best = i;
+            }
+          }
+
           return ListView.builder(
             itemCount: data.size,
             itemBuilder: (context, index) {
               return LeaderboardListTile(
                 leader: data.docs[index].data(),
+                isPB: index == best,
               );
             },
           );

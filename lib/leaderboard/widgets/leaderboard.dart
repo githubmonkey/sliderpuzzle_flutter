@@ -83,7 +83,7 @@ class Leaderboard extends StatelessWidget {
                 child: ListView(
                   children: [
                     for (final leader in sortable)
-                      LeaderboardListTile(leader: leader),
+                      LeaderboardListTile(leader: leader, isPB: false,),
                   ],
                 ),
               ),
