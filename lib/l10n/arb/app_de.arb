@@ -1,5 +1,9 @@
 {
     "@@locale": "de",
+    "tabEmptyList": "Diese Variante hat noch niemand gespielt. Mach den Anfang!",
+    "@tabEmptyList": {
+        "description": "Shown on the stats tab"
+    },
     "tabLabelHistory": "Meine Spiele",
     "@tabLabelHistory": {
         "description": "Shown on the stats tab"

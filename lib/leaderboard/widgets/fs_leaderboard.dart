@@ -5,6 +5,7 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaders_api/leaders_api.dart';
+import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
@@ -42,9 +43,12 @@ class FSLeaderboard extends StatelessWidget {
         stream: leaders,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            debugPrint(snapshot.error.toString());
-            return Center(
-              child: Text(snapshot.error.toString()),
+            //debugPrint(snapshot.error.toString());
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Center(
+                child: Text(snapshot.error.toString()),
+              ),
             );
           }
 
@@ -53,6 +57,18 @@ class FSLeaderboard extends StatelessWidget {
           }
 
           final data = snapshot.requireData;
+
+          if (data.size == 0) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Center(
+                child: Text(
+                  context.l10n.tabEmptyList,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          }
 
           return ListView.builder(
             itemCount: data.size,

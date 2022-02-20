@@ -1,5 +1,9 @@
 {
     "@@locale": "en",
+    "tabEmptyList": "Nobody has played with these settings yet. Be the first!",
+    "@tabEmptyList": {
+        "description": "Shown on the stats tab"
+    },
     "tabLabelHistory": "My Games",
     "@tabLabelHistory": {
         "description": "Shown on the stats tab"
