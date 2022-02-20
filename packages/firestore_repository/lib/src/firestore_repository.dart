@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Settings;
 import 'package:leaders_api/leaders_api.dart';
 import 'package:meta/meta.dart';
 
@@ -50,17 +50,18 @@ class FirestoreRepository {
       _leadersRef.orderBy('timestamp', descending: true).snapshots();
 
   /// //TODO(s): add filters
-  Stream<QuerySnapshot<Leader>> getHistory(String uid, String? settings) {
-    if (settings != null) {
-      return _getHistoryRef(uid)
-          .where('settings', isEqualTo: settings)
-          .orderBy('timestamp', descending: true)
-          .snapshots();
-    } else {
-      return _getHistoryRef(uid)
-          .orderBy('timestamp', descending: true)
-          .snapshots();
-    }
+  Stream<QuerySnapshot<Leader>> getHistory(
+    String uid, {
+    String? theme,
+    Settings? settings,
+  }) {
+    Query<Leader> ref = _getHistoryRef(uid);
+
+    if (theme != null) ref = ref.where('theme', isEqualTo: theme);
+    if (settings != null)
+      ref = ref.where('settings', isEqualTo: settings.toJson());
+
+    return ref.orderBy('timestamp', descending: true).snapshots();
   }
 
   Future<void> saveLeader(Leader leader) {

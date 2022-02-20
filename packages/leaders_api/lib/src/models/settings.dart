@@ -21,13 +21,11 @@ enum Game { multi, addition, hex, binary, roman, noop }
 class Settings extends Equatable {
   /// {@macro leader}
   const Settings({
-    required this.theme,
     required this.boardSize,
     required this.game,
     required this.elevenToTwenty,
   });
 
-  final String theme;
   final int boardSize;
   final Game game;
   final bool elevenToTwenty;
@@ -36,13 +34,11 @@ class Settings extends Equatable {
   ///
   /// {@macro settings}
   Settings copyWith({
-    String? theme,
     int? boardSize,
     Game? game,
     bool? elevenToTwenty,
   }) {
     return Settings(
-      theme: theme ?? this.theme,
       boardSize: boardSize ?? this.boardSize,
       game: game ?? this.game,
       elevenToTwenty: elevenToTwenty ?? this.elevenToTwenty,
@@ -56,5 +52,5 @@ class Settings extends Equatable {
   JsonMap toJson() => _$SettingsToJson(this);
 
   @override
-  List<Object> get props => [theme, boardSize, game, elevenToTwenty];
+  List<Object> get props => [boardSize, game, elevenToTwenty];
 }

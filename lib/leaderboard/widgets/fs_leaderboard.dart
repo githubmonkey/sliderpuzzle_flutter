@@ -19,10 +19,11 @@ class FSLeaderboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final settings = context.select((SettingsBloc bloc) => bloc.state);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final isAuthenticated = context.select(
-        (LoginBloc bloc) => bloc.state.status == LoginStatus.authenticated,);
+      (LoginBloc bloc) => bloc.state.status == LoginStatus.authenticated,
+    );
     final userid = context.select((LoginBloc bloc) => bloc.state.user.id);
 
     if (!isAuthenticated || userid.isEmpty) {
@@ -30,7 +31,8 @@ class FSLeaderboard extends StatelessWidget {
     }
 
     final repo = context.read<FirestoreRepository>();
-    final leaders = repo.getHistory(userid, null);
+    final leaders =
+        repo.getHistory(userid, theme: theme.name, settings: settings);
 
     return AnimatedDefaultTextStyle(
       key: const Key('mslide_score_number_of_moves'),

@@ -29,6 +29,7 @@ class Leader extends Equatable {
     String? id,
     required this.userid,
     this.nickname = '',
+    required this.theme,
     required this.settings,
     required this.time,
     required this.moves,
@@ -48,8 +49,10 @@ class Leader extends Equatable {
   /// The display name the user has chosen. (Might be empty)
   final String nickname;
 
+  /// The theme name that describes the board config. (Required)
+  final String theme;
+
   /// The settings string that describes the board config. (Required)
-  /// //TODO(s): handle flattening of settings
   final Settings settings;
 
   /// The time in seconds. (Required)
@@ -68,6 +71,7 @@ class Leader extends Equatable {
     String? id,
     String? userid,
     String? nickname,
+    String? theme,
     Settings? settings,
     int? time,
     int? moves,
@@ -77,6 +81,7 @@ class Leader extends Equatable {
       id: id ?? this.id,
       userid: userid ?? this.userid,
       nickname: nickname ?? this.nickname,
+      theme: theme ?? this.theme,
       settings: settings ?? this.settings,
       time: time ?? this.time,
       moves: moves ?? this.moves,
@@ -95,6 +100,7 @@ class Leader extends Equatable {
         id,
         userid,
         nickname,
+        theme,
         settings,
         time,
         moves,

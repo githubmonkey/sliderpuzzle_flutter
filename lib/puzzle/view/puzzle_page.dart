@@ -406,11 +406,13 @@ class PuzzleBoard extends StatelessWidget {
 
             // get timer
             final user = context.read<LoginBloc>().state.user;
+            final theme = context.read<ThemeBloc>().state.theme;
             final settings = context.read<SettingsBloc>().state.settings;
             final time = context.read<TimerBloc>().state.secondsElapsed;
             final moves = context.read<PuzzleBloc>().state.numberOfMoves;
             final leader = Leader(
               userid: user.id,
+              theme: theme.name,
               settings: settings,
               time: time,
               moves: moves,

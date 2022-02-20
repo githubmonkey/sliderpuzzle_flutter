@@ -9,7 +9,6 @@ class SettingsState extends Equatable {
   // Default settings
   const SettingsState({
     this.settings = const Settings(
-      theme: 'Slide',
       boardSize: 4,
       game: Game.multi,
       elevenToTwenty: false,

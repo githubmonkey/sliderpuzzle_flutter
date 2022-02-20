@@ -144,7 +144,8 @@ class SettingsForm extends StatelessWidget {
                   activeColor: theme.defaultColor,
                   onChanged: (bool value) => context.read<SettingsBloc>().add(
                         SettingsChanged(
-                            settings: settings.copyWith(elevenToTwenty: value)),
+                          settings: settings.copyWith(elevenToTwenty: value),
+                        ),
                       ),
                 ),
               ],

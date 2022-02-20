@@ -9,7 +9,6 @@ void main() {
     // 1970-01-01 02:00:12.345  // print(d);
     // 970-01-01T02:00:12.345  // print(d.toIso8601String());
     const settings = Settings(
-      theme: 'swap',
       boardSize: 4,
       game: Game.noop,
       elevenToTwenty: true,
@@ -19,6 +18,7 @@ void main() {
       String? id = '1',
       String userid = 'user 1',
       String nickname = 'nickname',
+      String theme = 'swap',
       Settings settings = settings,
       int time = 100,
       int moves = 25,
@@ -27,6 +27,7 @@ void main() {
       return Leader(
         id: id,
         userid: userid,
+        theme: theme,
         settings: settings,
         nickname: nickname,
         time: time,
@@ -72,6 +73,7 @@ void main() {
           '1', // id
           'user 1', // userid
           'nickname', // nickname
+          'swap', // theme
           settings, // settings
           100, // time
           25, // moves
@@ -94,6 +96,7 @@ void main() {
             id: null,
             userid: null,
             nickname: null,
+            theme: null,
             settings: null,
             time: null,
             moves: null,
@@ -104,7 +107,6 @@ void main() {
 
       test('replaces every non-null parameter', () {
         const newsettings = Settings(
-          theme: 'new theme',
           boardSize: 3,
           game: Game.roman,
           elevenToTwenty: false,
@@ -114,6 +116,7 @@ void main() {
             id: '2',
             userid: 'new user',
             nickname: 'new nickname',
+            theme: 'new theme',
             settings: newsettings,
             time: 200,
             moves: 50,
@@ -122,6 +125,7 @@ void main() {
             createSubject(
               id: '2',
               userid: 'new user',
+              theme: 'new theme',
               nickname: 'new nickname',
               settings: newsettings,
               time: 200,
@@ -139,8 +143,8 @@ void main() {
             'id': '1',
             'userid': 'user 1',
             'nickname': 'nickname',
+            'theme': 'swap',
             'settings': {
-              'theme': 'swap',
               'boardSize': 4,
               'game': 'noop',
               'elevenToTwenty': true,
@@ -163,8 +167,8 @@ void main() {
             'id': '1',
             'userid': 'user 1',
             'nickname': 'nickname',
+            'theme': 'swap',
             'settings': {
-              'theme': 'swap',
               'boardSize': 4,
               'game': 'noop',
               'elevenToTwenty': true,
