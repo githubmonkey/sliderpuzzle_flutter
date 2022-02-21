@@ -21,13 +21,3 @@ class HistoryLeaderSaved extends HistoryEvent {
   @override
   List<Object> get props => [leader];
 }
-
-
-class HistoryFilterChanged extends HistoryEvent {
-  const HistoryFilterChanged(this.filter);
-
-  final HistoryViewFilter filter;
-
-  @override
-  List<Object> get props => [filter];
-}

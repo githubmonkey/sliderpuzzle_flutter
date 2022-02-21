@@ -1,4 +1,3 @@
-
 import 'package:leaders_api/leaders_api.dart';
 
 /// {@template history_repository}
@@ -13,8 +12,8 @@ class HistoryRepository {
   final LeadersApi _leadersApi;
 
   /// Provides a [Stream] of all history.
-  Stream<List<Leader>> getHistory({int? time}) =>
-      _leadersApi.getHistory(time: time);
+  Stream<List<Leader>> getHistory() =>
+      _leadersApi.getHistory();
 
   /// Saves a [leader].
   ///

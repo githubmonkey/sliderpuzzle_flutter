@@ -8,27 +8,32 @@ class HistoryState extends Equatable {
   const HistoryState({
     this.status = HistoryStatus.initial,
     this.leaders = const [],
-    this.filter = HistoryViewFilter.all,
   });
 
   final HistoryStatus status;
   final List<Leader> leaders;
-  final HistoryViewFilter filter;
 
-  Iterable<Leader> get filteredLeaders => filter.applyAll(leaders);
+  // NOTE: this used to be handled with a filter that was passed in via event.
+  Iterable<Leader> filteredLeaders(
+      {required String theme, required Settings settings}) {
+    var list = leaders
+        .where((l) => l.theme == theme && l.settings == settings)
+        .toList()
+      ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
+
+    return list.reversed;
+  }
 
   HistoryState copyWith({
     HistoryStatus Function()? status,
     List<Leader> Function()? leaders,
-    HistoryViewFilter Function()? filter,
   }) {
     return HistoryState(
       status: status != null ? status() : this.status,
       leaders: leaders != null ? leaders() : this.leaders,
-      filter: filter != null ? filter() : this.filter,
     );
   }
 
   @override
-  List<Object?> get props => [status, leaders, filter];
+  List<Object?> get props => [status, leaders];
 }

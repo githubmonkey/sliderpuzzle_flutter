@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
 import 'package:leaders_api/leaders_api.dart';
-import 'package:very_good_slide_puzzle/history/models/models.dart';
 
 part 'history_event.dart';
 part 'history_state.dart';
@@ -19,7 +18,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         super(const HistoryState()) {
     on<HistorySubscriptionRequested>(_onSubscriptionRequested);
     on<HistoryLeaderSaved>(_onLeaderSaved);
-    on<HistoryFilterChanged>(_onFilterChanged);
   }
 
   final HistoryRepository _historyRepository;
@@ -48,13 +46,5 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   ) async {
     debugPrint('saving leader ${event.leader}');
     await _historyRepository.saveHistory(event.leader);
-  }
-
-
-  void _onFilterChanged(
-      HistoryFilterChanged event,
-      Emitter<HistoryState> emit,
-      ) {
-    emit(state.copyWith(filter: () => event.filter));
   }
 }

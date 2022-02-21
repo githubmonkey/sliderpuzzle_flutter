@@ -11,7 +11,7 @@ import 'package:auth_repository/auth_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:leaders_repository/leaders_repository.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/app/app.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
@@ -20,15 +20,15 @@ import '../../helpers/helpers.dart';
 
 void main() {
   late AuthRepository authRepository;
-  late FirestoreRepository firestoreRepository;
+  late HistoryRepository historyRepository;
 
   setUp(() {
     authRepository = MockAuthRepository();
-    firestoreRepository = MockFirestoreRepository();
+    historyRepository = MockHistoryRepository();
     when(() => authRepository.user).thenAnswer((_) => const Stream.empty());
     when(() => authRepository.currentUser).thenAnswer((_) => User.empty);
-    when(() => firestoreRepository.getLeaders())
-        .thenAnswer((_) => const Stream<QuerySnapshot<Leader>>.empty());
+    when(() => historyRepository.getHistory())
+        .thenAnswer((_) => const Stream<List<Leader>>.empty());
     final leader = Leader(
       userid: 'user 1',
       settings: 'settings',

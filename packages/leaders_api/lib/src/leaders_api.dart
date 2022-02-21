@@ -14,11 +14,8 @@ abstract class LeadersApi {
   const LeadersApi();
 
   /// Provides a [Stream] of all leaders.
-  ///
-  /// //TODO(s): handle time and moves
-  /// //TODO(s): retrieve by user
-  /// If a time x is given, return everything up to x
-  Stream<List<Leader>> getHistory({int? time});
+  /// returns all local records regardless of filter settings
+  Stream<List<Leader>> getHistory();
 
   /// Saves a [Leader].
   ///

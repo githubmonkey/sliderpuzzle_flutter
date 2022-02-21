@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/history/history.dart';
+import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
 class HistoryList extends StatelessWidget {
@@ -13,12 +14,12 @@ class HistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
+
     final status = context.select((HistoryBloc bloc) => bloc.state.status);
 
-    final leaders = context.select((HistoryBloc bloc) => bloc.state.leaders);
-    List<Leader> sortable = List<Leader>.from(leaders);
-    // TODO: add second criteria
-    sortable.sort((a, b) => a.time.compareTo(b.time));
+    final leaders = context.select((HistoryBloc bloc) =>
+        bloc.state.filteredLeaders(theme: theme.name, settings: settings));
 
     if (status == HistoryStatus.loading) {
       return const Center(child: CircularProgressIndicator());
@@ -29,6 +30,8 @@ class HistoryList extends StatelessWidget {
         child: Text('no entries for these settings yet'),
       );
     } else {
+      final best = _getMin(leaders);
+
       return Container(
         decoration: BoxDecoration(
           border: Border.all(color: PuzzleColors.grey5),
@@ -36,15 +39,15 @@ class HistoryList extends StatelessWidget {
           color: PuzzleColors.grey4,
         ),
         child: ListTileTheme(
-          tileColor: Colors.green,
+          iconColor: theme.buttonColor,
           textColor: Colors.black54,
-          horizontalTitleGap: 100,
+          horizontalTitleGap: 0,
           child: ListView(
             children: [
-              for (final leader in sortable)
+              for (final leader in leaders)
                 HistoryListTile(
                   leader: leader,
-                  isPB: false,
+                  isPB: leader.time == best.time && leader.moves == best.moves,
                 ),
             ],
           ),
@@ -52,4 +55,12 @@ class HistoryList extends StatelessWidget {
       );
     }
   }
+}
+
+// TODO(s): move to leaders and unit test
+Leader _getMin(Iterable<Leader> leaders) {
+  return leaders.reduce((value, element) => (value.time < element.time ||
+          (value.time == element.time && value.moves < element.moves)
+      ? value
+      : element));
 }

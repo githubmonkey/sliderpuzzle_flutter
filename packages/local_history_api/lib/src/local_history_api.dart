@@ -46,9 +46,8 @@ class LocalHistoryApi extends LeadersApi {
     }
   }
 
-  // TODO(s): filter by time
   @override
-  Stream<List<Leader>> getHistory({int? time}) =>
+  Stream<List<Leader>> getHistory() =>
       _historyStreamController.asBroadcastStream();
 
   @override
