@@ -6,6 +6,7 @@ import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -17,6 +18,7 @@ class SettingsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
+    final nickname = context.select((LoginBloc bloc) => bloc.state.nickname);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Container(
@@ -111,6 +113,19 @@ class SettingsBlock extends StatelessWidget {
                   Text(context.l10n.settingsLabelElevenToTwenty),
                   Text(_localizedElevenToTwenty(
                       context, settings.elevenToTwenty,),),
+                ],
+              ),
+              const ResponsiveGap(
+                small: 8,
+                medium: 9,
+                large: 9,
+                xlarge: 9,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(context.l10n.settingsLabelNickname),
+                  Text(nickname),
                 ],
               ),
             ],

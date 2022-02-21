@@ -197,7 +197,6 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
-    final user = context.select((LoginBloc bloc) => bloc.state.user);
 
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (context, state) {
@@ -228,7 +227,6 @@ class _Puzzle extends StatelessWidget {
               ),
               if (theme is! SimpleTheme)
                 theme.layoutDelegate.backgroundBuilder(state),
-              Text(user.toString())
             ],
           );
         },
@@ -413,6 +411,7 @@ class PuzzleBoard extends StatelessWidget {
 
             // get timer
             final user = context.read<LoginBloc>().state.user;
+            final nickname = context.read<LoginBloc>().state.nickname;
             final theme = context.read<ThemeBloc>().state.theme;
             final settings = context.read<SettingsBloc>().state.settings;
             final time = context.read<TimerBloc>().state.secondsElapsed;
@@ -420,6 +419,7 @@ class PuzzleBoard extends StatelessWidget {
 
             final leader = Leader(
               userid: user.id,
+              nickname: nickname,
               theme: theme.name,
               settings: settings,
               result: Result(time: time, moves: moves),
@@ -428,8 +428,6 @@ class PuzzleBoard extends StatelessWidget {
 
             // this enters a trail into local shared prefs
             context.read<HistoryBloc>().add(HistoryLeaderSaved(leader));
-            // TODO: only after return from popup?
-            // TODO: animate?
             // this enters a summary into the global leaderboard
             context.read<LeaderboardBloc>().add(LeaderboardLeaderSaved(leader));
 

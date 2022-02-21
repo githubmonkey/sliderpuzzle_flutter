@@ -4,36 +4,41 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
 
 class LeaderboardListTile extends StatelessWidget {
   const LeaderboardListTile({
     Key? key,
     required this.leader,
     required this.pos,
+    required this.isOwn,
   }) : super(key: key);
 
   final Leader leader;
 
   final int pos;
 
+  final bool isOwn;
+
   @override
   Widget build(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final languageCode = Localizations.localeOf(context).languageCode;
     final format = DateFormat.yMMMEd(languageCode).add_Hm();
 
     return ListTile(
-      leading: Text(pos.toString()),
+      tileColor:  isOwn ? theme.defaultColor : null,
+      leading: isOwn ? Icon(Icons.star) : const SizedBox(),
+      trailing: Text(pos.toString()),
       title: Text(
-        context.l10n
-            .puzzleResultSummary(_formatDuration(), leader.result.moves.toString()),
+        context.l10n.puzzleResultSummary(
+            _formatDuration(), leader.result.moves.toString(), leader.nickname),
+      ),
+      subtitle: Text(
+        format.format(leader.timestamp),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-      ),
-      isThreeLine: true,
-      dense: false,
-      subtitle: Text(
-        '${leader.userid}\n${format.format(leader.timestamp)}',
-        maxLines: 2,
       ),
     );
   }

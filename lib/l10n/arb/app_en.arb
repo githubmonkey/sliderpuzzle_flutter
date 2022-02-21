@@ -28,6 +28,10 @@
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
+    "settingsLabelNickname": "Your Alias",
+    "@settingsLabelNickname": {
+        "description": "Shown on the settings control"
+    },
     "settingsLabelGame": "Challenge",
     "@settingsLabelGame": {
         "description": "Shown on the settings control"
@@ -174,7 +178,7 @@
             }
         }
     },
-    "puzzleResultSummary": "Time: {time}, Moves: {numberOfMoves}",
+    "puzzleResultSummary": "{time}, {numberOfMoves} Moves, Player {player}",
     "@puzzleResultSummary": {
         "description": "Shown as summary in the leader board",
         "placeholders": {
@@ -185,6 +189,10 @@
             "numberOfMoves": {
                 "type": "String",
                 "example": "5"
+            },
+            "player": {
+                "type": "String",
+                "example": "bluedog"
             }
         }
     },

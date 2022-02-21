@@ -1,6 +1,7 @@
 import 'package:auth_repository/auth_repository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firestore_repository/firestore_repository.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -112,4 +113,7 @@ class MockAudioControlBloc
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
-class MockFirestoreRepository extends Mock implements HistoryRepository {}
+class MockHistoryRepository extends Mock implements HistoryRepository {}
+
+class MockFirebaseRepository extends Mock implements FirebaseRepository {}
+

@@ -21,6 +21,11 @@ abstract class LeadersApi {
   ///
   /// If a [leader] with the same id already exists, it will be replaced.
   Future<void> saveHistory(Leader leader);
+
+  /// Get or generate a nickname.
+  ///
+  /// If a nickname had previously been generated for this id it is returned
+  String getNickname(String userid);
 }
 
 /// Error thrown when a [Leader] with a given id is not found.

@@ -28,6 +28,10 @@
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
+    "settingsLabelNickname": "Dein Alias",
+    "@settingsLabelNickname": {
+        "description": "Shown on the settings control"
+    },
     "settingsLabelGame": "Aufgabe",
     "@settingsLabelGame": {
         "description": "Shown on the settings control"
@@ -156,7 +160,7 @@
     "@dashatarSuccessCompleted": {
         "description": "Shown as a title in the Dashatar success state"
     },
-    "dashatarSuccessWellDone": "Super! Gut gemacht!",
+    "dashatarSuccessWellDone": "Super. Gut gemacht!",
     "@dashatarSuccessWellDone": {
         "description": "Shown as a subtitle in the Dashatar success state"
     },
@@ -174,7 +178,7 @@
             }
         }
     },
-    "puzzleResultSummary": "Zeit: {time}, Züge: {numberOfMoves}",
+    "puzzleResultSummary": "{time}, {numberOfMoves} Züge, Spieler {player}",
     "@puzzleResultSummary": {
         "description": "Shown as summary in the leader board",
         "placeholders": {
@@ -185,6 +189,10 @@
             "numberOfMoves": {
                 "type": "String",
                 "example": "5"
+            },
+            "player": {
+                "type": "String",
+                "example": "bluedog"
             }
         }
     },

@@ -206,8 +206,10 @@ class _AppState extends State<App> {
           ),
           // TODO(s): does the auth repo do a listen on the user already?
           BlocProvider<LoginBloc>(
-            create: (context) =>
-                LoginBloc(authRepository: widget.authRepository),
+            create: (context) => LoginBloc(
+              authRepository: widget.authRepository,
+              historyRepository: widget.historyRepository,
+            ),
           ),
         ],
         child: BlocBuilder<LanguageControlBloc, LanguageControlState>(

@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  english_words: ^4.0.0
   flutter:
     sdk: flutter
   leaders_api:

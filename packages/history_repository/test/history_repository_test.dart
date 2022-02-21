@@ -17,6 +17,7 @@ void main() {
       game: Game.noop,
       elevenToTwenty: true,
     );
+    const result = Result(time: 100, moves: 25);
 
     final leaders = [
       Leader(
@@ -24,8 +25,7 @@ void main() {
         userid: 'user 1',
         theme: 'theme',
         settings: settings,
-        time: 0,
-        moves: 0,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
@@ -33,8 +33,7 @@ void main() {
         userid: 'user 2',
         theme: 'theme',
         settings: settings,
-        time: 0,
-        moves: 0,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
@@ -43,8 +42,7 @@ void main() {
         nickname: 'nickname',
         theme: 'theme',
         settings: settings,
-        time: 100,
-        moves: 25,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
@@ -52,8 +50,7 @@ void main() {
         userid: 'user 3',
         theme: 'theme',
         settings: settings,
-        time: 100,
-        moves: 5,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
     ];
@@ -106,8 +103,7 @@ void main() {
           userid: 'user 10',
           theme: 'theme',
           settings: settings,
-          time: 110,
-          moves: 15,
+          result: result,
           timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
 

@@ -25,28 +25,15 @@ class HistoryListTile extends StatelessWidget {
       leading: isPB ? Icon(Icons.star) : const SizedBox(),
       title: Text(
         context.l10n.puzzleResultSummary(
-            _formatDuration(), leader.result.moves.toString()),
+          _formatDuration(),
+          leader.result.moves.toString(),
+          leader.nickname,
+        ),
+      ),
+      subtitle: Text(
+        format.format(leader.timestamp),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Flexible(
-              child: Text(
-            format.format(leader.timestamp),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          )),
-          Flexible(
-            child: Text(
-              leader.userid,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
       ),
     );
   }

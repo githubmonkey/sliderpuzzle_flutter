@@ -30,8 +30,7 @@ class LeaderboardList extends StatelessWidget {
     }
 
     final repo = context.read<FirestoreRepository>();
-    final leaders =
-        repo.getLeaders(theme: theme.name, settings: settings);
+    final leaders = repo.getLeaders(theme: theme.name, settings: settings);
 
     return StreamBuilder<QuerySnapshot<Leader>>(
       stream: leaders,
@@ -70,7 +69,7 @@ class LeaderboardList extends StatelessWidget {
         return ListTileTheme(
           iconColor: theme.buttonColor,
           textColor: Colors.black54,
-          horizontalTitleGap: 0,
+          horizontalTitleGap: 4,
           minVerticalPadding: 4,
           child: ListView.builder(
             itemCount: data.size,
@@ -80,6 +79,7 @@ class LeaderboardList extends StatelessWidget {
                 key: Key('leader_${item.id}'),
                 leader: item,
                 pos: index + 1,
+                isOwn: item.userid == userid,
               );
             },
           ),
