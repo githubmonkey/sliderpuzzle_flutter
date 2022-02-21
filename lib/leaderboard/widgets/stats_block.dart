@@ -6,6 +6,7 @@ import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/leaderboard/widgets/leaderboard_list.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
@@ -15,6 +16,7 @@ class StatsBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final nickname = context.select((LoginBloc bloc) => bloc.state.nickname);
 
     return ResponsiveLayoutBuilder(
         small: (context, child) => SizedBox(
@@ -57,12 +59,8 @@ class StatsBlock extends StatelessWidget {
                           color: theme.defaultColor,
                         ),
                         tabs: [
-                          Tab(
-                            text: context.l10n.tabLabelHistory,
-                          ),
-                          Tab(
-                            text: context.l10n.tabLabelLeaderboard,
-                          ),
+                          Tab(text: context.l10n.tabLabelLeaderboard),
+                          Tab(text: context.l10n.tabLabelHistory(nickname)),
                         ],
                       )
                     ],
@@ -70,8 +68,8 @@ class StatsBlock extends StatelessWidget {
                 ),
                 body: const TabBarView(
                   children: [
-                    const HistoryList(),
                     const LeaderboardList(),
+                    const HistoryList(),
                   ],
                 ),
               ),

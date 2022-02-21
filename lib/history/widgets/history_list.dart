@@ -36,7 +36,7 @@ class HistoryList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Center(
           child: Text(
-            context.l10n.tabEmptyList,
+            context.l10n.tabHistoryEmptyList,
             textAlign: TextAlign.center,
             style: PuzzleTextStyle.settingsLabel.copyWith(
               color: Colors.black54,

@@ -4,9 +4,19 @@
     "@tabEmptyList": {
         "description": "Shown on the stats tab"
     },
-    "tabLabelHistory": "Meine Spiele",
-    "@tabLabelHistory": {
+    "tabHistoryEmptyList": "Diese Variante hast du noch nicht gespielt. Fang jetzt an!",
+    "@tabHistoryEmptyList": {
         "description": "Shown on the stats tab"
+    },
+    "tabLabelHistory": "{player}s Spiele",
+    "@tabLabelHistory": {
+        "description": "Shown on the stats tab",
+        "placeholders": {
+            "player": {
+                "type": "String",
+                "example": "bluedog"
+            }
+        }
     },
     "tabLabelLeaderboard": "Bestenliste",
     "@tabLabelLeaderboard": {
