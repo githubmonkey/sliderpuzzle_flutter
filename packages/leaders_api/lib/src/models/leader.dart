@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:leaders_api/leaders_api.dart';
+import 'package:leaders_api/src/models/result.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
@@ -31,8 +32,7 @@ class Leader extends Equatable {
     this.nickname = '',
     required this.theme,
     required this.settings,
-    required this.time,
-    required this.moves,
+    required this.result,
     required this.timestamp,
   })  : assert(
           id == null || id.isNotEmpty,
@@ -55,11 +55,8 @@ class Leader extends Equatable {
   /// The settings string that describes the board config. (Required)
   final Settings settings;
 
-  /// The time in seconds. (Required)
-  final int time;
-
-  /// The number of moves. (Required)
-  final int moves;
+  /// The result as time/moves. (Required)
+  final Result result;
 
   /// The timestamp. (Required)
   final DateTime timestamp;
@@ -73,8 +70,7 @@ class Leader extends Equatable {
     String? nickname,
     String? theme,
     Settings? settings,
-    int? time,
-    int? moves,
+    Result? result,
     DateTime? timestamp,
   }) {
     return Leader(
@@ -83,8 +79,7 @@ class Leader extends Equatable {
       nickname: nickname ?? this.nickname,
       theme: theme ?? this.theme,
       settings: settings ?? this.settings,
-      time: time ?? this.time,
-      moves: moves ?? this.moves,
+      result: result ?? this.result,
       timestamp: timestamp ?? this.timestamp,
     );
   }
@@ -102,8 +97,7 @@ class Leader extends Equatable {
         nickname,
         theme,
         settings,
-        time,
-        moves,
+        result,
         timestamp,
       ];
 }

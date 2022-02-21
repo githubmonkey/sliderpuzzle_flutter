@@ -12,8 +12,7 @@ Leader _$LeaderFromJson(Map<String, dynamic> json) => Leader(
       nickname: json['nickname'] as String? ?? '',
       theme: json['theme'] as String,
       settings: Settings.fromJson(json['settings'] as Map<String, dynamic>),
-      time: json['time'] as int,
-      moves: json['moves'] as int,
+      result: Result.fromJson(json['result'] as Map<String, dynamic>),
       timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
@@ -23,7 +22,6 @@ Map<String, dynamic> _$LeaderToJson(Leader instance) => <String, dynamic>{
       'nickname': instance.nickname,
       'theme': instance.theme,
       'settings': instance.settings.toJson(),
-      'time': instance.time,
-      'moves': instance.moves,
+      'result': instance.result.toJson(),
       'timestamp': instance.timestamp.toIso8601String(),
     };

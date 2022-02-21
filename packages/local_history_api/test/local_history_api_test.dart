@@ -17,6 +17,7 @@ void main() {
       game: Game.noop,
       elevenToTwenty: true,
     );
+    const result = Result(time: 0, moves: 0);
 
     final leaders = [
       Leader(
@@ -24,8 +25,7 @@ void main() {
         userid: 'user 1',
         theme: 'theme',
         settings: settings,
-        time: 0,
-        moves: 0,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
@@ -33,8 +33,7 @@ void main() {
         userid: 'user 2',
         theme: 'theme',
         settings: settings,
-        time: 0,
-        moves: 0,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
       Leader(
@@ -43,8 +42,7 @@ void main() {
         nickname: 'nickname',
         theme: 'theme',
         settings: settings,
-        time: 100,
-        moves: 25,
+        result: result,
         timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
       ),
     ];
@@ -110,8 +108,7 @@ void main() {
           userid: 'user 3',
           theme: 'theme',
           settings: settings,
-          time: 100,
-          moves: 5,
+          result: result,
           timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
 
@@ -136,8 +133,7 @@ void main() {
           userid: 'new user',
           theme: 'theme',
           settings: settings,
-          time: 1,
-          moves: 2,
+          result: result,
           timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
         );
         final newLeaders = [updatedLeader, ...leaders.sublist(1)];

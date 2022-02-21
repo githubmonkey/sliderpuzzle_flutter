@@ -422,8 +422,7 @@ class PuzzleBoard extends StatelessWidget {
               userid: user.id,
               theme: theme.name,
               settings: settings,
-              time: time,
-              moves: moves,
+              result: Result(time: time, moves: moves),
               timestamp: DateTime.now(),
             );
 

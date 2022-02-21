@@ -4,7 +4,8 @@ import 'package:leaders_api/src/models/models.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Leader', () {
+  group('Leader', ()
+  {
     // DateTime.fromMillisecondsSinceEpoch(12345);
     // 1970-01-01 02:00:12.345  // print(d);
     // 970-01-01T02:00:12.345  // print(d.toIso8601String());
@@ -13,25 +14,23 @@ void main() {
       game: Game.noop,
       elevenToTwenty: true,
     );
-
+  const result = Result(time: 100, moves: 25);
     Leader createSubject({
       String? id = '1',
       String userid = 'user 1',
       String nickname = 'nickname',
       String theme = 'swap',
       Settings settings = settings,
-      int time = 100,
-      int moves = 25,
+      Result result = result,
       DateTime? timestamp,
     }) {
       return Leader(
         id: id,
         userid: userid,
+        nickname: nickname,
         theme: theme,
         settings: settings,
-        nickname: nickname,
-        time: time,
-        moves: moves,
+        result: result,
         timestamp: timestamp ?? DateTime.fromMillisecondsSinceEpoch(12345),
       );
     }
@@ -46,7 +45,7 @@ void main() {
 
       test('throws AssertionError when id is empty', () {
         expect(
-          () => createSubject(id: ''),
+              () => createSubject(id: ''),
           throwsA(isA<AssertionError>()),
         );
       });
@@ -75,8 +74,7 @@ void main() {
           'nickname', // nickname
           'swap', // theme
           settings, // settings
-          100, // time
-          25, // moves
+          result, // moves
           DateTime.fromMillisecondsSinceEpoch(12345),
         ]),
       );
@@ -98,8 +96,8 @@ void main() {
             nickname: null,
             theme: null,
             settings: null,
-            time: null,
-            moves: null,
+            result: null,
+
           ),
           equals(createSubject()),
         );
@@ -111,6 +109,7 @@ void main() {
           game: Game.roman,
           elevenToTwenty: false,
         );
+        const newresult = Result(time: 200, moves: 50);
         expect(
           createSubject().copyWith(
             id: '2',
@@ -118,8 +117,7 @@ void main() {
             nickname: 'new nickname',
             theme: 'new theme',
             settings: newsettings,
-            time: 200,
-            moves: 50,
+            result: newresult,
           ),
           equals(
             createSubject(
@@ -128,8 +126,7 @@ void main() {
               theme: 'new theme',
               nickname: 'new nickname',
               settings: newsettings,
-              time: 200,
-              moves: 50,
+              result: newresult,
             ),
           ),
         );
@@ -149,10 +146,12 @@ void main() {
               'game': 'noop',
               'elevenToTwenty': true,
             },
-            'time': 100,
-            'moves': 25,
+            'result': {
+              'time': 100,
+              'moves': 25,
+            },
             'timestamp':
-                DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
+            DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
           }),
           equals(createSubject()),
         );
@@ -173,10 +172,12 @@ void main() {
               'game': 'noop',
               'elevenToTwenty': true,
             },
-            'time': 100,
-            'moves': 25,
+            'result': {
+              'time': 100,
+              'moves': 25,
+            },
             'timestamp':
-                DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
+            DateTime.fromMillisecondsSinceEpoch(12345).toIso8601String(),
           }),
         );
       });

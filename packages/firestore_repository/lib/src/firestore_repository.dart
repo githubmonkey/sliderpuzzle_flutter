@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:cloud_firestore/cloud_firestore.dart' hide Settings;
+import 'package:flutter/foundation.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:meta/meta.dart';
 
@@ -36,8 +37,7 @@ class FirestoreRepository {
   //           toFirestore: (leader, _) => leader.toJson(),
   //         );
 
-  Stream<QuerySnapshot<Leader>> getLeaders(
-    String uid, {
+  Stream<QuerySnapshot<Leader>> getLeaders({
     String? theme,
     Settings? settings,
   }) {
@@ -48,10 +48,7 @@ class FirestoreRepository {
       ref = ref.where('settings', isEqualTo: settings.toJson());
     }
 
-    return _leadersRef
-        .orderBy('time', descending: false)
-        .orderBy('moves', descending: false)
-        .snapshots();
+    return ref.orderBy('result', descending: false).limit(20).snapshots();
   }
 
   Future<void> saveLeader(Leader leader) {

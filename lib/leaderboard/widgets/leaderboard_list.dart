@@ -31,70 +31,60 @@ class LeaderboardList extends StatelessWidget {
 
     final repo = context.read<FirestoreRepository>();
     final leaders =
-        repo.getLeaders(userid, theme: theme.name, settings: settings);
+        repo.getLeaders(theme: theme.name, settings: settings);
 
-    return AnimatedDefaultTextStyle(
-      key: const Key('mslide_score_number_of_moves'),
-      style: PuzzleTextStyle.settingsLabel.copyWith(
-        color: Colors.black54,
-      ),
-      duration: PuzzleThemeAnimationDuration.textStyle,
-      child: StreamBuilder<QuerySnapshot<Leader>>(
-        stream: leaders,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            debugPrint(snapshot.error.toString());
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Center(
-                child: Text(snapshot.error.toString()),
-              ),
-            );
-          }
+    return StreamBuilder<QuerySnapshot<Leader>>(
+      stream: leaders,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          debugPrint(snapshot.error.toString());
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Center(
+              child: Text(snapshot.error.toString()),
+            ),
+          );
+        }
 
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          final data = snapshot.requireData;
+        final data = snapshot.requireData;
 
-          if (data.size == 0) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Center(
-                child: Text(
-                  context.l10n.tabEmptyList,
-                  textAlign: TextAlign.center,
+        if (data.size == 0) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Center(
+              child: Text(
+                context.l10n.tabEmptyList,
+                textAlign: TextAlign.center,
+                style: PuzzleTextStyle.settingsLabel.copyWith(
+                  color: Colors.black54,
                 ),
               ),
-            );
-          }
+            ),
+          );
+        }
 
-          // get index of best
-          // TODO(s): move this somewhere more appropriately
-          var best = 0;
-          for (var i = 0; i < data.docs.length; i++) {
-            var current = data.docs[i].data();
-            var prev = data.docs[best].data();
-            if (current.time < prev.time ||
-                (current.time == prev.time && current.moves < prev.moves)) {
-              best = i;
-            }
-          }
-
-          return ListView.builder(
+        return ListTileTheme(
+          iconColor: theme.buttonColor,
+          textColor: Colors.black54,
+          horizontalTitleGap: 0,
+          minVerticalPadding: 4,
+          child: ListView.builder(
             itemCount: data.size,
             itemBuilder: (context, index) {
               final item = data.docs[index].data();
               return LeaderboardListTile(
                 key: Key('leader_${item.id}'),
                 leader: item,
-                isPB: index == best,
+                pos: index + 1,
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

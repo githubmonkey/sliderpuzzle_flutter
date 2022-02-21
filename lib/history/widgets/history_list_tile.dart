@@ -24,8 +24,8 @@ class HistoryListTile extends StatelessWidget {
     return ListTile(
       leading: isPB ? Icon(Icons.star) : const SizedBox(),
       title: Text(
-        context.l10n
-            .puzzleResultSummary(_formatDuration(), leader.moves.toString()),
+        context.l10n.puzzleResultSummary(
+            _formatDuration(), leader.result.moves.toString()),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -33,7 +33,12 @@ class HistoryListTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Flexible(child: Text(format.format(leader.timestamp))),
+          Flexible(
+              child: Text(
+            format.format(leader.timestamp),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          )),
           Flexible(
             child: Text(
               leader.userid,
@@ -47,7 +52,7 @@ class HistoryListTile extends StatelessWidget {
   }
 
   String _formatDuration() {
-    final duration = Duration(seconds: leader.time);
+    final duration = Duration(seconds: leader.result.time);
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));

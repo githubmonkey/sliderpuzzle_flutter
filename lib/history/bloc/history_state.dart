@@ -14,8 +14,10 @@ class HistoryState extends Equatable {
   final List<Leader> leaders;
 
   // NOTE: this used to be handled with a filter that was passed in via event.
-  Iterable<Leader> filteredLeaders(
-      {required String theme, required Settings settings}) {
+  Iterable<Leader> filteredLeaders({
+    required String theme,
+    required Settings settings,
+  }) {
     var list = leaders
         .where((l) => l.theme == theme && l.settings == settings)
         .toList()
