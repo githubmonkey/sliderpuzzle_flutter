@@ -34,6 +34,6 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SLIDERPUZZLE_FLUTTER }}"
           projectId: sliderpuzzle-flutter
-          targetId: sliderpuzzle-flutter-dev
+          #targetId: sliderpuzzle-flutter-dev
           expires: 14d
-          channelId: alpha
+          #channelId: live
