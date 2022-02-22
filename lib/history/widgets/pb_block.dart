@@ -33,10 +33,6 @@ class PbBlock extends StatelessWidget {
     final textStyle =
         PuzzleTextStyle.headline5.copyWith(color: theme.defaultColor);
 
-    // debugPrint('best ${best}');
-    // debugPrint('current ${best}');
-    // debugPrint('compared ${current.result.compareTo(best.result)}');
-
     if (best == null ||
         current == best ||
         current.result.compareTo(best.result) == -1) {
