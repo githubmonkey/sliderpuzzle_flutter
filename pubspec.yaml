@@ -29,12 +29,12 @@ dependencies:
   flutter_services_binding: ^0.1.0
   gap: ^2.0.0
   google_fonts: ^2.1.0
+  history_repository:
+    path: packages/history_repository
   intl: ^0.17.0
   just_audio: ^0.9.20
   leaders_api:
     path: packages/leaders_api
-  history_repository:
-    path: packages/history_repository
   local_history_api:
     path: packages/local_history_api
   universal_platform: ^1.0.0+1

@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
 class LeaderboardListTile extends StatelessWidget {
@@ -28,12 +28,15 @@ class LeaderboardListTile extends StatelessWidget {
     final format = DateFormat.yMMMEd(languageCode).add_Hm();
 
     return ListTile(
-      tileColor:  isOwn ? theme.defaultColor : null,
-      leading: isOwn ? Icon(Icons.star) : const SizedBox(),
+      tileColor: isOwn ? theme.defaultColor : null,
+      leading: isOwn ? const Icon(Icons.star) : const SizedBox(),
       trailing: Text(pos.toString()),
       title: Text(
         context.l10n.puzzleResultSummary(
-            _formatDuration(), leader.result.moves.toString(), leader.nickname),
+          _formatDuration(),
+          leader.result.moves.toString(),
+          leader.nickname,
+        ),
       ),
       subtitle: Text(
         format.format(leader.timestamp),

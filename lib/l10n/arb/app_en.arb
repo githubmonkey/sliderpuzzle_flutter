@@ -302,8 +302,48 @@
     "@dashatarSuccessShareYourScoreMessage": {
         "description": "Shown as a share message in the Dashatar success state"
     },
+    "dashatarSuccessNewPB": "New PB! Congrats!!",
+    "@dashatarSuccessNewPB": {
+        "description": "Shown as a PB marker in the Dashatar success state"
+    },
+    "dashatarSuccessPastPB": "Your PB is still {time}",
+    "@dashatarSuccessPastPB": {
+        "description": "Shown as a PB marker in the Dashatar success state",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "00:00:00"
+            }
+        }
+    },
     "dashatarSuccessShareText": "Just solved the #FlutterPuzzleHack! Check it out ↓",
     "@dashatarSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
+    },
+    "otherSuccessShareText": "I just solved the #FlutterPuzzleHack!\nMy settings: {theme}, {size}x{size}, {game}\nMy time: {time}, {moves} moves\nTry it yourself ↓\n",
+    "@otherSuccessShareText": {
+        "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state",
+        "placeholders": {
+            "theme": {
+                "type": "String",
+                "example": "Swap"
+            },
+            "size": {
+                "type": "String",
+                "example": "4x4"
+            },
+            "game": {
+                "type": "String",
+                "example": "Multiplication"
+            },
+            "time": {
+                "type": "String",
+                "example": "00:00:00"
+            },
+            "moves": {
+                "type": "String",
+                "example": "5"
+            }
+        }
     }
 }

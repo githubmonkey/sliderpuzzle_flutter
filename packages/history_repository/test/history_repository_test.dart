@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:leaders_api/leaders_api.dart';
 import 'package:history_repository/history_repository.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

@@ -188,6 +188,20 @@
             }
         }
     },
+    "dashatarSuccessNewPB": "Neue Bestzeit!!!",
+    "@dashatarSuccessNewPB": {
+        "description": "Shown as a PB marker in the Dashatar success state"
+    },
+    "dashatarSuccessPastPB": "Deine Bestzeit ist {time}",
+    "@dashatarSuccessPastPB": {
+        "description": "Shown as a PB marker in the Dashatar success state",
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "00:00:00"
+            }
+        }
+    },
     "puzzleResultSummary": "{time}, {numberOfMoves} Züge, Spieler {player}",
     "@puzzleResultSummary": {
         "description": "Shown as summary in the leader board",
@@ -305,5 +319,31 @@
     "dashatarSuccessShareText": "Ich hab den #FlutterPuzzleHack geschafft! Guck mal ↓",
     "@dashatarSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
+    },
+    "otherSuccessShareText": "Ich hab den #FlutterPuzzleHack geschafft!\nEinstellungen: {theme}, {size}x{size}, {game}\nZeit: {time}, {moves} Züge\nVersuch es auch mal ↓\n",
+    "@otherSuccessShareText": {
+        "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state",
+        "placeholders": {
+            "theme": {
+                "type": "String",
+                "example": "Swap"
+            },
+            "size": {
+                "type": "String",
+                "example": "4x4"
+            },
+            "game": {
+                "type": "String",
+                "example": "Multiplication"
+            },
+            "time": {
+                "type": "String",
+                "example": "00:00:00"
+            },
+            "moves": {
+                "type": "String",
+                "example": "5"
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 /// {@template mslide_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -87,8 +88,8 @@ class MslideStartSection extends StatelessWidget {
           xlarge: (_, __) => const MslidePuzzleActionButton(),
         ),
         ResponsiveLayoutBuilder(
-          small: (_, __) => const MslideTimer(),
-          medium: (_, __) => const MslideTimer(),
+          small: (_, __) => const MyTimer(),
+          medium: (_, __) => const MyTimer(),
           large: (_, __) => const SizedBox(),
           xlarge: (_, __) => const SizedBox(),
         ),

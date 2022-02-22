@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -20,8 +19,10 @@ class HistoryList extends StatelessWidget {
 
     final status = context.select((HistoryBloc bloc) => bloc.state.status);
 
-    final leaders = context.select((HistoryBloc bloc) =>
-        bloc.state.filteredLeaders(theme: theme.name, settings: settings));
+    final leaders = context.select(
+      (HistoryBloc bloc) =>
+          bloc.state.filteredLeaders(theme: theme.name, settings: settings),
+    );
 
     if (status == HistoryStatus.loading) {
       return const Center(child: CircularProgressIndicator());
@@ -33,7 +34,7 @@ class HistoryList extends StatelessWidget {
 
     if (leaders.isEmpty) {
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Center(
           child: Text(
             context.l10n.tabHistoryEmptyList,
@@ -46,7 +47,10 @@ class HistoryList extends StatelessWidget {
       );
     }
 
-    final best = _getBest(leaders);
+    final best = context.select(
+      (HistoryBloc bloc) =>
+          bloc.state.filteredBest(theme: theme.name, settings: settings),
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -63,22 +67,22 @@ class HistoryList extends StatelessWidget {
             for (final leader in leaders)
               HistoryListTile(
                 leader: leader,
-                isPB: leader.result == best.result,
+                isPB: leader.result == best?.result,
               ),
           ],
         ),
       ),
     );
   }
-
-  Leader _getBest(Iterable<Leader> leaders) {
-    assert(leaders.isNotEmpty, 'list cannot be empty');
-
-    return leaders.reduce((value, element) =>
-        (value.result.time < element.result.time ||
-                (value.result.time == element.result.time &&
-                    value.result.moves < element.result.moves))
-            ? value
-            : element);
-  }
+//
+// Leader _getBest(Iterable<Leader> leaders) {
+//   assert(leaders.isNotEmpty, 'list cannot be empty');
+//
+//   return leaders.reduce((value, element) =>
+//       (value.result.time < element.result.time ||
+//               (value.result.time == element.result.time &&
+//                   value.result.moves < element.result.moves))
+//           ? value
+//           : element);
+// }
 }

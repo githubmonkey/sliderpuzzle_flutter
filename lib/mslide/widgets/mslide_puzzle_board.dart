@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
-import 'package:very_good_slide_puzzle/mswap/bloc/bloc.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_puzzle_board}
@@ -59,13 +58,10 @@ class _MslidePuzzleBoardState extends State<MslidePuzzleBoard> {
                     value: context.read<MslideThemeBloc>(),
                   ),
                   BlocProvider.value(
-                    value: context.read<MswapThemeBloc>(),
-                  ),
-                  BlocProvider.value(
                     value: context.read<PuzzleBloc>(),
                   ),
                   BlocProvider.value(
-                    value: context.read<TimerBloc>(),
+                    value: context.read<HistoryBloc>(),
                   ),
                   BlocProvider.value(
                     value: context.read<AudioControlBloc>(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
@@ -107,9 +108,9 @@ class MswapShareYourScore extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: buttonsMainAxisAlignment,
                   children: const [
-                    MswapTwitterButton(),
+                    ScoreTwitterButton(),
                     Gap(16),
-                    MswapFacebookButton(),
+                    ScoreFacebookButton(),
                   ],
                 ),
               ),

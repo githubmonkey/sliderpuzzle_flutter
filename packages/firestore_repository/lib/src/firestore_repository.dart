@@ -33,7 +33,8 @@ class FirestoreRepository {
   //         .doc(uid)
   //         .collection(kHistoryCollectionKey)
   //         .withConverter<Leader>(
-  //           fromFirestore: (snapshot, _) => Leader.fromJson(snapshot.data()!),
+  //           fromFirestore: (snapshot, _) =>
+  //           Leader.fromJson(snapshot.data()!),
   //           toFirestore: (leader, _) => leader.toJson(),
   //         );
 

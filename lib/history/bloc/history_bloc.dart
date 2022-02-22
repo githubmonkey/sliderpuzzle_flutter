@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:history_repository/history_repository.dart';
 import 'package:leaders_api/leaders_api.dart';
 
@@ -44,7 +43,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     HistoryLeaderSaved event,
     Emitter<HistoryState> emit,
   ) async {
-    debugPrint('saving leader ${event.leader}');
     await _historyRepository.saveHistory(event.leader);
+    emit(state.copyWith(current: event.leader));
   }
 }

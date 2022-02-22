@@ -27,6 +27,9 @@ class Result extends Equatable implements Comparable<Result> {
   final int time;
   final int moves;
 
+  /// convenience converter
+  Duration get timeAsDuration => Duration(seconds: time);
+
   /// Returns a copy of this Settings with the given values updated.
   ///
   /// {@macro settings}
@@ -51,10 +54,10 @@ class Result extends Equatable implements Comparable<Result> {
 
   @override
   int compareTo(Result other) {
-    if (this.time == other.time && this.moves == other.moves) return 0;
+    if (time == other.time && moves == other.moves) return 0;
 
-    if (this.time < other.time ||
-        (this.time == other.time && this.moves < other.moves)) {
+    if (time < other.time ||
+        (time == other.time && moves < other.moves)) {
       return -1;
     }
 

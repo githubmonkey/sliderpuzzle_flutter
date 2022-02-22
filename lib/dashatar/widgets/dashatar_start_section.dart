@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 /// {@template dashatar_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -88,8 +89,8 @@ class DashatarStartSection extends StatelessWidget {
           xlarge: (_, __) => const DashatarPuzzleActionButton(),
         ),
         ResponsiveLayoutBuilder(
-          small: (_, __) => const DashatarTimer(),
-          medium: (_, __) => const DashatarTimer(),
+          small: (_, __) => const MyTimer(),
+          medium: (_, __) => const MyTimer(),
           large: (_, __) => const SizedBox(),
           xlarge: (_, __) => const SizedBox(),
         ),

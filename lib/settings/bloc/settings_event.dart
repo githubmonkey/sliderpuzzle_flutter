@@ -14,5 +14,3 @@ class SettingsChanged extends SettingsEvent {
   @override
   List<Object?> get props => [settings];
 }
-
-

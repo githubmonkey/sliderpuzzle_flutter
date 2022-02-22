@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
@@ -98,7 +98,10 @@ class SettingsBlock extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.settingsLabelGame),
-                  Text(_localizedGame(context, settings.game)),
+                  Text(LocalizationHelper().localizedGame(
+                    context,
+                    settings.game,
+                  ),),
                 ],
               ),
               const ResponsiveGap(
@@ -111,8 +114,12 @@ class SettingsBlock extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(context.l10n.settingsLabelElevenToTwenty),
-                  Text(_localizedElevenToTwenty(
-                      context, settings.elevenToTwenty,),),
+                  Text(
+                    LocalizationHelper().localizedElevenToTwenty(
+                      context,
+                      settings.elevenToTwenty,
+                    ),
+                  ),
                 ],
               ),
               const ResponsiveGap(
@@ -133,32 +140,5 @@ class SettingsBlock extends StatelessWidget {
         );
       },
     );
-  }
-
-  String _localizedGame(
-    BuildContext context,
-    Game game,
-  ) {
-    switch (game) {
-      case Game.multi:
-        return context.l10n.settingsGameValueMulti;
-      case Game.addition:
-        return context.l10n.settingsGameValueAddition;
-      case Game.hex:
-        return context.l10n.settingsGameValueHex;
-      case Game.binary:
-        return context.l10n.settingsGameValueBinary;
-      case Game.roman:
-        return context.l10n.settingsGameValueRoman;
-      case Game.noop:
-        // This shouldn't be called in a game
-        return 'not set';
-    }
-  }
-
-  String _localizedElevenToTwenty(BuildContext context, bool elevenToTwenty) {
-    return elevenToTwenty
-        ? context.l10n.settingsElevenToTwentyTrue
-        : context.l10n.settingsElevenToTwentyFalse;
   }
 }

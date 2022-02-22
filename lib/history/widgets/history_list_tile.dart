@@ -22,7 +22,7 @@ class HistoryListTile extends StatelessWidget {
     final format = DateFormat.yMMMEd(languageCode).add_Hm();
 
     return ListTile(
-      leading: isPB ? Icon(Icons.star) : const SizedBox(),
+      leading: isPB ? const Icon(Icons.star) : const SizedBox(),
       title: Text(
         context.l10n.puzzleResultSummary(
           _formatDuration(),

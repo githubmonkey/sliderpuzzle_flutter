@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/helpers/localization_helper.dart';
+import 'package:very_good_slide_puzzle/history/bloc/history_bloc.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-/// {@template mslide_timer}
+/// {@template score_timer}
 /// Displays how many seconds elapsed since starting the puzzle.
+///
+/// Warning: for now there are two variants, this one historybloc based
+/// and MslideTimer as timerbloc based
 /// {@endtemplate}
-class MslideTimer extends StatelessWidget {
-  /// {@macro mslide_timer}
-  const MslideTimer({
+class ScoreTimer extends StatelessWidget {
+  /// {@macro score_timer}
+  const ScoreTimer({
     Key? key,
     this.textStyle,
     this.iconSize,
@@ -36,8 +40,13 @@ class MslideTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final secondsElapsed =
-        context.select((TimerBloc bloc) => bloc.state.secondsElapsed);
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
+    final current = context.select(
+      (HistoryBloc bloc) => bloc.state
+          .filteredLeaders(theme: theme.name, settings: settings)
+          .first,
+    );
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => child!,
@@ -55,10 +64,8 @@ class MslideTimer extends StatelessWidget {
                 ? const Size(28, 28)
                 : const Size(32, 32));
 
-        final timeElapsed = Duration(seconds: secondsElapsed);
-
         return Row(
-          key: const Key('mslide_timer'),
+          key: const Key('my_timer'),
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             AnimatedDefaultTextStyle(
@@ -67,36 +74,26 @@ class MslideTimer extends StatelessWidget {
               ),
               duration: PuzzleThemeAnimationDuration.textStyle,
               child: Text(
-                _formatDuration(timeElapsed),
-                key: ValueKey(secondsElapsed),
-                semanticsLabel: _getDurationLabel(timeElapsed, context),
+                LocalizationHelper().formatDuration(
+                  current.result.timeAsDuration,
+                ),
+                key: ValueKey(current.result.time),
+                semanticsLabel: LocalizationHelper().localizedDurationLabel(
+                  context,
+                  current.result.timeAsDuration,
+                ),
               ),
             ),
             Gap(iconPadding ?? 8),
             Image.asset(
               'assets/images/timer_icon.png',
-              key: const Key('mslide_timer_icon'),
+              key: const Key('my_timer_icon'),
               width: currentIconSize.width,
               height: currentIconSize.height,
             ),
           ],
         );
       },
-    );
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
-  }
-
-  String _getDurationLabel(Duration duration, BuildContext context) {
-    return context.l10n.dashatarPuzzleDurationLabelText(
-      duration.inHours.toString(),
-      duration.inMinutes.remainder(60).toString(),
-      duration.inSeconds.remainder(60).toString(),
     );
   }
 }

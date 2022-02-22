@@ -84,15 +84,16 @@ class LocalHistoryApi extends LeadersApi {
     return _setValue(kHistoryCollectionKey, json.encode(leaders));
   }
 
+  @override
   String getNickname(String userid) {
     if (!_nicknames.containsKey(userid)) {
-      _nicknames[userid] = generateNickname();
+      _nicknames[userid] = _generateNickname();
       _setValue(kNicknameCollectionKey, json.encode(_nicknames));
     }
     return _nicknames[userid]!;
   }
 
-  String generateNickname() {
+  String _generateNickname() {
     return WordPair.random().asUpperCase;
   }
 }

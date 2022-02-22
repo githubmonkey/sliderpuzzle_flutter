@@ -18,7 +18,7 @@ class HistoryState extends Equatable {
     required String theme,
     required Settings settings,
   }) {
-    var list = leaders
+    final list = leaders
         .where((l) => l.theme == theme && l.settings == settings)
         .toList()
       ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
@@ -26,9 +26,29 @@ class HistoryState extends Equatable {
     return list.reversed;
   }
 
+  // NOTE: this used to be handled with a filter that was passed in via event.
+  Leader? filteredBest({
+    required String theme,
+    required Settings settings,
+  }) {
+    final list = filteredLeaders(theme: theme, settings: settings);
+
+    if (list.isEmpty) return null;
+
+    return list.reduce(
+      (value, element) => (value.result.time < element.result.time ||
+              (value.result.time == element.result.time &&
+                  value.result.moves < element.result.moves))
+          ? value
+          : element,
+    );
+  }
+
   HistoryState copyWith({
     HistoryStatus Function()? status,
     List<Leader> Function()? leaders,
+    Leader? current,
+    Leader? best,
   }) {
     return HistoryState(
       status: status != null ? status() : this.status,

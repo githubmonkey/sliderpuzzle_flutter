@@ -3,6 +3,7 @@ import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 /// {@template dashatar_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -91,8 +92,8 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           child: ResponsiveLayoutBuilder(
             small: (_, child) => const SizedBox(),
             medium: (_, child) => const SizedBox(),
-            large: (_, child) => const DashatarTimer(),
-            xlarge: (_, child) => const DashatarTimer(),
+            large: (_, child) => const MyTimer(),
+            xlarge: (_, child) => const MyTimer(),
           ),
         ),
         Column(

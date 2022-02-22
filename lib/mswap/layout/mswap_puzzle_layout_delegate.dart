@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/mswap/widgets/mswap_challenge_board.dart'
 import 'package:very_good_slide_puzzle/mswap/widgets/mswap_question_tile.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mswap_puzzle_layout_delegate}
@@ -89,8 +90,8 @@ class MswapPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           child: ResponsiveLayoutBuilder(
             small: (_, child) => const SizedBox(),
             medium: (_, child) => const SizedBox(),
-            large: (_, child) => const MswapTimer(),
-            xlarge: (_, child) => const MswapTimer(),
+            large: (_, child) => const MyTimer(),
+            xlarge: (_, child) => const MyTimer(),
           ),
         ),
         Column(

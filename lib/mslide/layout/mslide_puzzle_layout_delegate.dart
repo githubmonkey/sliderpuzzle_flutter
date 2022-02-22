@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/mslide/widgets/mslide_challenge_board.dar
 import 'package:very_good_slide_puzzle/mslide/widgets/mslide_question_tile.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 
@@ -90,8 +91,8 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           child: ResponsiveLayoutBuilder(
             small: (_, child) => const SizedBox(),
             medium: (_, child) => const SizedBox(),
-            large: (_, child) => const MslideTimer(),
-            xlarge: (_, child) => const MslideTimer(),
+            large: (_, child) => const MyTimer(),
+            xlarge: (_, child) => const MyTimer(),
           ),
         ),
         Column(

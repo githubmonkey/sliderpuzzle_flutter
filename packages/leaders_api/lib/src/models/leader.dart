@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:leaders_api/leaders_api.dart';
-import 'package:leaders_api/src/models/result.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
@@ -10,7 +9,7 @@ part 'leader.g.dart';
 /// {@template leader}
 /// A single leader entry.
 ///
-/// Contains [id], [userid], [nickname], [settings], [time], and [moves]
+/// Contains [id], [userid], [nickname], [settings], and [result]
 /// flag.
 ///
 /// If an [id] is provided, it cannot be empty. If no [id] is provided, one

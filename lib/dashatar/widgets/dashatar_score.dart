@@ -7,6 +7,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/theme/widgets/widgets.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template dashatar_score}
@@ -139,7 +140,7 @@ class DashatarScore extends StatelessWidget {
                         medium: 9,
                         large: 9,
                       ),
-                      DashatarTimer(
+                      ScoreTimer(
                         textStyle: timerTextStyle,
                         iconSize: timerIconSize,
                         iconPadding: timerIconPadding,

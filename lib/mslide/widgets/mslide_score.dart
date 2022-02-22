@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/widgets/settings_block.dart';
+import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:very_good_slide_puzzle/theme/widgets/widgets.dart';
+import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template mslide_score}
@@ -127,7 +129,7 @@ class MslideScore extends StatelessWidget {
                               large: 9,
                               xlarge: 9,
                             ),
-                            MslideTimer(
+                            ScoreTimer(
                               textStyle: timerTextStyle,
                               iconSize: timerIconSize,
                               iconPadding: timerIconPadding,
@@ -154,8 +156,15 @@ class MslideScore extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Expanded(
-                        child: SettingsBlock(key: Key('mslide_score_settings')),
+                      Expanded(
+                        child: Column(
+                          children: const [
+                            SettingsBlock(
+                              key: Key('mslide_score_settings'),
+                            ),
+                            Expanded(child: Center(child: PbBlock())),
+                          ],
+                        ),
                       ),
                     ],
                   ),

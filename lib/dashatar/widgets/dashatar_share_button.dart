@@ -9,7 +9,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// The url to share for this Flutter Puzzle challenge.
-const _shareUrl = 'https://flutterhack.devpost.com/';
+const _shareUrl = 'https://sliderpuzzle-flutter.web.app/';
 
 /// {@template dashatar_twitter_button}
 /// Displays a button that shares the Flutter Puzzle challenge

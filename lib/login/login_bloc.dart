@@ -25,7 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                   authRepository.currentUser,
                   historyRepository.getNickname(
                     authRepository.currentUser.id,
-                  ))
+                  ),)
               : const LoginState.unauthenticated(),
         ) {
     on<LoginUserChanged>(_onUserChanged);

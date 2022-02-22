@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
-/// {@template mswap_timer}
+/// {@template timer}
 /// Displays how many seconds elapsed since starting the puzzle.
 /// {@endtemplate}
-class MswapTimer extends StatelessWidget {
-  /// {@macro mswap_timer}
-  const MswapTimer({
+class MyTimer extends StatelessWidget {
+  /// {@macro timer}
+  const MyTimer({
     Key? key,
     this.textStyle,
     this.iconSize,
@@ -58,7 +58,7 @@ class MswapTimer extends StatelessWidget {
         final timeElapsed = Duration(seconds: secondsElapsed);
 
         return Row(
-          key: const Key('mswap_timer'),
+          key: const Key('timer'),
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           children: [
             AnimatedDefaultTextStyle(
@@ -67,36 +67,22 @@ class MswapTimer extends StatelessWidget {
               ),
               duration: PuzzleThemeAnimationDuration.textStyle,
               child: Text(
-                _formatDuration(timeElapsed),
+                LocalizationHelper().formatDuration(timeElapsed),
                 key: ValueKey(secondsElapsed),
-                semanticsLabel: _getDurationLabel(timeElapsed, context),
+                semanticsLabel: LocalizationHelper()
+                    .localizedDurationLabel(context, timeElapsed),
               ),
             ),
             Gap(iconPadding ?? 8),
             Image.asset(
               'assets/images/timer_icon.png',
-              key: const Key('mswap_timer_icon'),
+              key: const Key('timer_icon'),
               width: currentIconSize.width,
               height: currentIconSize.height,
             ),
           ],
         );
       },
-    );
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
-  }
-
-  String _getDurationLabel(Duration duration, BuildContext context) {
-    return context.l10n.dashatarPuzzleDurationLabelText(
-      duration.inHours.toString(),
-      duration.inMinutes.remainder(60).toString(),
-      duration.inSeconds.remainder(60).toString(),
     );
   }
 }

@@ -38,7 +38,7 @@ class LeaderboardList extends StatelessWidget {
         if (snapshot.hasError) {
           debugPrint(snapshot.error.toString());
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
               child: Text(snapshot.error.toString()),
             ),
@@ -53,7 +53,7 @@ class LeaderboardList extends StatelessWidget {
 
         if (data.size == 0) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
               child: Text(
                 context.l10n.tabEmptyList,

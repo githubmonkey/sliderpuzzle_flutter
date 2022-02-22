@@ -19,63 +19,64 @@ class StatsBlock extends StatelessWidget {
     final nickname = context.select((LoginBloc bloc) => bloc.state.nickname);
 
     return ResponsiveLayoutBuilder(
-        small: (context, child) => SizedBox(
-              width: BoardSize.small,
-              height: BoardSize.small,
-              child: child,
-            ),
-        medium: (context, child) => SizedBox(
-              width: BoardSize.medium,
-              height: BoardSize.medium,
-              child: child,
-            ),
-        large: (context, child) => Container(
-              width: 420,
-              height: 282,
-              padding: const EdgeInsets.only(left: 50, right: 32),
-              child: child,
-            ),
-        xlarge: (context, child) => Container(
-              width: 420,
-              height: 410,
-              padding: const EdgeInsets.only(left: 50, right: 32),
-              child: child,
-            ),
-        child: (_) {
-          return DefaultTabController(
-            length: 2,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: Scaffold(
-                appBar: AppBar(
-                  backgroundColor: theme.buttonColor,
-                  flexibleSpace: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TabBar(
-                        indicatorColor: theme.menuUnderlineColor,
-                        unselectedLabelColor: theme.defaultColor,
-                        labelStyle: PuzzleTextStyle.settingsLabel.copyWith(
-                          color: theme.defaultColor,
-                        ),
-                        tabs: [
-                          Tab(text: context.l10n.tabLabelLeaderboard),
-                          Tab(text: context.l10n.tabLabelHistory(nickname)),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                body: const TabBarView(
+      small: (context, child) => SizedBox(
+        width: BoardSize.small,
+        height: BoardSize.small,
+        child: child,
+      ),
+      medium: (context, child) => SizedBox(
+        width: BoardSize.medium,
+        height: BoardSize.medium,
+        child: child,
+      ),
+      large: (context, child) => Container(
+        width: 420,
+        height: 282,
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      xlarge: (context, child) => Container(
+        width: 420,
+        height: 410,
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      child: (_) {
+        return DefaultTabController(
+          length: 2,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: theme.buttonColor,
+                flexibleSpace: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const LeaderboardList(),
-                    const HistoryList(),
+                    TabBar(
+                      indicatorColor: theme.menuUnderlineColor,
+                      unselectedLabelColor: theme.defaultColor,
+                      labelStyle: PuzzleTextStyle.settingsLabel.copyWith(
+                        color: theme.defaultColor,
+                      ),
+                      tabs: [
+                        Tab(text: context.l10n.tabLabelLeaderboard),
+                        Tab(text: context.l10n.tabLabelHistory(nickname)),
+                      ],
+                    )
                   ],
                 ),
               ),
+              body: const TabBarView(
+                children: [
+                  LeaderboardList(),
+                  HistoryList(),
+                ],
+              ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
 //         Column(
