@@ -14,6 +14,35 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 
 ---
 
+## Deploy 1x1 version
+
+Run this manually in console if github action is not triggered 
+
+```sh
+## deploy to live side
+$ git checkout live
+$ firebase use sliderpuzzle-flutter
+## check that lib/firebase-options.dart is up to date
+## flutterfirew config
+$ flutter build web
+$ firebase deploy
+```
+
+## Go back to devel on main branch
+
+```sh
+## deploy to live side
+$ git checkout main
+$ firebase use sliderpuzzle-flutter-devel
+$ flutterfire config
+## debug locally
+$ flutter build web
+$ firebase deploy
+```
+
+
+---
+
 ## Getting Started 🚀
 
 To run the project either use the launch configuration in VSCode/Android Studio or use the following command:
