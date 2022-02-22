@@ -136,13 +136,13 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleShuffleAnswers event,
     Emitter<PuzzleState> emit,
   ) {
-    // final puzzle = _shufflePuzzle(
-    //   state.puzzle,
-    //   pinTrailingWhitespace: event.pinTrailingWhitespace,
-    //   pinLeadingWhitespace: event.pinLeadingWhitespace,
-    // );
+    final puzzle = _shufflePuzzle(
+      state.puzzle,
+      pinTrailingWhitespace: event.pinTrailingWhitespace,
+      pinLeadingWhitespace: event.pinLeadingWhitespace,
+    );
     // TODO(s): remove
-    final puzzle = state.puzzle;
+    // final puzzle = state.puzzle;
     emit(
       PuzzleState(
         puzzle: puzzle,

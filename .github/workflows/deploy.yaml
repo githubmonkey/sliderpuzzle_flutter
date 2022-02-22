@@ -36,4 +36,4 @@ jobs:
           projectId: sliderpuzzle-flutter
           #targetId: sliderpuzzle-flutter-dev
           expires: 14d
-          channelId: preview
+          channelId: live

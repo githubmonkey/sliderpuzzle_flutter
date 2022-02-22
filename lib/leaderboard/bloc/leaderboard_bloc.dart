@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firestore_repository/firestore_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:leaders_api/leaders_api.dart';
 
 part 'leaderboard_event.dart';
@@ -25,7 +24,7 @@ class LeaderboardBloc extends Bloc<LeaderboardEvent, LeaderboardState> {
     LeaderboardLeaderSaved event,
     Emitter<LeaderboardState> emit,
   ) async {
-    debugPrint('saving leader ${event.leader}');
+    // debugPrint('saving leader ${event.leader}');
     await _firestoreRepository.saveLeader(event.leader);
   }
 }
