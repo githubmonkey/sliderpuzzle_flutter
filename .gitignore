@@ -126,5 +126,3 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-# firebase credentials
-/lib/firebase_options.dart
