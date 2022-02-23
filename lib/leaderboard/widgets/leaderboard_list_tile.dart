@@ -13,6 +13,7 @@ class LeaderboardListTile extends StatelessWidget {
     required this.leader,
     required this.pos,
     required this.isOwn,
+    required this.isPB,
   }) : super(key: key);
 
   final Leader leader;
@@ -21,6 +22,8 @@ class LeaderboardListTile extends StatelessWidget {
 
   final bool isOwn;
 
+  final bool isPB;
+
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
@@ -28,8 +31,8 @@ class LeaderboardListTile extends StatelessWidget {
     final format = DateFormat.yMMMEd(languageCode).add_Hm();
 
     return ListTile(
-      tileColor: isOwn ? theme.defaultColor : null,
-      leading: isOwn ? const Icon(Icons.star) : const SizedBox(),
+      tileColor: isOwn ? theme.defaultColor.withOpacity(0.8) : null,
+      leading: isPB ? const Icon(Icons.star) : const SizedBox(),
       trailing: Text(pos.toString()),
       title: Text(
         context.l10n.puzzleResultSummary(

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
@@ -52,37 +51,21 @@ class HistoryList extends StatelessWidget {
           bloc.state.filteredBest(theme: theme.name, settings: settings),
     );
 
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: PuzzleColors.grey5),
-        color: PuzzleColors.grey4,
-      ),
-      child: ListTileTheme(
-        iconColor: theme.buttonColor,
-        textColor: Colors.black54,
-        horizontalTitleGap: 0,
-        minVerticalPadding: 4,
-        child: ListView(
-          children: [
-            for (final leader in leaders)
-              HistoryListTile(
-                leader: leader,
-                isPB: leader.result == best?.result,
-              ),
-          ],
-        ),
+    return ListTileTheme(
+      iconColor: theme.buttonColor,
+      textColor: Colors.black54,
+      //horizontalTitleGap: 0,
+      minVerticalPadding: 4,
+      tileColor: theme.defaultColor.withOpacity(0.5),
+      child: ListView(
+        children: [
+          for (final leader in leaders)
+            HistoryListTile(
+              leader: leader,
+              isPB: leader.result == best?.result,
+            ),
+        ],
       ),
     );
   }
-//
-// Leader _getBest(Iterable<Leader> leaders) {
-//   assert(leaders.isNotEmpty, 'list cannot be empty');
-//
-//   return leaders.reduce((value, element) =>
-//       (value.result.time < element.result.time ||
-//               (value.result.time == element.result.time &&
-//                   value.result.moves < element.result.moves))
-//           ? value
-//           : element);
-// }
 }

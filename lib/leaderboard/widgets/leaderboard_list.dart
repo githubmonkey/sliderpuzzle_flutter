@@ -5,6 +5,7 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaders_api/leaders_api.dart';
+import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
@@ -66,10 +67,15 @@ class LeaderboardList extends StatelessWidget {
           );
         }
 
+        final best = context.select(
+              (HistoryBloc bloc) =>
+              bloc.state.filteredBest(theme: theme.name, settings: settings),
+        );
+
         return ListTileTheme(
           iconColor: theme.buttonColor,
           textColor: Colors.black54,
-          horizontalTitleGap: 4,
+          //horizontalTitleGap: 0,
           minVerticalPadding: 4,
           child: ListView.builder(
             itemCount: data.size,
@@ -80,6 +86,7 @@ class LeaderboardList extends StatelessWidget {
                 leader: item,
                 pos: index + 1,
                 isOwn: item.userid == userid,
+                isPB: item.userid == userid && item.result == best?.result,
               );
             },
           ),
