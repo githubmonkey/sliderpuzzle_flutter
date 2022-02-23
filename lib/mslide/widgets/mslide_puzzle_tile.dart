@@ -139,10 +139,12 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         ? const Duration(milliseconds: 800)
         : const Duration(milliseconds: 370);
 
-    final adjustedFontSize =
-        game == Game.roman || game == Game.binary
-            ? widget.tileFontSize / 2
-            : widget.tileFontSize;
+    final adjustedFontSize = game == Game.roman || game == Game.binary
+        ? widget.tileFontSize / 2
+        : widget.tileFontSize;
+
+    final correctPosition = hasStarted &&
+        widget.tile.currentPosition == widget.tile.correctPosition;
 
     return AudioControlListener(
       audioPlayer: _audioPlayer,
@@ -176,67 +178,69 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
               dimension: BoardSize.getTileSize(BoardSize.xlarge, size),
               child: child,
             ),
-            child: (_) => Padding(
-              padding: const EdgeInsets.all(4),
-              child: MouseRegion(
-                onEnter: (_) {
-                  if (canPress) {
-                    _hoverController.forward();
-                  }
-                },
-                onExit: (_) {
-                  if (canPress) {
-                    _hoverController.reverse();
-                  }
-                },
-                child: ScaleTransition(
-                  key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
-                  scale: _hoverScale,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: PuzzleColors.white,
-                      textStyle: PuzzleTextStyle.headline2.copyWith(
-                        fontSize: adjustedFontSize,
+            child: (_) => MouseRegion(
+              onEnter: (_) {
+                if (canPress) {
+                  _hoverController.forward();
+                }
+              },
+              onExit: (_) {
+                if (canPress) {
+                  _hoverController.reverse();
+                }
+              },
+              child: ScaleTransition(
+                key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
+                scale: _hoverScale,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    primary: PuzzleColors.white,
+                    textStyle: PuzzleTextStyle.headline2.copyWith(
+                      fontSize: adjustedFontSize,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
                       ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                      ),
-                    ).copyWith(
-                      foregroundColor:
-                          MaterialStateProperty.all(PuzzleColors.black),
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
-                        (states) {
-                          if (states.contains(MaterialState.hovered)) {
-                            return theme.hoverColor;
-                          } else {
-                            return theme.defaultColor.withOpacity(0.5);
-                          }
-                        },
+                      side: BorderSide(
+                        color: correctPosition
+                            ? Colors.amberAccent
+                            : PuzzleColors.white,
+                        width: 4,
                       ),
                     ),
-                    onPressed: canPress
-                        ? () {
-                            context
-                                .read<PuzzleBloc>()
-                                .add(TileTapped(widget.tile));
-                            unawaited(_audioPlayer?.replay());
-                          }
-                        : null,
-                    child: Column(
-                      children: [
-                        const Expanded(child: SizedBox()),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              getEncodingHelper().encoded(widget.tile.pair),
-                            ),
+                  ).copyWith(
+                    foregroundColor:
+                        MaterialStateProperty.all(PuzzleColors.black),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                      (states) {
+                        if (states.contains(MaterialState.hovered)) {
+                          return theme.hoverColor;
+                        } else {
+                          return theme.defaultColor.withOpacity(0.5);
+                        }
+                      },
+                    ),
+                  ),
+                  onPressed: canPress
+                      ? () {
+                          context
+                              .read<PuzzleBloc>()
+                              .add(TileTapped(widget.tile));
+                          unawaited(_audioPlayer?.replay());
+                        }
+                      : null,
+                  child: Column(
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            getEncodingHelper().encoded(widget.tile.pair),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
