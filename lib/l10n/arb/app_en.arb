@@ -316,7 +316,7 @@
             }
         }
     },
-    "dashatarSuccessShareText": "Just solved the #FlutterPuzzleHack! Check it out ↓",
+    "dashatarSuccessShareText": "Just solved the #FlutterPuzzleHack 1x1 puzzle! Check it out ↓",
     "@dashatarSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
     },

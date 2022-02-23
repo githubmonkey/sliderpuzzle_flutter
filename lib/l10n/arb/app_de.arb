@@ -316,11 +316,11 @@
     "@dashatarSuccessShareYourScoreMessage": {
         "description": "Shown as a share message in the Dashatar success state"
     },
-    "dashatarSuccessShareText": "Ich hab den #FlutterPuzzleHack geschafft! Guck mal ↓",
+    "dashatarSuccessShareText": "Ich hab die #FlutterPuzzleHack geschafft! Guck mal ↓",
     "@dashatarSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state"
     },
-    "otherSuccessShareText": "Ich hab den #FlutterPuzzleHack geschafft!\nEinstellungen: {theme}, {size}x{size}, {game}\nZeit: {time}, {moves} Züge\nVersuch es auch mal ↓\n",
+    "otherSuccessShareText": "Ich hab das #FlutterPuzzleHack 1x1 Puzzle geschafft!\nEinstellungen: {theme}, {size}x{size}, {game}\nZeit: {time}, {moves} Züge\nVersuch es auch mal ↓\n",
     "@otherSuccessShareText": {
         "description": "The text to share for this Flutter Puzzle challenge, shown in the Dashatar success state",
         "placeholders": {
