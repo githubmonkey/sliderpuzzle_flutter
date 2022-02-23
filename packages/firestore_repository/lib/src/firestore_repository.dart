@@ -49,7 +49,11 @@ class FirestoreRepository {
       ref = ref.where('settings', isEqualTo: settings.toJson());
     }
 
-    return ref.orderBy('result', descending: false).limit(20).snapshots();
+    return ref
+        .orderBy('result.time', descending: false)
+        .orderBy('result.moves', descending: false)
+        .limit(20)
+        .snapshots();
   }
 
   Future<void> saveLeader(Leader leader) {
