@@ -56,15 +56,19 @@ class HistoryList extends StatelessWidget {
       textColor: Colors.black54,
       //horizontalTitleGap: 0,
       minVerticalPadding: 4,
-      tileColor: theme.defaultColor.withOpacity(0.5),
-      child: ListView(
-        children: [
-          for (final leader in leaders)
-            HistoryListTile(
-              leader: leader,
-              isPB: leader.result == best?.result,
-            ),
-        ],
+      tileColor: theme.defaultColor.withOpacity(0.4),
+      child: ListView.separated(
+        itemCount: leaders.length,
+        itemBuilder: (context, index) {
+          final item = leaders.elementAt(index);
+          return HistoryListTile(
+            leader: item,
+            isPB: item.result == best?.result,
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(height: 1);
+        },
       ),
     );
   }

@@ -68,7 +68,7 @@ class LeaderboardList extends StatelessWidget {
         }
 
         final best = context.select(
-              (HistoryBloc bloc) =>
+          (HistoryBloc bloc) =>
               bloc.state.filteredBest(theme: theme.name, settings: settings),
         );
 
@@ -77,7 +77,7 @@ class LeaderboardList extends StatelessWidget {
           textColor: Colors.black54,
           //horizontalTitleGap: 0,
           minVerticalPadding: 4,
-          child: ListView.builder(
+          child: ListView.separated(
             itemCount: data.size,
             itemBuilder: (context, index) {
               final item = data.docs[index].data();
@@ -88,6 +88,9 @@ class LeaderboardList extends StatelessWidget {
                 isOwn: item.userid == userid,
                 isPB: item.userid == userid && item.result == best?.result,
               );
+            },
+            separatorBuilder: (context, index) {
+              return Divider(height: 1);
             },
           ),
         );
