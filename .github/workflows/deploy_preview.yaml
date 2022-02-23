@@ -10,7 +10,7 @@ on:
       - "packages/*/lib/pubspec.yaml"
       - "packages/*/lib/pubspec.lock"
     branches:
-      - live
+      - preview
 
 jobs:
   deploy:
@@ -38,5 +38,5 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SLIDERPUZZLE_FLUTTER }}"
           projectId: sliderpuzzle-flutter
           #targetId: sliderpuzzle-flutter-dev
-          #expires: 14d
-          channelId: live
+          expires: 14d
+          channelId: preview
