@@ -3,9 +3,9 @@
     "short_name": "1x1 Slider Puzzle",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A slider puzzle built for Flutter Challenge",
+    "background_color": "#00857F",
+    "theme_color": "#00857F",
+    "description": "A Flutter Challenge Contribution by Rozendal Labs",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
