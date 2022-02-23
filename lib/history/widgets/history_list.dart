@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/settings/bloc/settings_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -16,11 +17,23 @@ class HistoryList extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
+    final isAuthenticated = context.select(
+      (LoginBloc bloc) => bloc.state.status == LoginStatus.authenticated,
+    );
+    final userid = context.select((LoginBloc bloc) => bloc.state.user.id);
+
+    if (!isAuthenticated || userid.isEmpty) {
+      return const SizedBox();
+    }
+
     final status = context.select((HistoryBloc bloc) => bloc.state.status);
 
     final leaders = context.select(
-      (HistoryBloc bloc) =>
-          bloc.state.filteredLeaders(theme: theme.name, settings: settings),
+      (HistoryBloc bloc) => bloc.state.filteredLeaders(
+        userid: userid,
+        theme: theme.name,
+        settings: settings,
+      ),
     );
 
     if (status == HistoryStatus.loading) {
@@ -47,8 +60,11 @@ class HistoryList extends StatelessWidget {
     }
 
     final best = context.select(
-      (HistoryBloc bloc) =>
-          bloc.state.filteredBest(theme: theme.name, settings: settings),
+      (HistoryBloc bloc) => bloc.state.filteredBest(
+        userid: userid,
+        theme: theme.name,
+        settings: settings,
+      ),
     );
 
     return ListTileTheme(

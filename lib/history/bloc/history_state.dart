@@ -15,11 +15,13 @@ class HistoryState extends Equatable {
 
   // NOTE: this used to be handled with a filter that was passed in via event.
   Iterable<Leader> filteredLeaders({
+    required String userid,
     required String theme,
     required Settings settings,
   }) {
     final list = leaders
-        .where((l) => l.theme == theme && l.settings == settings)
+        .where((l) =>
+            l.userid == userid && l.theme == theme && l.settings == settings)
         .toList()
       ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
 
@@ -28,10 +30,15 @@ class HistoryState extends Equatable {
 
   // NOTE: this used to be handled with a filter that was passed in via event.
   Leader? filteredBest({
+    required String userid,
     required String theme,
     required Settings settings,
   }) {
-    final list = filteredLeaders(theme: theme, settings: settings);
+    final list = filteredLeaders(
+      userid: userid,
+      theme: theme,
+      settings: settings,
+    );
 
     if (list.isEmpty) return null;
 

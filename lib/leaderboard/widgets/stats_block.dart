@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/history/history.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/leaderboard/widgets/leaderboard_list.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
@@ -18,11 +17,6 @@ class StatsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final nickname = context.select((LoginBloc bloc) => bloc.state.nickname);
-
-    final locale =
-        context.select((LanguageControlBloc bloc) => bloc.state.locale);
-    final history_label =
-        locale == Locale('en') ? '${nickname}\'s Games' : '${nickname}s Spiele';
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => SizedBox(
@@ -66,8 +60,7 @@ class StatsBlock extends StatelessWidget {
                       ),
                       tabs: [
                         Tab(text: context.l10n.tabLabelLeaderboard),
-                        Tab(text: history_label),
-                        //Tab(text: context.l10n.tabLabelHistory(nickname)),
+                        Tab(text: nickname),
                       ],
                     )
                   ],

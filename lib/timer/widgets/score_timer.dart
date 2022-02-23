@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/localization_helper.dart';
 import 'package:very_good_slide_puzzle/history/bloc/history_bloc.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
@@ -42,9 +43,14 @@ class ScoreTimer extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
+    final userid = context.select((LoginBloc bloc) => bloc.state.user.id);
     final current = context.select(
       (HistoryBloc bloc) => bloc.state
-          .filteredLeaders(theme: theme.name, settings: settings)
+          .filteredLeaders(
+            userid: userid,
+            theme: theme.name,
+            settings: settings,
+          )
           .first,
     );
 
