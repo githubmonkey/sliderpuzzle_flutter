@@ -94,7 +94,7 @@
     "@mslideIntro": {
         "description": "Intro of the slider Puzzle"
     },
-    "mslideExtra": "Um erst mal das Rechnen zu üben, fang mit dem Swap-Modus an. Um das Schieben zu lernen, versuch Simple oder Dash.",
+    "mslideExtra": "TIPP: Fang mit dem Swap-Modus an, um das Rechnen zu üben. Schiebeknobeln lernst Du im Simple-Modus. Dann kombinier beides hier.",
     "@mslideExtra": {
         "description": "Extra of the slider Puzzle"
     },

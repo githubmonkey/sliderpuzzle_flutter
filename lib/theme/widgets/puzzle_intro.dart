@@ -36,8 +36,8 @@ class PuzzleIntro extends StatelessWidget {
       large: (context, child) => child!,
       xlarge: (context, child) => child!,
       child: (currentSize) {
-
-        final textAlign = currentSize == ResponsiveLayoutSize.small
+        final textAlign = currentSize == ResponsiveLayoutSize.small ||
+                currentSize == ResponsiveLayoutSize.medium
             ? TextAlign.center
             : TextAlign.left;
 

@@ -94,7 +94,7 @@
     "@mslideIntro": {
         "description": "Intro of the slider Puzzle"
     },
-    "mslideExtra": "TIP: Practice your math with Swap mode. Practice the puzzle with Simple. Then return here to conquer the math slider.",
+    "mslideExtra": "TIP: Practice your math with Swap mode. Practice puzzle solving with Simple. Then return here to conquer the math slider.",
     "@mslideExtra": {
         "description": "Extra of the slider Puzzle"
     },
