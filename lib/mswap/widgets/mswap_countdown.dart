@@ -6,7 +6,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -75,28 +74,7 @@ class _MswapCountdownState extends State<MswapCountdown> {
                 );
           }
         },
-        child: ResponsiveLayoutBuilder(
-          small: (_, __) => const SizedBox(),
-          medium: (_, __) => const SizedBox(),
-          large: (_, child) => child!,
-          xlarge: (_, child) => child!,
-          child: (_) => BlocBuilder<MswapPuzzleBloc, MswapPuzzleState>(
-            builder: (context, state) {
-              if (!state.isCountdownRunning || state.secondsToBegin > 3) {
-                return const SizedBox();
-              }
-
-              if (state.secondsToBegin > 0) {
-                return MswapCountdownSecondsToBegin(
-                  key: ValueKey(state.secondsToBegin),
-                  secondsToBegin: state.secondsToBegin,
-                );
-              } else {
-                return const MswapCountdownGo();
-              }
-            },
-          ),
-        ),
+        child: SizedBox(),
       ),
     );
   }
