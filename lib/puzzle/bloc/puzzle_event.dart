@@ -51,6 +51,7 @@ class PuzzleShuffleAnswers extends PuzzleEvent {
   const PuzzleShuffleAnswers({
     this.pinTrailingWhitespace = false,
     this.pinLeadingWhitespace = false,
+    this.pinCorner = false,
   }) : assert(
           !pinTrailingWhitespace || !pinLeadingWhitespace,
           'must not both be set',
@@ -58,4 +59,5 @@ class PuzzleShuffleAnswers extends PuzzleEvent {
 
   final bool pinTrailingWhitespace;
   final bool pinLeadingWhitespace;
+  final bool pinCorner;
 }

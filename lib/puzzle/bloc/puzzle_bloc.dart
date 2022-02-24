@@ -140,6 +140,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       state.puzzle,
       pinTrailingWhitespace: event.pinTrailingWhitespace,
       pinLeadingWhitespace: event.pinLeadingWhitespace,
+      pinCorner: event.pinCorner,
     );
     // TODO(s): remove
     // final puzzle = state.puzzle;
@@ -261,7 +262,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     Puzzle puzzle, {
     bool pinTrailingWhitespace = false,
     bool pinLeadingWhitespace = false,
+    bool pinCorner = false,
   }) {
+    if (pinCorner) {
+      final size = puzzle.getDimension();
+      final cornertiles = puzzle.tiles.map(
+        (tile) => tile.copyWith(currentPosition: Position(x: size, y: size)),
+      );
+      return Puzzle(tiles: cornertiles.toList(), questions: puzzle.questions);
+    }
     while (true) {
       final shuffled = Puzzle(
         tiles: _shuffleTileList(
