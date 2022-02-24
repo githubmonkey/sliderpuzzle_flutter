@@ -186,9 +186,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                 }
               },
               onExit: (_) {
-                if (canPress) {
                   _hoverController.reverse();
-                }
               },
               child: ScaleTransition(
                 key: Key('mswap_puzzle_tile_scale_${widget.tile.value}'),

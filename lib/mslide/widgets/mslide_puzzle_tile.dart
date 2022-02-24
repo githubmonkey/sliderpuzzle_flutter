@@ -185,9 +185,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                 }
               },
               onExit: (_) {
-                if (canPress) {
-                  _hoverController.reverse();
-                }
+                _hoverController.reverse();
               },
               child: ScaleTransition(
                 key: Key('mslide_puzzle_tile_scale_${widget.tile.value}'),
