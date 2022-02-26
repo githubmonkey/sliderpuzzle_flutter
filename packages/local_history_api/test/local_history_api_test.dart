@@ -16,6 +16,7 @@ void main() {
       boardSize: 4,
       game: Game.noop,
       elevenToTwenty: true,
+      noClues: true,
     );
     const result = Result(time: 0, moves: 0);
 
@@ -39,7 +40,7 @@ void main() {
       Leader(
         id: '3',
         userid: 'user 3',
-        nickname: 'nickname',
+        nickname: 'nickname3',
         theme: 'theme',
         settings: settings,
         result: result,
@@ -49,7 +50,11 @@ void main() {
 
     setUp(() {
       plugin = MockSharedPreferences();
-      when(() => plugin.getString(any())).thenReturn(json.encode(leaders));
+      when(() => plugin.getString(LocalHistoryApi.kHistoryCollectionKey))
+          .thenReturn(json.encode(leaders));
+      when(() => plugin.getString(LocalHistoryApi.kNicknameCollectionKey))
+          .thenReturn(json.encode({'user 3': 'nickname3'}));
+
       when(() => plugin.setString(any(), any())).thenAnswer((_) async => true);
     });
 
@@ -147,6 +152,25 @@ void main() {
           () => plugin.setString(
             LocalHistoryApi.kHistoryCollectionKey,
             json.encode(newLeaders),
+          ),
+        ).called(1);
+      });
+    });
+
+    group('getNickname', () {
+      test('get existing nickname', () {
+        expect(createSubject().getNickname('user 3'), 'nickname3');
+      });
+
+      test('generate new nickname', () {
+        final newnickname = createSubject().getNickname('user 1');
+        expect(newnickname, isNotEmpty);
+        expect(newnickname, isNot(newnickname.compareTo('nickname3')));
+
+        verify(
+          () => plugin.setString(
+            LocalHistoryApi.kNicknameCollectionKey,
+            json.encode({'user 3': 'nickname3', 'user 1': newnickname}),
           ),
         ).called(1);
       });
