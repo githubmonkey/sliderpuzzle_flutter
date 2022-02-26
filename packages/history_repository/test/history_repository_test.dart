@@ -9,13 +9,14 @@ class MockLeadersApi extends Mock implements LeadersApi {}
 class FakeLeader extends Fake implements Leader {}
 
 void main() {
-  group('LeadersRepository', () {
+  group('HistoryRepository', () {
     late LeadersApi api;
 
     const settings = Settings(
       boardSize: 4,
       game: Game.noop,
       elevenToTwenty: true,
+      noClues: true,
     );
     const result = Result(time: 100, moves: 25);
 
@@ -39,7 +40,7 @@ void main() {
       Leader(
         id: '3',
         userid: 'user 3',
-        nickname: 'nickname',
+        nickname: 'nickname3',
         theme: 'theme',
         settings: settings,
         result: result,
@@ -63,6 +64,7 @@ void main() {
       api = MockLeadersApi();
       when(() => api.getHistory()).thenAnswer((_) => Stream.value(leaders));
       when(() => api.saveHistory(any())).thenAnswer((_) async {});
+      when(() => api.getNickname(any())).thenAnswer((_) => 'generated');
     });
 
     HistoryRepository createSubject() => HistoryRepository(leadersApi: api);
@@ -112,6 +114,22 @@ void main() {
         expect(subject.saveHistory(newLeader), completes);
 
         verify(() => api.saveHistory(newLeader)).called(1);
+      });
+    });
+
+    group('getNickname', () {
+      test('makes correct api request', () {
+        final subject = createSubject();
+        final userid = '123';
+
+        expect(subject.getNickname(userid), isNot(throwsA(anything)));
+
+        verify(() => api.getNickname(userid)).called(1);
+      });
+
+      test('returns a nickname', () {
+        final nickname = createSubject().getNickname('123');
+        expect(nickname, matches('generated'));
       });
     });
   });

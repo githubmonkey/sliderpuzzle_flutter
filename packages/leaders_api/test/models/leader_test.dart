@@ -13,6 +13,7 @@ void main() {
       boardSize: 4,
       game: Game.noop,
       elevenToTwenty: true,
+      noClues: true,
     );
   const result = Result(time: 100, moves: 25);
     Leader createSubject({
@@ -108,6 +109,7 @@ void main() {
           boardSize: 3,
           game: Game.roman,
           elevenToTwenty: false,
+          noClues: false,
         );
         const newresult = Result(time: 200, moves: 50);
         expect(
@@ -145,6 +147,7 @@ void main() {
               'boardSize': 4,
               'game': 'noop',
               'elevenToTwenty': true,
+              'noClues': true,
             },
             'result': {
               'time': 100,
@@ -171,6 +174,7 @@ void main() {
               'boardSize': 4,
               'game': 'noop',
               'elevenToTwenty': true,
+              'noClues': true,
             },
             'result': {
               'time': 100,
