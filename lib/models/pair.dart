@@ -46,7 +46,7 @@ class Pair extends Equatable {
       );
     } else {
       return Pair(
-        left: random.nextInt(100) + 1,
+        left: random.nextInt(100) + (elevenToTwenty ? 101 : 1),
         right: 1,
         game: game,
       );
