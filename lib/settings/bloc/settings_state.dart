@@ -12,6 +12,7 @@ class SettingsState extends Equatable {
       boardSize: 4,
       game: Game.multi,
       elevenToTwenty: false,
+      //withClues: true,
     ),
   });
 

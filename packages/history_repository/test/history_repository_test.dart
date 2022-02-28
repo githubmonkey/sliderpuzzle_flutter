@@ -16,7 +16,7 @@ void main() {
       boardSize: 4,
       game: Game.noop,
       elevenToTwenty: true,
-      noClues: true,
+      //withClues: true,
     );
     const result = Result(time: 100, moves: 25);
 

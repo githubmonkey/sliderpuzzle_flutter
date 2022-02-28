@@ -27,10 +27,10 @@ class LocalizationHelper {
     }
   }
 
-  String localizedElevenToTwenty(BuildContext context, bool elevenToTwenty) {
-    return elevenToTwenty
-        ? context.l10n.settingsElevenToTwentyTrue
-        : context.l10n.settingsElevenToTwentyFalse;
+  String localizedBinary(BuildContext context, bool binary) {
+    return binary
+        ? context.l10n.settingsBinaryTrue
+        : context.l10n.settingsBinaryFalse;
   }
 
   String formatDuration(Duration duration) {

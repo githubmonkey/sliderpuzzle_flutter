@@ -31,12 +31,14 @@ class StatsBlock extends StatelessWidget {
       ),
       large: (context, child) => Container(
         width: 420,
+        //height: 262,
         height: 282,
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
       xlarge: (context, child) => Container(
         width: 420,
+        //height: 390,
         height: 410,
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,

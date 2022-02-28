@@ -24,13 +24,13 @@ class Settings extends Equatable {
     required this.boardSize,
     required this.game,
     required this.elevenToTwenty,
-    required this.noClues,
+    //required this.withClues,
   });
 
   final int boardSize;
   final Game game;
   final bool elevenToTwenty;
-  final bool noClues;
+  //final bool withClues;
 
   /// Returns a copy of this Settings with the given values updated.
   ///
@@ -39,13 +39,13 @@ class Settings extends Equatable {
     int? boardSize,
     Game? game,
     bool? elevenToTwenty,
-    bool? noClues,
+    //bool? withClues,
   }) {
     return Settings(
       boardSize: boardSize ?? this.boardSize,
       game: game ?? this.game,
       elevenToTwenty: elevenToTwenty ?? this.elevenToTwenty,
-      noClues: noClues ?? this.noClues,
+      //withClues: withClues ?? this.withClues,
     );
   }
 
@@ -56,5 +56,5 @@ class Settings extends Equatable {
   JsonMap toJson() => _$SettingsToJson(this);
 
   @override
-  List<Object> get props => [boardSize, game, elevenToTwenty, noClues];
+  List<Object> get props => [boardSize, game, elevenToTwenty]; // withClues];
 }

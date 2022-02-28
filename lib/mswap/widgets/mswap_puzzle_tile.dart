@@ -118,15 +118,17 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
             launchStage == LaunchStages.showAnswers);
     final game =
         context.select((SettingsBloc bloc) => bloc.state.settings.game);
+    // final withClues =
+    //     context.select((SettingsBloc bloc) => bloc.state.settings.withClues);
 
     final hasStarted = status == mswapPuzzleStatus.started;
     final loading = status == mswapPuzzleStatus.loading;
 
-    final puzzleIncomplete =
+    final puzzleComplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.incomplete;
+            PuzzleStatus.complete;
 
-    final canPress = hasStarted && puzzleIncomplete;
+    final canPress = hasStarted && !puzzleComplete;
 
     if (hide) {
       _revealController.reset();
@@ -139,12 +141,12 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
         ? const Duration(milliseconds: 800)
         : const Duration(milliseconds: 370);
 
-    final adjustedFontSize =
-        game == Game.roman || game == Game.binary
-            ? widget.tileFontSize / 2
-            : widget.tileFontSize;
+    final adjustedFontSize = game == Game.roman || game == Game.binary
+        ? widget.tileFontSize / 2
+        : widget.tileFontSize;
 
     final correctPosition = hasStarted &&
+        //(puzzleComplete || withClues) &&
         widget.tile.currentPosition == widget.tile.correctPosition;
 
     return AudioControlListener(
@@ -186,7 +188,7 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
                 }
               },
               onExit: (_) {
-                  _hoverController.reverse();
+                _hoverController.reverse();
               },
               child: ScaleTransition(
                 key: Key('mswap_puzzle_tile_scale_${widget.tile.value}'),

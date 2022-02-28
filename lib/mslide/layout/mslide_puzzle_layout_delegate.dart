@@ -61,6 +61,8 @@ class MslidePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         const ResponsiveGap(
           small: 32,
           medium: 54,
+          // large: 34,
+          // xlarge: 34,
           large: 54,
           xlarge: 54,
         ),

@@ -118,15 +118,17 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
             launchStage == LaunchStages.showAnswers);
     final game =
         context.select((SettingsBloc bloc) => bloc.state.settings.game);
+    // final withClues =
+    //     context.select((SettingsBloc bloc) => bloc.state.settings.withClues);
 
     final hasStarted = status == mslidePuzzleStatus.started;
     final loading = status == mslidePuzzleStatus.loading;
 
-    final puzzleIncomplete =
+    final puzzleComplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==
-            PuzzleStatus.incomplete;
+            PuzzleStatus.complete;
 
-    final canPress = hasStarted && puzzleIncomplete;
+    final canPress = hasStarted && !puzzleComplete;
 
     if (hide) {
       _revealController.reset();
@@ -144,6 +146,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         : widget.tileFontSize;
 
     final correctPosition = hasStarted &&
+        //(puzzleComplete || withClues) &&
         widget.tile.currentPosition == widget.tile.correctPosition;
 
     return AudioControlListener(

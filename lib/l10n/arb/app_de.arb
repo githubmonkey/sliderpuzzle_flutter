@@ -38,6 +38,10 @@
     "@settingsLabelElevenToTwenty": {
         "description": "Shown on the settings control"
     },
+    "settingsLabelWithClues": "Richtige zeigen",
+    "@settingsLabelWithClues": {
+        "description": "Shown on the settings control"
+    },
     "settingsLabelNickname": "Dein Alias",
     "@settingsLabelNickname": {
         "description": "Shown on the settings control"
@@ -66,12 +70,12 @@
     "@settingsGameValueHex": {
         "description": "Shown on the menu"
     },
-    "settingsElevenToTwentyTrue": "Ja",
-    "@settingsElevenToTwentyTrue": {
+    "settingsBinaryTrue": "Ja",
+    "@settingsBinaryTrue": {
         "description": "Shown on the menu"
     },
-    "settingsElevenToTwentyFalse": "Nein",
-    "@settingsElevenToTwentyFalse": {
+    "settingsBinaryFalse": "Nein",
+    "@settingsBinaryFalse": {
         "description": "Shown on the menu"
     },
     "languageChangeTooltip": "Nur zwei Sprachen zur Einfachheit.",

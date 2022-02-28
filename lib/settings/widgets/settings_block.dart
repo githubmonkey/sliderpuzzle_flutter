@@ -115,7 +115,7 @@ class SettingsBlock extends StatelessWidget {
                 children: [
                   Text(context.l10n.settingsLabelElevenToTwenty),
                   Text(
-                    LocalizationHelper().localizedElevenToTwenty(
+                    LocalizationHelper().localizedBinary(
                       context,
                       settings.elevenToTwenty,
                     ),
@@ -128,6 +128,24 @@ class SettingsBlock extends StatelessWidget {
                 large: 9,
                 xlarge: 9,
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(context.l10n.settingsLabelWithClues),
+              //     Text(
+              //       LocalizationHelper().localizedBinary(
+              //         context,
+              //         settings.withClues,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const ResponsiveGap(
+              //   small: 8,
+              //   medium: 9,
+              //   large: 9,
+              //   xlarge: 9,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
