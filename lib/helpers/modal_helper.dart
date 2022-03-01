@@ -32,3 +32,36 @@ Future<T?> showAppDialog<T>({
         child: child,
       ),
     );
+
+
+/// Displays the [AlertDialog] above the current contents of the app.
+/// Child must be an alertDialog
+Future<T?> showAlertDialog<T>({
+  required BuildContext context,
+  required Widget child,
+  bool barrierDismissible = true,
+  String barrierLabel = '',
+  Color barrierColor = const Color(0x66000000),
+}) =>
+    showGeneralDialog<T>(
+      transitionBuilder: (context, animation, secondaryAnimation, widget) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.decelerate,
+        );
+
+        return ScaleTransition(
+          scale: Tween<double>(begin: 0.8, end: 1).animate(curvedAnimation),
+          child: FadeTransition(
+            opacity: curvedAnimation,
+            child: widget,
+          ),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 650),
+      barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
+      barrierColor: barrierColor,
+      context: context,
+      pageBuilder: (context, animation, secondaryAnimation) => child
+    );

@@ -27,6 +27,7 @@ class MslidePuzzleState extends Equatable {
   const MslidePuzzleState({
     required this.secondsToBegin,
     this.isCountdownRunning = false,
+    this.isPaused = false,
   });
 
   /// Whether the countdown of this puzzle is currently running.
@@ -34,6 +35,9 @@ class MslidePuzzleState extends Equatable {
 
   /// The number of seconds before the puzzle is started.
   final int secondsToBegin;
+
+  /// Indicates if the timer is stopped
+  final bool isPaused;
 
   /// The status of the current puzzle.
   MslidePuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
@@ -50,10 +54,12 @@ class MslidePuzzleState extends Equatable {
   MslidePuzzleState copyWith({
     bool? isCountdownRunning,
     int? secondsToBegin,
+    bool? isPaused,
   }) {
     return MslidePuzzleState(
       isCountdownRunning: isCountdownRunning ?? this.isCountdownRunning,
       secondsToBegin: secondsToBegin ?? this.secondsToBegin,
+      isPaused: isPaused ?? this.isPaused,
     );
   }
 }

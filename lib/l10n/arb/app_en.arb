@@ -166,6 +166,22 @@
     "@dashatarRestart": {
         "description": "Shown after the puzzle is started and may be restarted"
     },
+    "restartDialogTitle": "This puzzle is not solved yet",
+    "@restartDialogTitle": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogContent": "Do you really want to abandon this game and start a new one?",
+    "@restartDialogContent": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogNo": "No, continue",
+    "@restartDialogNo": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogYes": "Yes, start new game",
+    "@restartDialogYes": {
+        "description": "Shown in the confirmation dialog"
+    },
     "dashatarCountdownGo": "GO!",
     "@dashatarCountdownGo": {
         "description": "Shown when the countdown has just finished and the puzzle is about to start"

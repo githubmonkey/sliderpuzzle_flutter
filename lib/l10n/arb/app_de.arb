@@ -166,6 +166,22 @@
     "@dashatarRestart": {
         "description": "Shown after the puzzle is started and may be restarted"
     },
+    "restartDialogTitle": "Dieses Puzzle ist noch nicht fertig",
+    "@restartDialogTitle": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogContent": "Möchtest du wirklich den Spielstand zurücksetzen und ein neues Spiel beginnen?",
+    "@restartDialogContent": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogNo": "Nein, weiterpuzzlen",
+    "@restartDialogNo": {
+        "description": "Shown in the confirmation dialog"
+    },
+    "restartDialogYes": "Ja, neu starten",
+    "@restartDialogYes": {
+        "description": "Shown in the confirmation dialog"
+    },
     "dashatarCountdownGo": "LOS!",
     "@dashatarCountdownGo": {
         "description": "Shown when the countdown has just finished and the puzzle is about to start"

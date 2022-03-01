@@ -135,6 +135,11 @@ class PuzzleTextStyle {
     return PuzzleTextStyle.bodySmall;
   }
 
+  /// Alert Dialog action button text style
+  static TextStyle get actionLabel {
+    return PuzzleTextStyle.bodySmall;
+  }
+
   static const _baseTextStyle = TextStyle(
     fontFamily: 'GoogleSans',
     color: PuzzleColors.black,

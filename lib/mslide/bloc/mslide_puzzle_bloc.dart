@@ -21,6 +21,8 @@ class MslidePuzzleBloc extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
     on<MslideCountdownTicked>(_onCountdownTicked);
     on<MslideCountdownStopped>(_onCountdownStopped);
     on<MslideCountdownRestart>(_onCountdownRestart);
+    on<MslidePuzzlePaused>(_onPuzzlePaused);
+    on<MslidePuzzleResumed>(_onPuzzleResumed);
     on<MslideCountdownReset>(_onCountdownReset);
   }
 
@@ -92,6 +94,22 @@ class MslidePuzzleBloc extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
       ),
     );
+  }
+
+  void _onPuzzlePaused(
+    MslidePuzzlePaused event,
+    Emitter<MslidePuzzleState> emit,
+  ) {
+    _tickerSubscription?.pause();
+    emit(state.copyWith(isPaused: true));
+  }
+
+  void _onPuzzleResumed(
+    MslidePuzzleResumed event,
+    Emitter<MslidePuzzleState> emit,
+  ) {
+    _tickerSubscription?.resume();
+    emit(state.copyWith(isPaused: false));
   }
 
   void _onCountdownReset(

@@ -33,6 +33,17 @@ class MslideCountdownRestart extends MslidePuzzleEvent {
   List<Object?> get props => [secondsToBegin];
 }
 
+/// Pause to get confirmation
+class MslidePuzzlePaused extends MslidePuzzleEvent {
+  const MslidePuzzlePaused();
+}
+
+/// Reset and autostart
+class MslidePuzzleResumed extends MslidePuzzleEvent {
+  const MslidePuzzleResumed();
+}
+
+
 /// Reset only, more lightweight than full restart.
 /// Fresh initialization but no autostart
 class MslideCountdownReset extends MslidePuzzleEvent {
