@@ -51,8 +51,8 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
     final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
-    final isLoading = status == mslidePuzzleStatus.loading;
-    final isStarted = status == mslidePuzzleStatus.started;
+    final isLoading = status == MslidePuzzleStatus.loading;
+    final isStarted = status == MslidePuzzleStatus.started;
 
     final text = isStarted
         ? context.l10n.dashatarRestart
@@ -72,7 +72,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
             onPressed: isLoading
                 ? null
                 : () async {
-                    final hasStarted = status == mslidePuzzleStatus.started;
+                    final hasStarted = status == MslidePuzzleStatus.started;
 
                     // Reset the timer and the countdown.
                     context.read<TimerBloc>().add(const TimerReset());

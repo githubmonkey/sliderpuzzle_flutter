@@ -51,8 +51,8 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
     final settings = context.select((SettingsBloc bloc) => bloc.state.settings);
 
     final status = context.select((MswapPuzzleBloc bloc) => bloc.state.status);
-    final isLoading = status == mswapPuzzleStatus.loading;
-    final isStarted = status == mswapPuzzleStatus.started;
+    final isLoading = status == MswapPuzzleStatus.loading;
+    final isStarted = status == MswapPuzzleStatus.started;
 
     final text = isStarted
         ? context.l10n.dashatarRestart
@@ -72,7 +72,7 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
             onPressed: isLoading
                 ? null
                 : () async {
-                    final hasStarted = status == mswapPuzzleStatus.started;
+                    final hasStarted = status == MswapPuzzleStatus.started;
 
                     // Reset the timer and the countdown.
                     context.read<TimerBloc>().add(const TimerReset());

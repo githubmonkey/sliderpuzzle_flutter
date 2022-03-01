@@ -109,20 +109,20 @@ class MswapPuzzleTileState extends State<MswapPuzzleTile>
     final status = context.select((MswapPuzzleBloc bloc) => bloc.state.status);
     final launchStage =
         context.select((MswapPuzzleBloc bloc) => bloc.state.launchStage);
-    final hide = status == mswapPuzzleStatus.loading &&
+    final hide = status == MswapPuzzleStatus.loading &&
         (launchStage == LaunchStages.resetting ||
             launchStage == LaunchStages.showQuestions);
-    final reveal = status == mswapPuzzleStatus.notStarted ||
-        status == mswapPuzzleStatus.started ||
-        (status == mswapPuzzleStatus.loading &&
+    final reveal = status == MswapPuzzleStatus.notStarted ||
+        status == MswapPuzzleStatus.started ||
+        (status == MswapPuzzleStatus.loading &&
             launchStage == LaunchStages.showAnswers);
     final game =
         context.select((SettingsBloc bloc) => bloc.state.settings.game);
     // final withClues =
     //     context.select((SettingsBloc bloc) => bloc.state.settings.withClues);
 
-    final hasStarted = status == mswapPuzzleStatus.started;
-    final loading = status == mswapPuzzleStatus.loading;
+    final hasStarted = status == MswapPuzzleStatus.started;
+    final loading = status == MswapPuzzleStatus.loading;
 
     final puzzleComplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==

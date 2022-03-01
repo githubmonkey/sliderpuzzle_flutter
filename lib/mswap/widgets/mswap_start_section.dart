@@ -69,7 +69,7 @@ class MswapStartSection extends StatelessWidget {
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
           numberOfMoves: state.numberOfMoves,
-          numberOfTilesLeft: status == mswapPuzzleStatus.started
+          numberOfTilesLeft: status == MswapPuzzleStatus.started
               ? state.numberOfTilesLeft
               : state.puzzle.tiles.length - 1,
         ),

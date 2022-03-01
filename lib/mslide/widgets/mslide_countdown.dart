@@ -60,7 +60,7 @@ class _MslideCountdownState extends State<MslideCountdown> {
           }
 
           // Start the puzzle timer when the countdown finishes.
-          if (state.status == mslidePuzzleStatus.started) {
+          if (state.status == MslidePuzzleStatus.started) {
             context.read<TimerBloc>().add(const TimerStarted());
           }
 

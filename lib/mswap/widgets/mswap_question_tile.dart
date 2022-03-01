@@ -60,11 +60,11 @@ class _MswapQuestionTileState extends State<MswapQuestionTile>
     final status = context.select((MswapPuzzleBloc bloc) => bloc.state.status);
     final launchStage =
         context.select((MswapPuzzleBloc bloc) => bloc.state.launchStage);
-    final hide = status == mswapPuzzleStatus.loading &&
+    final hide = status == MswapPuzzleStatus.loading &&
         launchStage == LaunchStages.resetting;
-    final reveal = status == mswapPuzzleStatus.started ||
-        status == mswapPuzzleStatus.notStarted ||
-        (status == mswapPuzzleStatus.loading &&
+    final reveal = status == MswapPuzzleStatus.started ||
+        status == MswapPuzzleStatus.notStarted ||
+        (status == MswapPuzzleStatus.loading &&
             launchStage == LaunchStages.showQuestions);
 
     if (hide) {

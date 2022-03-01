@@ -109,20 +109,20 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
     final status = context.select((MslidePuzzleBloc bloc) => bloc.state.status);
     final launchStage =
         context.select((MslidePuzzleBloc bloc) => bloc.state.launchStage);
-    final hide = status == mslidePuzzleStatus.loading &&
+    final hide = status == MslidePuzzleStatus.loading &&
         (launchStage == LaunchStages.resetting ||
             launchStage == LaunchStages.showQuestions);
-    final reveal = status == mslidePuzzleStatus.notStarted ||
-        status == mslidePuzzleStatus.started ||
-        (status == mslidePuzzleStatus.loading &&
+    final reveal = status == MslidePuzzleStatus.notStarted ||
+        status == MslidePuzzleStatus.started ||
+        (status == MslidePuzzleStatus.loading &&
             launchStage == LaunchStages.showAnswers);
     final game =
         context.select((SettingsBloc bloc) => bloc.state.settings.game);
     // final withClues =
     //     context.select((SettingsBloc bloc) => bloc.state.settings.withClues);
 
-    final hasStarted = status == mslidePuzzleStatus.started;
-    final loading = status == mslidePuzzleStatus.loading;
+    final hasStarted = status == MslidePuzzleStatus.started;
+    final loading = status == MslidePuzzleStatus.loading;
 
     final puzzleComplete =
         context.select((PuzzleBloc bloc) => bloc.state.puzzleStatus) ==

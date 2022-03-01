@@ -3,7 +3,7 @@
 part of 'mslide_puzzle_bloc.dart';
 
 /// The status of [MslidePuzzleState].
-enum mslidePuzzleStatus {
+enum MslidePuzzleStatus {
   /// The puzzle is not started yet.
   notStarted,
 
@@ -36,11 +36,11 @@ class MslidePuzzleState extends Equatable {
   final int secondsToBegin;
 
   /// The status of the current puzzle.
-  mslidePuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
-      ? mslidePuzzleStatus.loading
+  MslidePuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
+      ? MslidePuzzleStatus.loading
       : (secondsToBegin == 0
-          ? mslidePuzzleStatus.started
-          : mslidePuzzleStatus.notStarted);
+          ? MslidePuzzleStatus.started
+          : MslidePuzzleStatus.notStarted);
 
   LaunchStages get launchStage => LaunchStages.values[secondsToBegin];
 

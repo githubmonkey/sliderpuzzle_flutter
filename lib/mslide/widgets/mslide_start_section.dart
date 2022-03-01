@@ -71,7 +71,7 @@ class MslideStartSection extends StatelessWidget {
         NumberOfMovesAndTilesLeft(
           key: numberOfMovesAndTilesLeftKey,
           numberOfMoves: state.numberOfMoves,
-          numberOfTilesLeft: status == mslidePuzzleStatus.started
+          numberOfTilesLeft: status == MslidePuzzleStatus.started
               ? state.numberOfTilesLeft
               : state.puzzle.tiles.length - 1,
         ),

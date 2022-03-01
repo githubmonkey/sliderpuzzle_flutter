@@ -60,7 +60,7 @@ class _MswapCountdownState extends State<MswapCountdown> {
           }
 
           // Start the puzzle timer when the countdown finishes.
-          if (state.status == mswapPuzzleStatus.started) {
+          if (state.status == MswapPuzzleStatus.started) {
             context.read<TimerBloc>().add(const TimerStarted());
           }
 

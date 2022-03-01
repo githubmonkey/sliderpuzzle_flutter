@@ -3,7 +3,7 @@
 part of 'mswap_puzzle_bloc.dart';
 
 /// The status of [MswapPuzzleState].
-enum mswapPuzzleStatus {
+enum MswapPuzzleStatus {
   /// The puzzle is not started yet.
   notStarted,
 
@@ -36,11 +36,11 @@ class MswapPuzzleState extends Equatable {
   final int secondsToBegin;
 
   /// The status of the current puzzle.
-  mswapPuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
-      ? mswapPuzzleStatus.loading
+  MswapPuzzleStatus get status => isCountdownRunning && secondsToBegin > 0
+      ? MswapPuzzleStatus.loading
       : (secondsToBegin == 0
-          ? mswapPuzzleStatus.started
-          : mswapPuzzleStatus.notStarted);
+          ? MswapPuzzleStatus.started
+          : MswapPuzzleStatus.notStarted);
 
   LaunchStages get launchStage => LaunchStages.values[secondsToBegin];
 
