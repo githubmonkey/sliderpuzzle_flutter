@@ -166,7 +166,7 @@
     "@dashatarRestart": {
         "description": "Shown after the puzzle is started and may be restarted"
     },
-    "restartDialogTitle": "Dieses Puzzle ist noch nicht fertig",
+    "restartDialogTitle": "Dieses Puzzle ist noch nicht gelöst",
     "@restartDialogTitle": {
         "description": "Shown in the confirmation dialog"
     },

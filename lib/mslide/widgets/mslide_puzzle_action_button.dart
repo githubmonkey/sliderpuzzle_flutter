@@ -94,6 +94,14 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   /// Called when requesting a restart/pause
   void onRestart() async {
     final theme = context.read<MslideThemeBloc>().state.theme;
+    final puzzleComplete =
+        context.read<PuzzleBloc>().state.puzzleStatus == PuzzleStatus.complete;
+
+    if (puzzleComplete) {
+      doReset();
+      unawaited(_audioPlayer.replay());
+      return;
+    }
 
     // Stop the timer and the countdown for now.
     context.read<TimerBloc>().add(const TimerStopped());
@@ -150,19 +158,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                 textStyle: PuzzleTextStyle.actionLabel,
               ),
               onPressed: () {
-                // Reset the timer and the countdown.
-                context.read<TimerBloc>().add(const TimerReset());
-                context.read<MslidePuzzleBloc>().add(
-                      MslideCountdownRestart(secondsToBegin: 3),
-                    );
-
-                // Initialize the puzzle board to show the initial puzzle
-                // (unshuffled) before the countdown completes.
-                final settings = context.read<SettingsBloc>().state.settings;
-                context
-                    .read<PuzzleBloc>()
-                    .add(PuzzleInitialized(settings: settings));
-
+                doReset();
                 Navigator.of(context).pop();
               },
             ),
@@ -170,5 +166,18 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
         ),
       ),
     );
+  }
+
+  void doReset() {
+    // Reset the timer and the countdown.
+    context.read<TimerBloc>().add(const TimerReset());
+    context.read<MslidePuzzleBloc>().add(
+      MslideCountdownRestart(secondsToBegin: 3),
+    );
+
+    // Initialize the puzzle board to show the initial puzzle
+    // (unshuffled) before the countdown completes.
+    final settings = context.read<SettingsBloc>().state.settings;
+    context.read<PuzzleBloc>().add(PuzzleInitialized(settings: settings));
   }
 }

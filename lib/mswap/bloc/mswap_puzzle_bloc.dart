@@ -21,6 +21,8 @@ class MswapPuzzleBloc extends Bloc<MswapPuzzleEvent, MswapPuzzleState> {
     on<MswapCountdownTicked>(_onCountdownTicked);
     on<MswapCountdownStopped>(_onCountdownStopped);
     on<MswapCountdownRestart>(_onCountdownRestart);
+    on<MswapPuzzlePaused>(_onPuzzlePaused);
+    on<MswapPuzzleResumed>(_onPuzzleResumed);
     on<MswapCountdownReset>(_onCountdownReset);
   }
 
@@ -92,6 +94,22 @@ class MswapPuzzleBloc extends Bloc<MswapPuzzleEvent, MswapPuzzleState> {
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
       ),
     );
+  }
+
+  void _onPuzzlePaused(
+      MswapPuzzlePaused event,
+      Emitter<MswapPuzzleState> emit,
+      ) {
+    _tickerSubscription?.pause();
+    emit(state.copyWith(isPaused: true));
+  }
+
+  void _onPuzzleResumed(
+      MswapPuzzleResumed event,
+      Emitter<MswapPuzzleState> emit,
+      ) {
+    _tickerSubscription?.resume();
+    emit(state.copyWith(isPaused: false));
   }
 
   void _onCountdownReset(

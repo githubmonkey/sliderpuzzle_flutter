@@ -174,7 +174,7 @@
     "@restartDialogContent": {
         "description": "Shown in the confirmation dialog"
     },
-    "restartDialogNo": "No, continue",
+    "restartDialogNo": "No, continue this",
     "@restartDialogNo": {
         "description": "Shown in the confirmation dialog"
     },

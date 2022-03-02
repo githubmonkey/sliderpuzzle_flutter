@@ -61,18 +61,22 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
   void _handleKeyEvent(RawKeyEvent event) {
     final theme = context.read<ThemeBloc>().state.theme;
 
-    // The user may move tiles only when the puzzle is started.
+    // The user may move tiles only when the puzzle is started and not paused.
     // There's no need to check the Simple theme as it is started by default.
+    // Dashatar cannot be paused yet
+    // NOTE: the pause check is not working yet
     final canMoveTiles = theme is SimpleTheme ||
         (theme is DashatarTheme &&
             context.read<DashatarPuzzleBloc>().state.status ==
                 DashatarPuzzleStatus.started) ||
         (theme is MslideTheme &&
             context.read<MslidePuzzleBloc>().state.status ==
-                MslidePuzzleStatus.started) ||
+                MslidePuzzleStatus.started &&
+            !context.read<MslidePuzzleBloc>().state.isPaused) ||
         (theme is MswapTheme &&
             context.read<MswapPuzzleBloc>().state.status ==
-                MswapPuzzleStatus.started);
+                MswapPuzzleStatus.started &&
+            !context.read<MswapPuzzleBloc>().state.isPaused);
 
     if (event is RawKeyDownEvent && canMoveTiles) {
       final puzzle = context.read<PuzzleBloc>().state.puzzle;

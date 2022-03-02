@@ -33,6 +33,16 @@ class MswapCountdownRestart extends MswapPuzzleEvent {
   List<Object?> get props => [secondsToBegin];
 }
 
+/// Pause to get confirmation
+class MswapPuzzlePaused extends MswapPuzzleEvent {
+  const MswapPuzzlePaused();
+}
+
+/// Reset and autostart
+class MswapPuzzleResumed extends MswapPuzzleEvent {
+  const MswapPuzzleResumed();
+}
+
 /// Reset only, more lightweight than full restart.
 /// Fresh initialization but no autostart
 class MswapCountdownReset extends MswapPuzzleEvent {
