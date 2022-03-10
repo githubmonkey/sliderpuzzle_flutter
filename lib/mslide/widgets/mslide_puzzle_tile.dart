@@ -120,6 +120,8 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
         context.select((SettingsBloc bloc) => bloc.state.settings.game);
     // final withClues =
     //     context.select((SettingsBloc bloc) => bloc.state.settings.withClues);
+    final isPaused =
+        context.select((MslidePuzzleBloc bloc) => bloc.state.isPaused);
 
     final hasStarted = status == MslidePuzzleStatus.started;
     final loading = status == MslidePuzzleStatus.loading;
@@ -231,17 +233,21 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                           unawaited(_audioPlayer?.replay());
                         }
                       : null,
-                  child: Column(
-                    children: [
-                      const Expanded(child: SizedBox()),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            getEncodingHelper().encoded(widget.tile.pair),
+                  child: AnimatedOpacity(
+                    duration: PuzzleThemeAnimationDuration.puzzleTilePause,
+                    opacity: isPaused ? 0.02 : 1.0,
+                    child: Column(
+                      children: [
+                        const Expanded(child: SizedBox()),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              getEncodingHelper().encoded(widget.tile.pair),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

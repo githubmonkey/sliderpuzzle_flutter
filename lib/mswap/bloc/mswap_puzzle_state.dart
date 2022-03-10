@@ -50,7 +50,7 @@ class MswapPuzzleState extends Equatable {
   LaunchStages get launchStage => LaunchStages.values[secondsToBegin];
 
   @override
-  List<Object> get props => [isCountdownRunning, secondsToBegin];
+  List<Object> get props => [isCountdownRunning, secondsToBegin, isPaused];
 
   MswapPuzzleState copyWith({
     bool? isCountdownRunning,

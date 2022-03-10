@@ -16,8 +16,12 @@ abstract class PuzzleThemeAnimationDuration {
   /// The animation may happen when a user hovers over a puzzle tile.
   static const puzzleTileScale = Duration(milliseconds: 230);
 
+  /// The duration of a puzzle tile scale change animation.
+  /// The animation may happen when a user hovers over a puzzle tile.
+  static const puzzleTilePause = Duration(milliseconds: 530);
+
   /// The duration of the question reveal during launch sequence.
-  static const questionLaunch = Duration(milliseconds: 1000);
+  static const questionLaunch = Duration(milliseconds: 900);
 
   /// The duration of the language label change
   static const languageToggle = Duration(microseconds: 230);

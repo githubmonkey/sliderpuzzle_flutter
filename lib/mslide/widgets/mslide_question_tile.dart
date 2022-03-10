@@ -66,6 +66,8 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
         status == MslidePuzzleStatus.notStarted ||
         (status == MslidePuzzleStatus.loading &&
             launchStage == LaunchStages.showQuestions);
+    final isPaused =
+        context.select((MslidePuzzleBloc bloc) => bloc.state.isPaused);
 
     if (hide) {
       _controller.reset();
@@ -93,9 +95,14 @@ class _MslideQuestionTileState extends State<MslideQuestionTile>
                   opacity: _fade,
                   child: widget.question.isWhitespace
                       ? const Text('')
-                      : QuestionText(
-                          pair: widget.question.pair,
-                          tileFontSize: widget.tileFontSize,
+                      : AnimatedOpacity(
+                          duration:
+                              PuzzleThemeAnimationDuration.puzzleTilePause,
+                          opacity: isPaused ? 0.1 : 1.0,
+                          child: QuestionText(
+                            pair: widget.question.pair,
+                            tileFontSize: widget.tileFontSize,
+                          ),
                         ),
                 ),
               ),

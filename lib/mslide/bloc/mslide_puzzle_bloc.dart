@@ -92,6 +92,7 @@ class MslidePuzzleBloc extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
       state.copyWith(
         isCountdownRunning: true,
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
+        isPaused: false,
       ),
     );
   }
@@ -121,6 +122,7 @@ class MslidePuzzleBloc extends Bloc<MslidePuzzleEvent, MslidePuzzleState> {
       state.copyWith(
         isCountdownRunning: false,
         secondsToBegin: 3,
+        isPaused: false,
       ),
     );
   }

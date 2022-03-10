@@ -92,6 +92,7 @@ class MswapPuzzleBloc extends Bloc<MswapPuzzleEvent, MswapPuzzleState> {
       state.copyWith(
         isCountdownRunning: true,
         secondsToBegin: event.secondsToBegin ?? secondsToBegin,
+        isPaused: false,
       ),
     );
   }
@@ -121,6 +122,7 @@ class MswapPuzzleBloc extends Bloc<MswapPuzzleEvent, MswapPuzzleState> {
       state.copyWith(
         isCountdownRunning: false,
         secondsToBegin: 3,
+        isPaused: false,
       ),
     );
   }

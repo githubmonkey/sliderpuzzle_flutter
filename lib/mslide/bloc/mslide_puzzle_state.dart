@@ -49,7 +49,7 @@ class MslidePuzzleState extends Equatable {
   LaunchStages get launchStage => LaunchStages.values[secondsToBegin];
 
   @override
-  List<Object> get props => [isCountdownRunning, secondsToBegin];
+  List<Object> get props => [isCountdownRunning, secondsToBegin, isPaused];
 
   MslidePuzzleState copyWith({
     bool? isCountdownRunning,

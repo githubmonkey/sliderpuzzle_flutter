@@ -112,7 +112,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
     await showAlertDialog<void>(
       context: context,
       barrierDismissible: false,
-      barrierColor: theme.backgroundColor.withAlpha(0xfa),
+      //barrierColor: theme.backgroundColor.withAlpha(0xfa),
       child: MultiBlocProvider(
         providers: [
           BlocProvider.value(
