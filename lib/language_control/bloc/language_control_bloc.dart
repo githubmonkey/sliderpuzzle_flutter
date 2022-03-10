@@ -11,7 +11,7 @@ part 'language_control_state.dart';
 class LanguageControlBloc
     extends Bloc<LanguageControlEvent, LanguageControlState> {
 
-  LanguageControlBloc() : super(const LanguageControlState()) {
+  LanguageControlBloc() : super(const LanguageControlState(locale: null)) {
     on<LanguageToggled>(_onLanguageToggled);
   }
 
@@ -22,7 +22,7 @@ class LanguageControlBloc
     if (state.locale == const Locale('en')) {
       emit(const LanguageControlState(locale: Locale('de')));
     } else {
-      emit(const LanguageControlState());
+      emit(const LanguageControlState(locale: Locale('en')));
     }
   }
 }

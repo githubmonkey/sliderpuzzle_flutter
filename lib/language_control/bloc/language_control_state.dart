@@ -3,12 +3,10 @@
 part of 'language_control_bloc.dart';
 
 class LanguageControlState extends Equatable {
-  const LanguageControlState({
-    this.locale = const Locale('en'),
-  });
+  const LanguageControlState({required this.locale});
 
-  final Locale locale;
+  final Locale? locale;
 
   @override
-  List<Object> get props => [locale];
+  List<Object> get props => [locale ?? Locale('en')];
 }
