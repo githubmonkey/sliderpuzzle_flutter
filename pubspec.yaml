@@ -10,10 +10,10 @@ environment:
 dependencies:
   auth_repository:
     path: packages/auth_repository
-  bloc: ^8.0.1
+  bloc: ^8.0.3
   cache:
     path: packages/cache
-  cloud_firestore: ^3.1.8
+  cloud_firestore: ^3.1.10
   equatable: ^2.0.3
   fake_async: ^1.2.0
   #firebase_auth: ^3.0.2
@@ -41,11 +41,11 @@ dependencies:
   url_launcher: ^6.0.17
 
 dev_dependencies:
-  bloc_test: ^9.0.1
+  bloc_test: ^9.0.3
   flutter_test:
     sdk: flutter
   # mockingjay: ^0.2.0
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
   very_good_analysis: ^2.4.0
 
 ## these are mentioned by the VGV todos tutorial
