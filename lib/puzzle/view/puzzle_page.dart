@@ -34,6 +34,13 @@ class PuzzlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.read<LanguageControlBloc>().state.locale;
+
+    if (locale == null) {
+      final prefLanguage = Localizations.localeOf(context);
+      context.read<LanguageControlBloc>().add(LanguageInit(prefLanguage));
+    }
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(

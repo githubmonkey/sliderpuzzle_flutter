@@ -12,3 +12,12 @@ abstract class LanguageControlEvent extends Equatable {
 class LanguageToggled extends LanguageControlEvent {
   const LanguageToggled();
 }
+
+class LanguageInit extends LanguageControlEvent {
+  const LanguageInit(this.locale);
+
+  final Locale locale;
+
+  @override
+  List<Object> get props => [locale];
+}

@@ -17,7 +17,7 @@ class LanguageControl extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final locale =
         context.select((LanguageControlBloc bloc) => bloc.state.locale);
-    final languageLabel = locale == const Locale('en') ? 'DE' : 'EN';
+    final languageLabel = (locale?.languageCode != 'de') ? 'DE' : 'EN';
 
     return AnimatedSwitcher(
       duration: PuzzleThemeAnimationDuration.textStyle,

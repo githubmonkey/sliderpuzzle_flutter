@@ -68,8 +68,8 @@ class LeaderboardList extends StatelessWidget {
         }
 
         final best = context.select(
-          (HistoryBloc bloc) =>
-              bloc.state.filteredBest(userid: userid, theme: theme.name, settings: settings),
+          (HistoryBloc bloc) => bloc.state.filteredBest(
+              userid: userid, theme: theme.name, settings: settings),
         );
 
         return ListTileTheme(
