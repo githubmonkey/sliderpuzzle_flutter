@@ -5,6 +5,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
@@ -25,9 +26,10 @@ void main() {
   group('PuzzlePage', () {
     late LanguageControlBloc languageControlBloc;
     late LoginBloc loginBloc;
+    late LanguageControlState languageControlState;
 
     setUp(() {
-      final languageControlState = LanguageControlState();
+      languageControlState = LanguageControlState(locale: null);
       languageControlBloc = MockLanguageControlBloc();
       loginBloc = MockLoginBloc();
       when(() => languageControlBloc.state).thenReturn(languageControlState);
@@ -175,6 +177,7 @@ void main() {
     late LoginBloc loginBloc;
     late ThemeBloc themeBloc;
     late PuzzleTheme theme;
+    late TimerBloc timerBloc;
     late SettingsBloc settingsBloc;
     late LanguageControlBloc languageControlBloc;
     late DashatarThemeBloc dashatarThemeBloc;
@@ -182,19 +185,33 @@ void main() {
     late MswapThemeBloc mswapThemeBloc;
     late PuzzleLayoutDelegate layoutDelegate;
     late AudioControlBloc audioControlBloc;
+    late TimerState  timerState;
+    late SettingsState settingsState;
+    late LanguageControlState languageControlState;
 
     setUp(() {
       theme = MockPuzzleTheme();
       final themeState = ThemeState(themes: [theme], theme: theme);
       themeBloc = MockThemeBloc();
-      final settingsState = SettingsState(boardSize: 2);
+      timerBloc = MockTimerBloc();
+      timerState = TimerState(isRunning: true, secondsElapsed: 100);
+      when(() => timerBloc.state).thenReturn(timerState);
+
       settingsBloc = MockSettingsBloc();
+      settingsState = SettingsState(
+        settings: Settings(
+          boardSize: 2,
+          game: Game.roman,
+          elevenToTwenty: true,
+        ),
+      );
+      languageControlState = LanguageControlState(locale: null);
+
       layoutDelegate = MockPuzzleLayoutDelegate();
 
       loginBloc = MockLoginBloc();
       when(() => loginBloc.state).thenReturn(LoginState.unauthenticated());
 
-      final languageControlState = LanguageControlState();
       languageControlBloc = MockLanguageControlBloc();
       when(() => languageControlBloc.state).thenReturn(languageControlState);
 
@@ -447,7 +464,7 @@ void main() {
     });
 
     testWidgets(
-      'builds 15 tiles '
+      'builds 3 tiles '
       'with layoutDelegate.tileBuilder',
       (tester) async {
         when(() => layoutDelegate.boardBuilder(any(), any(), any()))
@@ -469,10 +486,8 @@ void main() {
 
         await tester.pumpAndSettle();
 
-        verify(() => layoutDelegate.tileBuilder(any(), any())).called(15);
+        verify(() => layoutDelegate.tileBuilder(any(), any())).called(3);
       },
-      // TODO(s): Make board size configurable
-      skip: true,
     );
 
     testWidgets(
@@ -534,19 +549,6 @@ void main() {
     });
 
     group('PuzzleHeader', () {
-      late SettingsBloc settingsBloc;
-      late LanguageControlBloc languageControlBloc;
-
-      setUp(() {
-        final settingsState = SettingsState(boardSize: 2);
-        settingsBloc = MockSettingsBloc();
-        when(() => settingsBloc.state).thenReturn(settingsState);
-
-        final languageControlState = LanguageControlState();
-        languageControlBloc = MockLanguageControlBloc();
-        when(() => languageControlBloc.state).thenReturn(languageControlState);
-      });
-
       testWidgets(
           'renders PuzzleLogo and PuzzleMenu '
           'on a large display', (tester) async {
@@ -613,6 +615,7 @@ void main() {
         when(() => puzzle.questions).thenReturn([]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
+        when(() => puzzleState.numberOfMoves).thenReturn(19);
         whenListen(
           puzzleBloc,
           Stream.value(puzzleState),
@@ -631,6 +634,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            loginBloc: loginBloc,
+            settingsBloc: settingsBloc,
+            timerBloc: timerBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any())).called(1);
@@ -646,6 +652,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            loginBloc: loginBloc,
+            settingsBloc: settingsBloc,
+            timerBloc: timerBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
@@ -659,6 +668,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            loginBloc: loginBloc,
+            settingsBloc: settingsBloc,
+            timerBloc: timerBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -676,6 +688,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
+            loginBloc: loginBloc,
+            timerBloc: timerBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any())).called(1);
@@ -691,6 +706,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
+            loginBloc: loginBloc,
+            timerBloc: timerBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
@@ -704,6 +722,9 @@ void main() {
             themeBloc: themeBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
+            timerBloc: timerBloc,
+            loginBloc: loginBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -723,6 +744,8 @@ void main() {
             languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            timerBloc: timerBloc,
+            loginBloc: loginBloc,
           );
 
           verify(() => layoutDelegate.startSectionBuilder(any())).called(1);
@@ -740,6 +763,8 @@ void main() {
             languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            timerBloc: timerBloc,
+            loginBloc: loginBloc,
           );
 
           verify(() => layoutDelegate.endSectionBuilder(any())).called(1);
@@ -755,6 +780,8 @@ void main() {
             languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            timerBloc: timerBloc,
+            loginBloc: loginBloc,
           );
 
           expect(find.byType(PuzzleMenu), findsOneWidget);
@@ -770,6 +797,8 @@ void main() {
             languageControlBloc: languageControlBloc,
             puzzleBloc: puzzleBloc,
             audioControlBloc: audioControlBloc,
+            timerBloc: timerBloc,
+            loginBloc: loginBloc,
           );
 
           expect(find.byType(PuzzleBoard), findsOneWidget);
@@ -790,6 +819,7 @@ void main() {
         when(() => puzzle.questions).thenReturn([]);
         when(() => puzzleState.puzzle).thenReturn(puzzle);
         when(() => puzzleState.puzzleStatus).thenReturn(PuzzleStatus.complete);
+        when(() => puzzleState.numberOfMoves).thenReturn(19);
         whenListen(
           puzzleBloc,
           Stream.value(puzzleState),
@@ -817,6 +847,7 @@ void main() {
           audioControlBloc: audioControlBloc,
           timerBloc: timerBloc,
           puzzleBloc: puzzleBloc,
+          loginBloc: loginBloc
         );
 
         verify(() => timerBloc.add(TimerStopped())).called(1);
@@ -830,6 +861,8 @@ void main() {
           languageControlBloc: languageControlBloc,
           puzzleBloc: puzzleBloc,
           audioControlBloc: audioControlBloc,
+          timerBloc: timerBloc,
+          loginBloc: loginBloc,
         );
 
         expect(find.byType(PuzzleKeyboardHandler), findsOneWidget);
@@ -991,7 +1024,7 @@ void main() {
 
           verify(
             () => puzzleBloc.add(
-              PuzzleInitialized(size: 2, encoding: AnswerEncoding.multi),
+              PuzzleInitialized(settings: settingsState.settings),
             ),
           ).called(1);
         });
@@ -1022,11 +1055,8 @@ void main() {
 
           await tester.tap(find.byType(PuzzleMenuItem));
 
-          verify(
-            () => puzzleBloc.add(
-              PuzzleInitialized(size: 2, encoding: AnswerEncoding.multi),
-            ),
-          ).called(1);
+          verify(() => puzzleBloc.add(
+              PuzzleInitialized(settings: settingsState.settings))).called(1);
         });
       });
 

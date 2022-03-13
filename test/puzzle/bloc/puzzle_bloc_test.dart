@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 void main() {
   const seed = 2;
@@ -14,55 +14,55 @@ void main() {
     value: 1,
     correctPosition: Position(x: 1, y: 1),
     currentPosition: Position(x: 2, y: 1),
-    pair: const Pair(left: 4, right: 10, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 4, right: 10, game: Game.noop),
   );
   final size3Tile2 = Tile(
     value: 2,
     correctPosition: Position(x: 2, y: 1),
     currentPosition: Position(x: 1, y: 1),
-    pair: const Pair(left: 1, right: 5, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 1, right: 5, game: Game.noop),
   );
   final size3Tile3 = Tile(
     value: 3,
     correctPosition: Position(x: 3, y: 1),
     currentPosition: Position(x: 1, y: 2),
-    pair: const Pair(left: 5, right: 7, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 5, right: 7, game: Game.noop),
   );
   final size3Tile4 = Tile(
     value: 4,
     correctPosition: Position(x: 1, y: 2),
     currentPosition: Position(x: 2, y: 3),
-    pair: const Pair(left: 8, right: 4, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 8, right: 4, game: Game.noop),
   );
   final size3Tile5 = Tile(
     value: 5,
     correctPosition: Position(x: 2, y: 2),
     currentPosition: Position(x: 3, y: 1),
-    pair: const Pair(left: 7, right: 2, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 7, right: 2, game: Game.noop),
   );
   final size3Tile6 = Tile(
     value: 6,
     correctPosition: Position(x: 3, y: 2),
     currentPosition: Position(x: 1, y: 3),
-    pair: const Pair(left: 8, right: 1, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 8, right: 1, game: Game.noop),
   );
   final size3Tile7 = Tile(
     value: 7,
     correctPosition: Position(x: 1, y: 3),
     currentPosition: Position(x: 2, y: 2),
-    pair: const Pair(left: 3, right: 1, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 3, right: 1, game: Game.noop),
   );
   final size3Tile8 = Tile(
     value: 8,
     correctPosition: Position(x: 2, y: 3),
     currentPosition: Position(x: 3, y: 2),
-    pair: const Pair(left: 10, right: 1, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 10, right: 1, game: Game.noop),
   );
   final size3Tile9 = Tile(
     value: 9,
     correctPosition: Position(x: 3, y: 3),
     currentPosition: Position(x: 3, y: 3),
-    pair: const Pair(left: 10, right: 3, encoding: AnswerEncoding.noop),
+    pair: const Pair(left: 10, right: 3, game: Game.noop),
     isWhitespace: true,
   );
 
@@ -112,6 +112,9 @@ void main() {
   );
 
   group('PuzzleBloc', () {
+    Settings settings =
+        Settings(boardSize: 3, game: Game.noop, elevenToTwenty: true);
+
     test('initial state is PuzzleState', () {
       expect(
         PuzzleBloc().state,
@@ -124,9 +127,7 @@ void main() {
         'emits solvable 3x3 puzzle, [incomplete], 0 correct tiles, and 0 moves '
         'when initialized with size 3 and shuffle equal to true',
         build: () => PuzzleBloc(random: Random(seed)),
-        act: (bloc) => bloc.add(
-          PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop),
-        ),
+        act: (bloc) => bloc.add(PuzzleInitialized(settings: settings)),
         expect: () => [PuzzleState(puzzle: puzzleSize3)],
         verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
       );
@@ -135,9 +136,7 @@ void main() {
         'emits unshuffled 3x3 puzzle, 8 correct tiles, and 0 moves '
         'when initialized with size 3 and shuffle equal to false',
         build: () => PuzzleBloc(random: Random(seed)),
-        act: (bloc) => bloc.add(
-          PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop),
-        ),
+        act: (bloc) => bloc.add(PuzzleInitialized(settings: settings)),
         expect: () => [
           PuzzleState(
             puzzle: puzzleSize3Unshuffled,
@@ -155,9 +154,7 @@ void main() {
           'emits solvable 3x3 puzzle, [incomplete], 0 correct tiles, 0 moves '
           'when initialized with size 3, shuffled twice, and pinnedWhiteSpace',
           build: () => PuzzleBloc(random: Random(seed)),
-          act: (bloc) => bloc.add(
-            PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop),
-          ),
+          act: (bloc) => bloc.add(PuzzleInitialized(settings: settings)),
           expect: () => [PuzzleState(puzzle: puzzleSize3Pinned)],
           verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
         );
@@ -166,9 +163,7 @@ void main() {
           'emits unshuffled 3x3 puzzle, 8 correct tiles, and 0 moves '
           'when initialized with size 3 and shuffle equal to false',
           build: () => PuzzleBloc(random: Random(seed)),
-          act: (bloc) => bloc.add(
-            PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop),
-          ),
+          act: (bloc) => bloc.add(PuzzleInitialized(settings: settings)),
           expect: () => [
             PuzzleState(
               puzzle: puzzleSize3Unshuffled,
@@ -457,8 +452,7 @@ void main() {
           numberOfCorrectTiles: 1,
           numberOfMoves: 10,
         ),
-        act: (bloc) =>
-            bloc.add(PuzzleReset(size: 3, encoding: AnswerEncoding.noop)),
+        act: (bloc) => bloc.add(PuzzleReset(settings: settings)),
         expect: () => [PuzzleState(size: 3, puzzle: puzzleSize3)],
         verify: (bloc) => expect(bloc.state.puzzle.isSolvable(), isTrue),
       );

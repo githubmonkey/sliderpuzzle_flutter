@@ -9,8 +9,10 @@ import 'package:url_launcher_platform_interface/url_launcher_platform_interface.
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
+import 'package:very_good_slide_puzzle/history/bloc/history_bloc.dart';
 import 'package:very_good_slide_puzzle/language_control/language_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/leaderboard/leaderboard.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
@@ -106,6 +108,12 @@ class MockAudioControlBloc
     extends MockBloc<AudioControlEvent, AudioControlState>
     implements AudioControlBloc {}
 
+class MockHistoryBloc extends MockBloc<HistoryEvent, HistoryState>
+    implements HistoryBloc {}
+
+class MockLeaderboardBloc extends MockBloc<LeaderboardEvent, LeaderboardState>
+    implements LeaderboardBloc {}
+
 //class MockUserCredential extends Mock
 //    implements firebase_auth.UserCredential {}
 
@@ -115,5 +123,4 @@ class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockHistoryRepository extends Mock implements HistoryRepository {}
 
-class MockFirebaseRepository extends Mock implements FirebaseRepository {}
-
+class MockFirestoreRepository extends Mock implements FirestoreRepository {}

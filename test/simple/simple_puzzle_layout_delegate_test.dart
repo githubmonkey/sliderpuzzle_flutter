@@ -3,6 +3,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -20,6 +21,7 @@ void main() {
     late SettingsBloc settingsBloc;
     late PuzzleTheme theme;
     late PuzzleState state;
+    late Settings settings;
 
     const themeName = 'Name';
 
@@ -37,8 +39,9 @@ void main() {
       theme = MockPuzzleTheme();
       settingsBloc = MockSettingsBloc();
       state = MockPuzzleState();
+      settings = Settings(boardSize: 4, game: Game.noop, elevenToTwenty: false);
       final themeState = ThemeState(themes: [theme], theme: theme);
-      final settingsState = SettingsState(boardSize: 2);
+      final settingsState = SettingsState(settings: settings);
 
       when(() => state.puzzleStatus).thenReturn(PuzzleStatus.incomplete);
       when(() => state.numberOfMoves).thenReturn(5);
@@ -86,6 +89,7 @@ void main() {
             child: layoutDelegate.startSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(
@@ -106,6 +110,7 @@ void main() {
             child: layoutDelegate.startSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(
@@ -128,6 +133,7 @@ void main() {
             child: layoutDelegate.endSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(find.byType(SizedBox), findsOneWidget);
@@ -144,6 +150,7 @@ void main() {
             child: layoutDelegate.endSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(find.byType(SimplePuzzleShuffleButton), findsOneWidget);
@@ -159,6 +166,7 @@ void main() {
             child: layoutDelegate.endSectionBuilder(state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(find.byType(SimplePuzzleShuffleButton), findsOneWidget);
@@ -417,6 +425,7 @@ void main() {
             child: SimpleStartSection(state: state),
           ),
           themeBloc: themeBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(
@@ -559,14 +568,12 @@ void main() {
           SimplePuzzleShuffleButton(),
           themeBloc: themeBloc,
           puzzleBloc: puzzleBloc,
+          settingsBloc: settingsBloc,
         );
 
         await tester.tap(find.byType(SimplePuzzleShuffleButton));
 
-        verify(
-          () => puzzleBloc
-              .add(PuzzleReset(size: 2, encoding: AnswerEncoding.noop)),
-        ).called(1);
+        verify(() => puzzleBloc.add(PuzzleReset(settings: settings))).called(1);
       });
     });
 

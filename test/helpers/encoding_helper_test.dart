@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/helpers/encoding_helper.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 
@@ -134,7 +135,7 @@ void main() {
 
   group('Encodings', () {
     test('int to roman', () {
-      const encoding = AnswerEncoding.roman;
+      const encoding = Game.roman;
 
       for (var i = 0; i <= 100; i++) {
         expect(
@@ -145,7 +146,7 @@ void main() {
     });
 
     test('int to binary', () {
-      const encoding = AnswerEncoding.binary;
+      const encoding = Game.binary;
 
       expect(
         helper.encoded(const Pair(left: 0, right: 1, game: encoding)),

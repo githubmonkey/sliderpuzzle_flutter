@@ -11,10 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:history_repository/history_repository.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+import 'package:very_good_slide_puzzle/history/bloc/history_bloc.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/language_control/bloc/language_control_bloc.dart';
+import 'package:very_good_slide_puzzle/leaderboard/bloc/leaderboard_bloc.dart';
 import 'package:very_good_slide_puzzle/login/login.dart';
 import 'package:very_good_slide_puzzle/mslide/mslide.dart';
 import 'package:very_good_slide_puzzle/mswap/mswap.dart';
@@ -40,16 +43,22 @@ extension PumpApp on WidgetTester {
     PuzzleBloc? puzzleBloc,
     TimerBloc? timerBloc,
     AudioControlBloc? audioControlBloc,
+    HistoryBloc? historyBloc,
+    LeaderboardBloc? leaderboardBloc,
     //firebase_auth.UserCredential? userCredential,
     //firebase_auth.FirebaseAuth? firebaseAuth,
     AuthRepository? authRepository,
-    HistoryRepository? firestoreRepository,
+    HistoryRepository? historyRepository,
+    FirestoreRepository? firestoreRepository,
   }) {
     return pumpWidget(
       MultiRepositoryProvider(
         providers: [
           RepositoryProvider.value(
             value: authRepository ?? MockAuthRepository(),
+          ),
+          RepositoryProvider.value(
+            value: historyRepository ?? MockHistoryRepository(),
           ),
           RepositoryProvider.value(
             value: firestoreRepository ?? MockFirestoreRepository(),
@@ -95,6 +104,12 @@ extension PumpApp on WidgetTester {
             ),
             BlocProvider.value(
               value: audioControlBloc ?? MockAudioControlBloc(),
+            ),
+            BlocProvider.value(
+              value: historyBloc ?? MockHistoryBloc(),
+            ),
+            BlocProvider.value(
+              value: leaderboardBloc ?? MockLeaderboardBloc(),
             ),
           ],
           child: MaterialApp(
