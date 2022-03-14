@@ -102,6 +102,7 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               small: 21,
               medium: 34,
               large: 96,
+              xlarge: 96,
             ),
             DashatarPuzzleBoard(tiles: tiles),
             const ResponsiveGap(
