@@ -14,6 +14,15 @@ A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
 
 ---
 
+## Preface 
+
+This repo is based on a clone of the [flutter puzzle hack sample code](https://github.com/VGVentures/slide_puzzle) by VGV.
+
+Some of my upcoming talks refer to this work. Despite publishing the sources here (required by the competition rules) 
+I recommend studying the original source code at VGV
+rather than my clone. The project was part of a competition submission with a hard deadline. Some
+corners were cut.
+
 ## Deploy 1x1 version
 
 Run this manually in console if github action is not triggered 
@@ -23,7 +32,7 @@ Run this manually in console if github action is not triggered
 $ git checkout live
 $ firebase use sliderpuzzle-flutter
 ## check that lib/firebase-options.dart is up to date
-## flutterfirew config
+## flutterfire config
 $ flutter build web
 $ firebase deploy
 ```
