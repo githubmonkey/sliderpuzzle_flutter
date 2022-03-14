@@ -7,7 +7,7 @@ import '../helpers/helpers.dart';
 void main() {
   group('ResponsiveLayout', () {
     testWidgets(
-        'displays a large layout '
+        'displays an xlarge layout '
         'for sizes greater than large', (tester) async {
       tester.setDisplaySize(const Size(PuzzleBreakpoints.large + 1, 800));
 
@@ -27,8 +27,82 @@ void main() {
 
       expect(find.byKey(smallKey), findsNothing);
       expect(find.byKey(mediumKey), findsNothing);
-      expect(find.byKey(largeKey), findsOneWidget);
-      expect(find.byKey(xlargeKey), findsNothing);
+      expect(find.byKey(largeKey), findsNothing);
+      expect(find.byKey(xlargeKey), findsOneWidget);
+    });
+
+    group('on an xlarge display', () {
+      testWidgets('displays an xlarge layout', (tester) async {
+        tester.setXLargeDisplaySize();
+
+        const smallKey = Key('__small__');
+        const mediumKey = Key('__medium__');
+        const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
+
+        await tester.pumpApp(
+          ResponsiveLayoutBuilder(
+            small: (_, __) => const SizedBox(key: smallKey),
+            medium: (_, __) => const SizedBox(key: mediumKey),
+            large: (_, __) => const SizedBox(key: largeKey),
+            xlarge: (_, __) => const SizedBox(key: xlargeKey),
+          ),
+        );
+
+        expect(find.byKey(smallKey), findsNothing);
+        expect(find.byKey(mediumKey), findsNothing);
+        expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsOneWidget);
+      });
+
+      testWidgets('displays child when available', (tester) async {
+        tester.setXLargeDisplaySize();
+
+        const smallKey = Key('__small__');
+        const mediumKey = Key('__medium__');
+        const largeKey = Key('__large__');
+        const xlargeKey = Key('__xlarge__');
+        const childKey = Key('__child__');
+
+        await tester.pumpApp(
+          ResponsiveLayoutBuilder(
+            small: (_, child) => SizedBox(key: smallKey, child: child),
+            medium: (_, child) => SizedBox(key: mediumKey, child: child),
+            large: (_, child) => SizedBox(key: largeKey, child: child),
+            xlarge: (_, child) => SizedBox(key: xlargeKey, child: child),
+            child: (_) => const SizedBox(key: childKey),
+          ),
+        );
+
+        expect(find.byKey(smallKey), findsNothing);
+        expect(find.byKey(mediumKey), findsNothing);
+        expect(find.byKey(largeKey), findsNothing);
+        expect(find.byKey(xlargeKey), findsOneWidget);
+        expect(find.byKey(childKey), findsOneWidget);
+      });
+
+      testWidgets('returns xlarge layout size for child', (tester) async {
+        tester.setXLargeDisplaySize();
+
+        ResponsiveLayoutSize? layoutSize;
+        await tester.pumpApp(
+          ResponsiveLayoutBuilder(
+            small: (_, child) => child!,
+            medium: (_, child) => child!,
+            large: (_, child) => child!,
+            xlarge: (_, child) => child!,
+            child: (currentLayoutSize) {
+              layoutSize = currentLayoutSize;
+              return const SizedBox();
+            },
+          ),
+        );
+
+        expect(
+          layoutSize,
+          equals(ResponsiveLayoutSize.xlarge),
+        );
+      });
     });
 
     group('on a large display', () {
@@ -217,7 +291,7 @@ void main() {
             small: (_, child) => SizedBox(key: smallKey, child: child),
             medium: (_, child) => SizedBox(key: mediumKey, child: child),
             large: (_, child) => SizedBox(key: largeKey, child: child),
-            xlarge: (_, child) => SizedBox(key: largeKey, child: child),
+            xlarge: (_, child) => SizedBox(key: xlargeKey, child: child),
             child: (_) => const SizedBox(key: childKey),
           ),
         );

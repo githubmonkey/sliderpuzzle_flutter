@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 void main() {
   final position = Position(x: 1, y: 1);
@@ -53,7 +52,9 @@ void main() {
     group('PuzzleReset', () {
       test('supports value comparisons', () {
         expect(PuzzleReset(settings: settingsA),
-            equals(PuzzleReset(settings: settingsB)));
+            equals(PuzzleReset(settings: settingsA)));
+        expect(PuzzleReset(settings: settingsA),
+            isNot(PuzzleReset(settings: settingsB)));
       });
     });
   });

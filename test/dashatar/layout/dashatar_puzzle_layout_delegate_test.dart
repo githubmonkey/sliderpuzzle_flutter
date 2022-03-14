@@ -3,6 +3,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
@@ -24,6 +25,7 @@ void main() {
     late PuzzleState state;
     late TimerBloc timerBloc;
     late AudioControlBloc audioControlBloc;
+    late SettingsBloc settingsBloc;
 
     setUp(() {
       layoutDelegate = DashatarPuzzleLayoutDelegate();
@@ -59,6 +61,12 @@ void main() {
 
       audioControlBloc = MockAudioControlBloc();
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
+
+      settingsBloc = MockSettingsBloc();
+      final settingsState = SettingsState(
+          settings:
+              Settings(boardSize: 2, game: Game.roman, elevenToTwenty: true));
+      when(() => settingsBloc.state).thenReturn(settingsState);
     });
 
     group('startSectionBuilder', () {
@@ -77,6 +85,7 @@ void main() {
           themeBloc: themeBloc,
           timerBloc: timerBloc,
           audioControlBloc: audioControlBloc,
+          settingsBloc: settingsBloc,
         );
 
         expect(
@@ -155,6 +164,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarPuzzleActionButton), findsNothing);
@@ -174,6 +184,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarCountdown), findsOneWidget);
@@ -194,6 +205,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarPuzzleActionButton), findsOneWidget);
@@ -212,6 +224,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarThemePicker), findsOneWidget);
@@ -230,6 +243,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarCountdown), findsOneWidget);
@@ -250,6 +264,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarPuzzleActionButton), findsOneWidget);
@@ -268,6 +283,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarThemePicker), findsOneWidget);
@@ -286,6 +302,7 @@ void main() {
             themeBloc: themeBloc,
             timerBloc: timerBloc,
             audioControlBloc: audioControlBloc,
+            settingsBloc: settingsBloc,
           );
 
           expect(find.byType(DashatarCountdown), findsOneWidget);
@@ -385,7 +402,7 @@ void main() {
           audioControlBloc: audioControlBloc,
         );
 
-        expect(find.byType(DashatarTimer), findsOneWidget);
+        expect(find.byType(MyTimer), findsOneWidget);
         expect(
           find.byWidgetPredicate(
             (widget) => widget is DashatarPuzzleBoard && widget.tiles == tiles,
@@ -411,7 +428,7 @@ void main() {
           audioControlBloc: audioControlBloc,
         );
 
-        expect(find.byType(DashatarTimer), findsNothing);
+        expect(find.byType(MyTimer), findsNothing);
         expect(
           find.byWidgetPredicate(
             (widget) => widget is DashatarPuzzleBoard && widget.tiles == tiles,
@@ -437,7 +454,7 @@ void main() {
           audioControlBloc: audioControlBloc,
         );
 
-        expect(find.byType(DashatarTimer), findsNothing);
+        expect(find.byType(MyTimer), findsNothing);
         expect(
           find.byWidgetPredicate(
             (widget) => widget is DashatarPuzzleBoard && widget.tiles == tiles,
@@ -453,7 +470,7 @@ void main() {
           value: 1,
           correctPosition: Position(x: 1, y: 1),
           currentPosition: Position(x: 1, y: 2),
-          pair: Pair(left: 11, right: 12, encoding: AnswerEncoding.noop),
+          pair: Pair(left: 11, right: 12, game: Game.noop),
         );
 
         await tester.pumpApp(

@@ -5,10 +5,11 @@ import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
-import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/puzzle/bloc/puzzle_bloc.dart';
 import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
@@ -18,6 +19,8 @@ void main() {
     late DashatarPuzzleBloc dashatarPuzzleBloc;
     late DashatarThemeBloc dashatarThemeBloc;
     late AudioControlBloc audioControlBloc;
+    late SettingsBloc settingsBloc;
+    late Settings settings;
 
     setUp(() {
       dashatarPuzzleBloc = MockDashatarPuzzleBloc();
@@ -39,6 +42,11 @@ void main() {
 
       audioControlBloc = MockAudioControlBloc();
       when(() => audioControlBloc.state).thenReturn(AudioControlState());
+
+      settingsBloc = MockSettingsBloc();
+      settings = Settings(boardSize: 2, game: Game.roman, elevenToTwenty: true);
+      final settingsState = SettingsState(settings: settings);
+      when(() => settingsBloc.state).thenReturn(settingsState);
     });
 
     testWidgets(
@@ -76,8 +84,7 @@ void main() {
       );
 
       verify(
-        () =>
-            puzzleBloc.add(PuzzleReset(size: 3, encoding: AnswerEncoding.noop)),
+        () => puzzleBloc.add(PuzzleReset(settings: settings)),
       ).called(3);
     });
 

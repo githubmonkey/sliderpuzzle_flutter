@@ -3,6 +3,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
@@ -55,11 +56,16 @@ void main() {
 
       when(() => themeBloc.state).thenReturn(themeState);
 
-      final settingsState = SettingsState(boardSize: 2);
+      final settingsState = SettingsState(
+          settings: Settings(
+        boardSize: 2,
+        game: Game.noop,
+        elevenToTwenty: false,
+      ));
       settingsBloc = MockSettingsBloc();
       when(() => settingsBloc.state).thenReturn(settingsState);
 
-      final languageControlState = LanguageControlState();
+      final languageControlState = LanguageControlState(locale: null);
       languageControlBloc = MockLanguageControlBloc();
       when(() => languageControlBloc.state).thenReturn(languageControlState);
 
@@ -198,7 +204,7 @@ void main() {
       );
 
       expect(find.byType(DashatarPuzzleActionButton), findsOneWidget);
-      expect(find.byType(DashatarTimer), findsNothing);
+      expect(find.byType(MyTimer), findsNothing);
     });
 
     testWidgets('renders DashatarTimer on a medium display', (tester) async {
@@ -217,7 +223,7 @@ void main() {
       );
 
       expect(find.byType(DashatarPuzzleActionButton), findsNothing);
-      expect(find.byType(DashatarTimer), findsOneWidget);
+      expect(find.byType(MyTimer), findsOneWidget);
     });
 
     testWidgets('renders DashatarTimer on a small display', (tester) async {
@@ -236,7 +242,7 @@ void main() {
       );
 
       expect(find.byType(DashatarPuzzleActionButton), findsNothing);
-      expect(find.byType(DashatarTimer), findsOneWidget);
+      expect(find.byType(MyTimer), findsOneWidget);
     });
   });
 }

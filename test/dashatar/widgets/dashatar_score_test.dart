@@ -187,7 +187,7 @@ void main() {
       );
 
       expect(
-        find.byType(DashatarTimer),
+        find.byType(MyTimer),
         findsOneWidget,
       );
     });

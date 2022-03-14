@@ -32,6 +32,7 @@ void main() {
 
     audioControlBloc = MockAudioControlBloc();
     when(() => audioControlBloc.state).thenReturn(AudioControlState());
+
   });
 
   group('DashatarTwitterButton', () {

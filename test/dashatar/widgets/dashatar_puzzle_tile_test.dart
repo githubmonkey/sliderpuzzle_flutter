@@ -4,12 +4,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -50,7 +50,7 @@ void main() {
         correctPosition: Position(x: 1, y: 1),
         currentPosition: Position(x: 1, y: 1),
         value: 1,
-        pair: Pair(left: 11, right: 12, encoding: AnswerEncoding.noop),
+        pair: Pair(left: 11, right: 12, game: Game.noop),
       );
 
       puzzleBloc = MockPuzzleBloc();

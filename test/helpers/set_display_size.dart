@@ -12,6 +12,10 @@ extension PuzzleWidgetTester on WidgetTester {
     });
   }
 
+  void setXLargeDisplaySize() {
+    setDisplaySize(const Size(PuzzleBreakpoints.large + 1, 1000));
+  }
+
   void setLargeDisplaySize() {
     setDisplaySize(const Size(PuzzleBreakpoints.large, 1000));
   }

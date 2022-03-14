@@ -3,13 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
 import '../../helpers/helpers.dart';
 
 void main() {
-  group('DashatarTimer', () {
+  group('MyTimer', () {
     late TimerBloc timerBloc;
 
     setUp(() {
@@ -21,7 +20,7 @@ void main() {
       tester.setLargeDisplaySize();
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -35,7 +34,7 @@ void main() {
       tester.setMediumDisplaySize();
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -49,7 +48,7 @@ void main() {
       tester.setSmallDisplaySize();
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -67,7 +66,7 @@ void main() {
       );
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -82,7 +81,7 @@ void main() {
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -97,7 +96,7 @@ void main() {
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -112,7 +111,7 @@ void main() {
           .thenReturn(TimerState(secondsElapsed: secondsElapsed));
 
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 
@@ -124,7 +123,7 @@ void main() {
 
     testWidgets('renders timer icon', (tester) async {
       await tester.pumpApp(
-        DashatarTimer(),
+        MyTimer(),
         timerBloc: timerBloc,
       );
 

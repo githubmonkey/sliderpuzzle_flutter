@@ -3,11 +3,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:leaders_api/leaders_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/settings/settings.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 
@@ -145,8 +145,9 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => puzzleBloc
-            .add(PuzzleInitialized(size: 3, encoding: AnswerEncoding.noop)),
+        () => puzzleBloc.add(PuzzleInitialized(
+            settings: Settings(
+                boardSize: 3, game: Game.noop, elevenToTwenty: false))),
       ).called(1);
     });
 
