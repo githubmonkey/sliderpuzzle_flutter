@@ -202,7 +202,7 @@ class MslidePuzzleTileState extends State<MslidePuzzleTile>
                       fontSize: adjustedFontSize,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(12),
                       ),
                       side: BorderSide(

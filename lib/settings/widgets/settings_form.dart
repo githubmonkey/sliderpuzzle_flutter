@@ -150,26 +150,6 @@ class SettingsForm extends StatelessWidget {
                 ),
               ],
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       context.l10n.settingsLabelWithClues,
-            //       style: PuzzleTextStyle.settingsLabel.copyWith(
-            //         color: theme.defaultColor,
-            //       ),
-            //     ),
-            //     Switch(
-            //       value: settings.withClues,
-            //       activeColor: theme.defaultColor,
-            //       onChanged: (bool value) => context.read<SettingsBloc>().add(
-            //         SettingsChanged(
-            //           settings: settings.copyWith(withClues: value),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         );
       },

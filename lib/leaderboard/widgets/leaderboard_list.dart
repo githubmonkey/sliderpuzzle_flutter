@@ -37,7 +37,7 @@ class LeaderboardList extends StatelessWidget {
       stream: leaders,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          debugPrint(snapshot.error.toString());
+          // debugPrint(snapshot.error.toString());
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Center(
@@ -69,7 +69,10 @@ class LeaderboardList extends StatelessWidget {
 
         final best = context.select(
           (HistoryBloc bloc) => bloc.state.filteredBest(
-              userid: userid, theme: theme.name, settings: settings),
+            userid: userid,
+            theme: theme.name,
+            settings: settings,
+          ),
         );
 
         return ListTileTheme(
@@ -90,7 +93,7 @@ class LeaderboardList extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              return Divider(height: 1);
+              return const Divider(height: 1);
             },
           ),
         );

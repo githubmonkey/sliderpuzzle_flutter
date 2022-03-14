@@ -86,13 +86,13 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
   void onInitialStart() {
     context.read<TimerBloc>().add(const TimerReset());
     context.read<MslidePuzzleBloc>().add(
-          MslideCountdownRestart(secondsToBegin: 3),
+          const MslideCountdownRestart(secondsToBegin: 3),
         );
     unawaited(_audioPlayer.replay());
   }
 
   /// Called when requesting a restart/pause
-  void onRestart() async {
+  Future<void> onRestart() async {
     final theme = context.read<MslideThemeBloc>().state.theme;
     final puzzleComplete =
         context.read<PuzzleBloc>().state.puzzleStatus == PuzzleStatus.complete;
@@ -105,7 +105,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
 
     // Stop the timer and the countdown for now.
     context.read<TimerBloc>().add(const TimerStopped());
-    context.read<MslidePuzzleBloc>().add(MslidePuzzlePaused());
+    context.read<MslidePuzzleBloc>().add(const MslidePuzzlePaused());
 
     unawaited(_audioPlayer.replay());
 
@@ -146,13 +146,14 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
               onPressed: () {
                 // Resume the timer
                 context.read<TimerBloc>().add(const TimerResumed());
-                context.read<MslidePuzzleBloc>().add(MslidePuzzleResumed());
+                context.read<MslidePuzzleBloc>().add(
+                      const MslidePuzzleResumed(),
+                    );
                 unawaited(_audioPlayer.replay());
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text(context.l10n.restartDialogYes),
               style: TextButton.styleFrom(
                 primary: theme.buttonColor,
                 textStyle: PuzzleTextStyle.actionLabel,
@@ -161,6 +162,7 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
                 doReset();
                 Navigator.of(context).pop();
               },
+              child: Text(context.l10n.restartDialogYes),
             ),
           ],
         ),
@@ -172,8 +174,8 @@ class _MslidePuzzleActionButtonState extends State<MslidePuzzleActionButton> {
     // Reset the timer and the countdown.
     context.read<TimerBloc>().add(const TimerReset());
     context.read<MslidePuzzleBloc>().add(
-      MslideCountdownRestart(secondsToBegin: 3),
-    );
+          const MslideCountdownRestart(secondsToBegin: 3),
+        );
 
     // Initialize the puzzle board to show the initial puzzle
     // (unshuffled) before the countdown completes.

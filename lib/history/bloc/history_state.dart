@@ -20,8 +20,10 @@ class HistoryState extends Equatable {
     required Settings settings,
   }) {
     final list = leaders
-        .where((l) =>
-            l.userid == userid && l.theme == theme && l.settings == settings)
+        .where(
+          (l) =>
+              l.userid == userid && l.theme == theme && l.settings == settings,
+        )
         .toList()
       ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
 

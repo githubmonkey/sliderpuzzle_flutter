@@ -112,8 +112,11 @@ void main() {
   );
 
   group('PuzzleBloc', () {
-    Settings settings =
-        Settings(boardSize: 3, game: Game.noop, elevenToTwenty: true);
+    final settings = Settings(
+      boardSize: 3,
+      game: Game.noop,
+      elevenToTwenty: true,
+    );
 
     test('initial state is PuzzleState', () {
       expect(

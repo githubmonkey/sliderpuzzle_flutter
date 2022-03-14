@@ -83,7 +83,7 @@ class HistoryList extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(height: 1);
+          return const Divider(height: 1);
         },
       ),
     );

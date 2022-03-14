@@ -8,5 +8,5 @@ class LanguageControlState extends Equatable {
   final Locale? locale;
 
   @override
-  List<Object> get props => [locale ?? Locale('en')];
+  List<Object> get props => [locale ?? const Locale('en')];
 }

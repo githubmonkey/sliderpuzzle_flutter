@@ -74,7 +74,7 @@ class _MswapCountdownState extends State<MswapCountdown> {
                 );
           }
         },
-        child: SizedBox(),
+        child: const SizedBox(),
       ),
     );
   }

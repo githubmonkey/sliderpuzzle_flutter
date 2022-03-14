@@ -23,8 +23,7 @@ class Pair extends Equatable {
   final Game game;
 
   /// Calculate answer
-  int get answer =>
-      game == Game.addition ? left + right : left * right;
+  int get answer => game == Game.addition ? left + right : left * right;
 
   @override
   List<Object?> get props => [
@@ -32,13 +31,14 @@ class Pair extends Equatable {
       ];
 
   /// static factory
+  // ignore: prefer_constructors_over_static_methods
   static Pair generatePair(
     Random random,
     Game game,
+    // ignore: avoid_positional_boolean_parameters
     bool elevenToTwenty,
   ) {
-    if (game == Game.multi ||
-        game == Game.addition) {
+    if (game == Game.multi || game == Game.addition) {
       return Pair(
         left: random.nextInt(10) + (elevenToTwenty ? 11 : 1),
         right: random.nextInt(10) + (elevenToTwenty ? 11 : 1),

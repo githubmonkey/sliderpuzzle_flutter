@@ -64,8 +64,9 @@ void main() {
 
       settingsBloc = MockSettingsBloc();
       final settingsState = SettingsState(
-          settings:
-              Settings(boardSize: 2, game: Game.roman, elevenToTwenty: true));
+        settings:
+            Settings(boardSize: 2, game: Game.roman, elevenToTwenty: true),
+      );
       when(() => settingsBloc.state).thenReturn(settingsState);
     });
 

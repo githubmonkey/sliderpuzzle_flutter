@@ -185,7 +185,7 @@ void main() {
     late MswapThemeBloc mswapThemeBloc;
     late PuzzleLayoutDelegate layoutDelegate;
     late AudioControlBloc audioControlBloc;
-    late TimerState  timerState;
+    late TimerState timerState;
     late SettingsState settingsState;
     late LanguageControlState languageControlState;
 
@@ -847,7 +847,7 @@ void main() {
           audioControlBloc: audioControlBloc,
           timerBloc: timerBloc,
           puzzleBloc: puzzleBloc,
-          loginBloc: loginBloc
+          loginBloc: loginBloc,
         );
 
         verify(() => timerBloc.add(TimerStopped())).called(1);
@@ -1055,8 +1055,11 @@ void main() {
 
           await tester.tap(find.byType(PuzzleMenuItem));
 
-          verify(() => puzzleBloc.add(
-              PuzzleInitialized(settings: settingsState.settings))).called(1);
+          verify(
+            () => puzzleBloc.add(
+              PuzzleInitialized(settings: settingsState.settings),
+            ),
+          ).called(1);
         });
       });
 

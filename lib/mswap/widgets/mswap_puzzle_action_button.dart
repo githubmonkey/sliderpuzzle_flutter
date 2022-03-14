@@ -86,13 +86,13 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
   void onInitialStart() {
     context.read<TimerBloc>().add(const TimerReset());
     context.read<MswapPuzzleBloc>().add(
-          MswapCountdownRestart(secondsToBegin: 3),
+          const MswapCountdownRestart(secondsToBegin: 3),
         );
     unawaited(_audioPlayer.replay());
   }
 
   /// Called when requesting a restart/pause
-  void onRestart() async {
+  Future<void> onRestart() async {
     final theme = context.read<MswapThemeBloc>().state.theme;
     final puzzleComplete =
         context.read<PuzzleBloc>().state.puzzleStatus == PuzzleStatus.complete;
@@ -105,7 +105,7 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
 
     // Stop the timer and the countdown for now.
     context.read<TimerBloc>().add(const TimerStopped());
-    context.read<MswapPuzzleBloc>().add(MswapPuzzlePaused());
+    context.read<MswapPuzzleBloc>().add(const MswapPuzzlePaused());
 
     unawaited(_audioPlayer.replay());
 
@@ -146,13 +146,12 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
               onPressed: () {
                 // Resume the timer
                 context.read<TimerBloc>().add(const TimerResumed());
-                context.read<MswapPuzzleBloc>().add(MswapPuzzleResumed());
+                context.read<MswapPuzzleBloc>().add(const MswapPuzzleResumed());
                 unawaited(_audioPlayer.replay());
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text(context.l10n.restartDialogYes),
               style: TextButton.styleFrom(
                 primary: theme.buttonColor,
                 textStyle: PuzzleTextStyle.actionLabel,
@@ -161,6 +160,7 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
                 doReset();
                 Navigator.of(context).pop();
               },
+              child: Text(context.l10n.restartDialogYes),
             ),
           ],
         ),
@@ -172,7 +172,7 @@ class _MswapPuzzleActionButtonState extends State<MswapPuzzleActionButton> {
     // Reset the timer and the countdown.
     context.read<TimerBloc>().add(const TimerReset());
     context.read<MswapPuzzleBloc>().add(
-          MswapCountdownRestart(secondsToBegin: 3),
+          const MswapCountdownRestart(secondsToBegin: 3),
         );
 
     // Initialize the puzzle board to show the initial puzzle

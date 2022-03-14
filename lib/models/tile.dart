@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:leaders_api/leaders_api.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 
+// ignore: lines_longer_than_80_chars
 /// {@template tile}
 /// Model for a puzzle tile.
 /// {@endtemplate}

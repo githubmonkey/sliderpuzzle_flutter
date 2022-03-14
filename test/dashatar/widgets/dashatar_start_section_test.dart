@@ -57,11 +57,12 @@ void main() {
       when(() => themeBloc.state).thenReturn(themeState);
 
       final settingsState = SettingsState(
-          settings: Settings(
-        boardSize: 2,
-        game: Game.noop,
-        elevenToTwenty: false,
-      ));
+        settings: Settings(
+          boardSize: 2,
+          game: Game.noop,
+          elevenToTwenty: false,
+        ),
+      );
       settingsBloc = MockSettingsBloc();
       when(() => settingsBloc.state).thenReturn(settingsState);
 

@@ -120,7 +120,7 @@ void main() {
     group('getNickname', () {
       test('makes correct api request', () {
         final subject = createSubject();
-        final userid = '123';
+        const userid = '123';
 
         expect(subject.getNickname(userid), isNot(throwsA(anything)));
 

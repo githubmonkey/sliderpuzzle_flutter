@@ -20,9 +20,9 @@ class LanguageControlBloc
     Emitter<LanguageControlState> emit,
   ) {
     if (state.locale?.languageCode != 'de') {
-      emit(LanguageControlState(locale: const Locale('de')));
+      emit(const LanguageControlState(locale: Locale('de')));
     } else {
-      emit(LanguageControlState(locale: const Locale('en')));
+      emit(const LanguageControlState(locale: Locale('en')));
     }
   }
 
@@ -30,7 +30,8 @@ class LanguageControlBloc
     LanguageInit event,
     Emitter<LanguageControlState> emit,
   ) {
-    if (state.locale?.languageCode != event.locale.languageCode)
+    if (state.locale?.languageCode != event.locale.languageCode) {
       emit(LanguageControlState(locale: event.locale));
+    }
   }
 }

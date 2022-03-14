@@ -145,9 +145,15 @@ void main() {
       await tester.tap(find.byType(DashatarPuzzleActionButton));
 
       verify(
-        () => puzzleBloc.add(PuzzleInitialized(
+        () => puzzleBloc.add(
+          PuzzleInitialized(
             settings: Settings(
-                boardSize: 3, game: Game.noop, elevenToTwenty: false))),
+              boardSize: 3,
+              game: Game.noop,
+              elevenToTwenty: false,
+            ),
+          ),
+        ),
       ).called(1);
     });
 

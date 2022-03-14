@@ -35,8 +35,12 @@ void main() {
     final leader = Leader(
       userid: 'user 1',
       theme: 'theme',
-      settings: Settings(boardSize: 4, game: Game.noop, elevenToTwenty: false),
-      result: Result(time: 25, moves: 5),
+      settings: const Settings(
+        boardSize: 4,
+        game: Game.noop,
+        elevenToTwenty: false,
+      ),
+      result: const Result(time: 25, moves: 5),
       timestamp: DateTime.fromMillisecondsSinceEpoch(12345),
     );
     when(() => firestoreRepository.saveLeader(leader)).thenAnswer((_) async {});

@@ -33,7 +33,6 @@ Future<T?> showAppDialog<T>({
       ),
     );
 
-
 /// Displays the [AlertDialog] above the current contents of the app.
 /// Child must be an alertDialog
 Future<T?> showAlertDialog<T>({
@@ -63,5 +62,5 @@ Future<T?> showAlertDialog<T>({
       barrierLabel: barrierLabel,
       barrierColor: barrierColor,
       context: context,
-      pageBuilder: (context, animation, secondaryAnimation) => child
+      pageBuilder: (context, animation, secondaryAnimation) => child,
     );

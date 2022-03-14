@@ -30,7 +30,7 @@ Future<void> main() async {
   );
 
   try {
-    Firebase.initializeApp().then(
+    await Firebase.initializeApp().then(
       (_) => authRepository.signInAnonymously(),
     );
   } catch (e) {
